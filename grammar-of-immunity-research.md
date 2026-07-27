@@ -1,7 +1,7 @@
 # The Grammar of Immunity
 ## A Linguistics-Based Approach to TCR Binding Prediction
 
-**Author**: [Your Name]  
+**Author**: Erick Tejkowski
 **Date**: July 2026  
 **Status**: Research Plan + Initial Data Validation
 
