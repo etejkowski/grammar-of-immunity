@@ -8,3 +8,9 @@ __pycache__/
 # Generated analysis outputs
 annotated_cdr3.tsv
 enrichment.tsv
+
+# Virtualenv for the benchmark (numpy/sklearn/pandas)
+.venv/
+
+# Downloaded benchmark data (fetch with benchmarks/fetch.sh)
+benchmarks/*.csv

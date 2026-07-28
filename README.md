@@ -51,6 +51,56 @@ collapse IMMREP25 documents — the difference is that here it is reproduced wit
 a positive control demonstrating the same pipeline reaches 0.71 when the
 epitope is known.
 
+## Result 5: confirmation on the official IMMREP23 benchmark
+
+`benchmark_immrep23.py` repeats the test on community data — the official
+IMMREP23 challenge training set and test set with released labels, scored with
+the official metric (Macro AUC0.1, per-peptide partial ROC AUC to FPR 0.1 with
+McClish standardisation). Negatives follow the challenge protocol (TCR swapping
+between peptides at Levenshtein > 3, 5 per positive). The all-zero submission
+scores exactly 0.5000, matching the challenge README, confirming the metric
+implementation.
+
+The test set contains 20 peptides, 13 present in the official training data and
+7 absent — a seen/unseen split inside one benchmark.
+
+| Model | All | Seen (13) | Unseen (7) |
+|---|---|---|---|
+| CDR3β 3-mers | 0.5602 | 0.6003 | 0.4858 |
+| morpheme | 0.5893 | 0.6378 | 0.4992 |
+| V/J genes only | 0.5802 | 0.6346 | 0.4791 |
+| all CDR loops, both chains | 0.6039 | 0.6495 | 0.5192 |
+| TCRbase-style nearest binder | 0.5919 | 0.6414 | 0.5000\* |
+| TCRdist-style weighted CDR | **0.6281** | **0.6971** | 0.5000\* |
+
+\* Nearest-neighbour methods emit a constant score for a peptide with no known
+binders, so 0.5000 is structural: that method class cannot address unseen
+epitopes at all.
+
+Paired per-peptide comparisons:
+
+| Comparison | n | Wins | Δ | 95% CI | |
+|---|---|---|---|---|---|
+| morpheme − 3-mers, all | 20 | 15 | +0.0291 | [+0.0093, +0.0505] | significant |
+| morpheme − 3-mers, seen | 13 | 9 | +0.0375 | [+0.0086, +0.0677] | significant |
+| morpheme − 3-mers, **unseen** | 7 | 6 | +0.0134 | [−0.0016, +0.0267] | **not significant** |
+| morpheme − V/J only, all | 20 | 13 | +0.0091 | [−0.0166, +0.0338] | not significant |
+
+Three independent confirmations of the internal results, now on community data
+with a community metric:
+
+1. Morphological tokenization beats raw k-mers (+0.0375 on seen peptides).
+2. It does **not** beat V/J gene identity alone (+0.0091, CI crossing zero) —
+   the germline-usage explanation holds.
+3. On unseen peptides the advantage is not significant and every method sits
+   near chance.
+
+And one finding that goes against us: **our model is not state of the art.** A
+TCRdist-style weighted CDR comparison using all six CDR loops of both chains
+reaches 0.6281 overall and 0.6971 on seen peptides, well above the morpheme
+model's 0.5893/0.6378. Using more of the receptor beats decomposing part of it
+more cleverly.
+
 ### What this means
 
 The bottleneck is not TCR tokenization. Better morphological representation of
@@ -136,6 +186,8 @@ replication counts for every significant bigram.
 - `phase1_dataset.py` — builds the annotated dataset, runs enrichment with FDR and replication testing
 - `phase2_grammaticality.py` — the structural falsification test
 - `phase3_unseen_epitope.py` — unseen-epitope prediction, with seen-epitope positive control and seed sweep
+- `benchmark_immrep23.py` — official IMMREP23 benchmark, official metric, published-style reference baselines (requires numpy/scikit-learn/pandas)
+- `benchmarks/fetch.sh` — downloads the official IMMREP23 data
 - `grammar_of_immunity_demo.py` — original illustrative demo (superseded by the phase scripts; kept for provenance)
 
 ## Quick Start
@@ -145,6 +197,15 @@ git clone https://github.com/antigenomics/vdjdb-db.git
 python3 phase1_dataset.py
 python3 phase2_grammaticality.py
 python3 phase3_unseen_epitope.py    # ~5 min
+```
+
+For the official benchmark (the only part needing dependencies):
+
+```bash
+python3 -m venv .venv
+.venv/bin/pip install numpy==1.26.4 scikit-learn==1.5.2 scipy==1.13.1 pandas==2.2.3
+./benchmarks/fetch.sh
+.venv/bin/python benchmark_immrep23.py    # ~7 min
 ```
 
 Python 3.8+, standard library only. No dependencies.
