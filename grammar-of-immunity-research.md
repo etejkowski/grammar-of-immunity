@@ -263,7 +263,11 @@ table. Fixing this is exactly what IMGT integration buys.
 
 ### The finding: N-region motifs are epitope-specific
 
-Influenza M1 (GILGFVFTL), top N-region motifs after stripping germline edges:
+Influenza M1 (GILGFVFTL), top N-region motifs after stripping germline edges.
+**These are database row counts, not clonotype counts** — `CASSIRSSYEQYF` alone
+occupies 1,077 rows while being a single clonotype, so the percentages below
+overstate motif prevalence severely. See the Phase 1 results below for
+deduplicated figures.
 
 ```
 'IRSS' — 1147 times (8.6%)
