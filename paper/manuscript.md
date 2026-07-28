@@ -18,6 +18,8 @@
 
 **Benchmark confirmation.** On the official IMMREP23 challenge data scored with the official Macro AUC0.1 metric, all conclusions replicate: morphological tokenization beats raw 3-mers (+0.0375 on seen peptides, CI [+0.0086, +0.0677]) but not V/J identity alone (+0.0091, CI [−0.0166, +0.0338]), and on the seven test peptides absent from training no method exceeds 0.52. A TCRdist-style baseline using all six CDR loops of both chains outperforms our morphological model (0.6281 vs 0.5893 overall), indicating that breadth of receptor coverage matters more than depth of morphological analysis.
 
+**Robustness.** Retraining under four negative-generation schemes leaves two conclusions intact — no arm exceeds 0.5062 on unseen peptides, and morphological features never meaningfully exceed germline V/J identity alone — while revealing that the advantage of morphology over raw k-mers is contingent on training-set size (+0.034 at ~68,000 pairs, absent at ~29,000), with a size-matched control excluding decoy similarity as the cause.
+
 **Conclusions.** Linguistic structure in CDR3 sequences is real and quantifiable, but it does not convert into cross-epitope predictive power, and the transferable component of the seen-epitope advantage is germline segment usage rather than junctional grammar. We argue the binding-prediction bottleneck lies on the epitope side: no receptor-side representation specifies how a novel peptide maps to the receptor features it selects. We additionally document that apparent epitope-specific sequence signal in public data can be dominated by single-study batch effects, and report a single-seed false positive that reseeding eliminated.
 
 **Keywords:** T-cell receptor, CDR3, epitope specificity, morphology, tokenization, generalization, negative result, batch effect
@@ -94,7 +96,20 @@ Critically, 13 of the 20 test peptides occur in the official training data and 7
 do not, providing a seen/unseen partition within a single benchmark that we did
 not construct.
 
-### 2.7 Statistics and reproducibility
+### 2.7 Negative-scheme robustness
+
+Because negative-example construction is the factor community post-mortems most
+often blame for unstable TCR-specificity results, we retrained under four
+schemes and scored all of them on the identical official test set: **challenge**
+(decoy peptides at Levenshtein > 3, the official protocol), **random** (any
+other peptide), **hard** (decoy peptides at Levenshtein ≤ 3, adversarial), and
+**matched**. The `hard` scheme can serve negatives for only 3,729 of 11,312
+positives, altering training size and class balance as well as decoy difficulty;
+`matched` therefore restricts to the same positives and draws decoys from the
+dissimilar pool, holding size and balance fixed so that decoy similarity is the
+only difference.
+
+### 2.8 Statistics and reproducibility
 
 Enrichment used Fisher's exact test with Benjamini–Hochberg FDR control and a minimum count of 20, replacing an earlier pseudocount ratio. AUC was computed via the Mann–Whitney U statistic with tie handling. Confidence intervals are paired bootstrap (200 resamples for model comparison, 2,000 for per-epitope deltas).
 
@@ -161,6 +176,29 @@ prediction, which is a property of the method class rather than a tuning
 deficiency, and worth stating explicitly given how often such methods appear as
 benchmark baselines.
 
+### 3.7 The morphological advantage is a data-scale effect, not a representational one
+
+Table 7 retrains under four negative-generation schemes. Two conclusions hold
+throughout. No arm exceeds 0.5062 on unseen peptides under any scheme, and
+morphological features never meaningfully exceed germline V/J identity alone
+(+0.0013, −0.0023, −0.0057, −0.0068).
+
+The advantage of morphology over raw k-mers, however, does not hold. It is
++0.0345 and +0.0333 under the two full-size schemes and −0.0022 and −0.0009
+under the two reduced-size schemes. The size-matched control identifies the
+cause: `hard` (similar decoys, 28,085 pairs) and `matched` (dissimilar decoys,
+29,957 pairs) give −0.0022 and −0.0009 respectively, differing by 0.0013.
+Decoy similarity is therefore not responsible; training-set size is. At roughly
+68,000 training pairs morphological tokenization outperforms raw k-mers by about
++0.034, and at roughly 29,000 pairs the advantage disappears irrespective of
+negative difficulty.
+
+This qualifies §3.4 and §3.6 materially. The seen-epitope benefit of
+morphological tokenization is contingent on data scale rather than being an
+intrinsic property of the representation, and should not be reported as the
+latter. We note the implication cuts both ways: the effect might also grow with
+data beyond the scale available here.
+
 ## 4. Discussion
 
 Two results stand in tension and their combination is the contribution. Junctional N-regions demonstrably carry order-dependent, morphologically conditioned structure, measurable at +0.1013 AUC with capacity controlled and generalizing across unseen studies. Yet exposing that structure to a binding classifier yields no advantage for epitopes outside training.
@@ -175,6 +213,13 @@ outperforming our decomposition of CDR3β by a wide margin on seen peptides.
 Where receptor-side information helps at all, breadth of coverage appears to
 matter more than depth of linguistic structure.
 
+Data scale deserves emphasis. The one advantage morphological tokenization does
+show — over raw k-mers, for known epitopes — is present at 68,000 training pairs
+and absent at 29,000, with decoy difficulty excluded as an explanation by a
+size-matched control. Reports of representational improvements in this field
+should therefore be accompanied by a scale sweep; a fixed-size comparison cannot
+distinguish a better representation from a more data-efficient one.
+
 We emphasize what this work does not show. It does not show that grammar-aware models cannot work; it shows that morpheme-level tokenization under a linear interaction model at this data scale does not transfer. Richer formalisms — probabilistic context-free grammars over CDR3, or neural architectures with explicit morphological inductive bias — remain untested. Our baseline is also at chance, so what we probe is the ceiling on generalization itself, not only representation quality.
 
 ## 5. Limitations
@@ -185,6 +230,7 @@ We emphasize what this work does not show. It does not show that grammar-aware m
 4. **β chain only.** No α chain, and MHC enters only as an epitope-associated token, though MHC restriction is known to matter.
 5. **Empirical anchors are not IMGT.** The consensus procedure could in principle absorb convergent junctional residues into a germline anchor; reference agreement (28/29) and the ≥0.80 threshold mitigate but do not eliminate this.
 6. **Twenty epitopes, capped at 800 clonotypes.** Larger scale might reveal a small transferable effect that our confidence intervals cannot exclude.
+7. **Data scale is not swept systematically.** §3.7 establishes that the morpheme-vs-k-mer advantage is size dependent using two training sizes (~68k and ~29k pairs). A proper learning-curve analysis across several sizes would characterise this rather than merely detect it.
 
 ## 6. Conclusion
 
@@ -275,6 +321,15 @@ Morpheme − 3-mers = +0.0046 ± 0.0104, pooled per-epitope bootstrap 95% CI [�
 | Morpheme − 3-mers, unseen | 7 | 6 | +0.0134 | [−0.0016, +0.0267] | no |
 | Morpheme − V/J only, all | 20 | 13 | +0.0091 | [−0.0166, +0.0338] | no |
 | Morpheme − V/J only, seen | 13 | 7 | +0.0032 | [−0.0333, +0.0403] | no |
+
+**Table 7.** Negative-scheme robustness, all scored on the official IMMREP23 test set. `matched` is the size- and balance-matched control for `hard`, differing only in decoy peptide similarity.
+
+| Scheme | Decoy peptides | Training pairs | Positive rate | Morpheme − 3-mers (seen) | Morpheme − V/J only (all) | Max unseen |
+|---|---|---|---|---|---|---|
+| challenge | Levenshtein > 3 | 67,872 | 16.7% | +0.0345 | +0.0013 | 0.4995 |
+| random | any | 67,872 | 16.7% | +0.0333 | −0.0023 | 0.4978 |
+| hard | Levenshtein ≤ 3 | 28,085 | 40.3% | −0.0022 | −0.0057 | 0.5062 |
+| matched | Levenshtein > 3 | 29,957 | 37.8% | −0.0009 | −0.0068 | 0.4931 |
 
 ---
 

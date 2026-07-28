@@ -51,6 +51,42 @@ collapse IMMREP25 documents — the difference is that here it is reproduced wit
 a positive control demonstrating the same pipeline reaches 0.71 when the
 epitope is known.
 
+## Result 6: the morphological advantage is a data-scale effect
+
+`negatives_robustness.py` retrains under four negative-generation schemes and
+scores all of them on the same official IMMREP23 test set. Negative design is
+the factor the IMMREP post-mortems blame for unstable results, so the
+conclusions have to be shown invariant to it.
+
+| Scheme | Decoy peptides | Pairs | morpheme − 3-mers (seen) | morpheme − V/J only |
+|---|---|---|---|---|
+| challenge | Levenshtein > 3 (official) | 67,872 | +0.0345 | +0.0013 |
+| random | any other peptide | 67,872 | +0.0333 | −0.0023 |
+| hard | Levenshtein ≤ 3 (adversarial) | 28,085 | −0.0022 | −0.0057 |
+| matched | Levenshtein > 3, size-matched to `hard` | 29,957 | −0.0009 | −0.0068 |
+
+The `hard` scheme serves negatives for only 3,729 of 11,312 positives, so it
+changes training size and class balance as well as decoy difficulty. The
+`matched` control holds size and balance fixed while restoring dissimilar
+decoys, isolating the cause:
+
+- `hard` (similar decoys, 28k pairs): **−0.0022**
+- `matched` (dissimilar decoys, 30k pairs): **−0.0009**
+
+Nearly identical, so **decoy similarity is not the driver**. What matters is
+training set size: the morphological advantage over raw k-mers is +0.034 at
+~68k training pairs and vanishes at ~29k, regardless of how hard the negatives
+are. It is a data-scale effect, not a property of the representation, and
+should not be reported as one.
+
+Two conclusions survive every scheme:
+
+1. **Nothing generalizes to unseen epitopes** — maximum across all arms and all
+   four schemes is 0.5062.
+2. **Morphological features are never meaningfully better than germline V/J
+   identity alone** — +0.0013, −0.0023, −0.0057, −0.0068 across the four
+   schemes.
+
 ## Result 5: confirmation on the official IMMREP23 benchmark
 
 `benchmark_immrep23.py` repeats the test on community data — the official
@@ -187,6 +223,7 @@ replication counts for every significant bigram.
 - `phase2_grammaticality.py` — the structural falsification test
 - `phase3_unseen_epitope.py` — unseen-epitope prediction, with seen-epitope positive control and seed sweep
 - `benchmark_immrep23.py` — official IMMREP23 benchmark, official metric, published-style reference baselines (requires numpy/scikit-learn/pandas)
+- `negatives_robustness.py` — retrains under four negative-generation schemes, including a size-matched control
 - `benchmarks/fetch.sh` — downloads the official IMMREP23 data
 - `grammar_of_immunity_demo.py` — original illustrative demo (superseded by the phase scripts; kept for provenance)
 
