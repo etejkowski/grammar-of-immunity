@@ -14,3 +14,6 @@ enrichment.tsv
 
 # Downloaded benchmark data (fetch with benchmarks/fetch.sh)
 benchmarks/*.csv
+
+# Built submission artifacts (regenerate with python3 paper/build.py)
+paper/build/
