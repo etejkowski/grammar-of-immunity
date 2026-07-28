@@ -378,6 +378,51 @@ morphological context (the V/J pair) adds real information beyond flat
 sequence statistics, generalizing to unseen studies. **What it does not
 establish**: that any of this improves binding prediction. That is Phase 3.
 
+### Phase 3 — the central hypothesis does not survive
+
+Logistic regression over hashed TCR x epitope feature crosses (pure Python).
+Identical folds, negatives, and hyperparameters across arms; only the TCR
+featurizer differs. Negatives are shuffled pairs, so absolute levels are
+optimistic and only between-arm comparisons are interpreted.
+
+Seen epitopes (clonotype split, 3 seeds) — positive control:
+
+| TCR features | AUC |
+|---|---|
+| raw CDR3 3-mers | 0.6589 +/- 0.0063 |
+| morpheme | 0.7135 +/- 0.0017 |
+| V/J genes only | 0.7089 +/- 0.0017 |
+
+Unseen epitopes (5 seeds, epitopes withheld entirely, overlapping clonotypes
+dropped):
+
+| TCR features | AUC |
+|---|---|
+| raw CDR3 3-mers | 0.5052 +/- 0.0075 |
+| morpheme | 0.5072 +/- 0.0065 |
+| V/J genes only | 0.4991 +/- 0.0127 |
+
+morpheme - kmer3 on unseen epitopes = **+0.0046 +/- 0.0104**, pooled
+per-epitope bootstrap 95% CI **[-0.0084, +0.0175]**. Null. One seed produced
++0.0402 with a CI excluding zero; reseeding showed it was noise, which is why
+the script sweeps seeds and reports stability.
+
+Two conclusions, both negative and both useful:
+
+1. **Morphology does not transfer.** The Phase 2 structural result is real but
+   does not convert into unseen-epitope predictive power at this scale.
+2. **The transferable part of the seen-epitope gain is germline usage, not
+   grammar.** V/J identity alone reaches 0.7089 against morpheme's 0.7135, so
+   the junctional N-region sequence — the "creative middle", the part the
+   linguistic framing is really about — contributes roughly +0.005.
+
+**Where the problem actually is**: the epitope side. No amount of TCR
+tokenization tells a model how a *novel* peptide maps to the receptor features
+it selects for. The next question worth asking is not "how do we tokenize
+receptors" but "what representation of an epitope predicts which receptor
+motifs it recruits."
+
+
 ---
 
 ## The Research Plan (90 Days)

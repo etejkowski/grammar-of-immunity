@@ -10,9 +10,58 @@ The framing follows Jerne's 1984 Nobel lecture, *The Generative Grammar of the I
 
 ## Status
 
-Phase 1 (dataset) and Phase 2 (falsification test) are done. Phase 3 (does this
-improve binding prediction on unseen epitopes?) is the open question and the
-only one that determines whether the project matters.
+Phases 1–3 are done. The headline: **the linguistic structure is real and
+measurable, and it does not transfer to unseen-epitope prediction.**
+
+## Result 4: Phase 3 — the hypothesis fails where it matters
+
+`phase3_unseen_epitope.py`. Logistic regression over hashed TCR×epitope feature
+crosses, pure Python. Identical folds, negatives, and hyperparameters across
+arms; only the TCR featurizer differs.
+
+**Seen epitopes** (clonotype split, 3 seeds) — positive control proving the
+harness can measure:
+
+| TCR features | AUC |
+|---|---|
+| raw CDR3 3-mers | 0.6589 ± 0.0063 |
+| **morpheme (V, J, V-prefix, N-region k-mers)** | **0.7135 ± 0.0017** |
+| V/J genes only | 0.7089 ± 0.0017 |
+
+Morpheme beats raw k-mers by +0.0546, consistent across all 3 seeds. But note
+the third row: **V and J gene identity alone gets 0.7089.** The entire
+morphological advantage on seen epitopes is germline segment usage — a long
+known predictor — and the junctional N-region sequence adds only +0.005 on top.
+
+**Unseen epitopes** (5 seeds, epitopes held out entirely, overlapping
+clonotypes dropped):
+
+| TCR features | AUC |
+|---|---|
+| raw CDR3 3-mers | 0.5052 ± 0.0075 |
+| morpheme | 0.5072 ± 0.0065 |
+| V/J genes only | 0.4991 ± 0.0127 |
+
+morpheme − kmer3 = **+0.0046 ± 0.0104**, pooled per-epitope bootstrap 95% CI
+**[−0.0084, +0.0175]**. Null. A single seed gave +0.0402 with a CI excluding
+zero; reseeding showed that was noise, which is why the script sweeps seeds.
+
+Everything sits at chance, baseline included. This reproduces the field-wide
+collapse IMMREP25 documents — the difference is that here it is reproduced with
+a positive control demonstrating the same pipeline reaches 0.71 when the
+epitope is known.
+
+### What this means
+
+The bottleneck is not TCR tokenization. Better morphological representation of
+the receptor cannot fix unseen-epitope generalization, because the failure is
+on the **epitope side**: nothing in the model knows how a novel peptide maps to
+the receptor features it should select for. Improving the TCR grammar is
+optimizing the half of the problem that is not broken.
+
+That is a useful negative result, and it redirects the research question from
+"how do we tokenize TCRs?" to "what representation of an epitope predicts which
+receptor motifs it will select?"
 
 ## Result 1: morphological structure is real and measurable
 
@@ -85,7 +134,8 @@ replication counts for every significant bigram.
 - `grammar-of-immunity-research.md` — research plan, literature review, 90-day roadmap
 - `goi_core.py` — data layer: loading, deduplication, empirical germline anchors, decomposition, Fisher/BH/AUC
 - `phase1_dataset.py` — builds the annotated dataset, runs enrichment with FDR and replication testing
-- `phase2_grammaticality.py` — the falsification test above
+- `phase2_grammaticality.py` — the structural falsification test
+- `phase3_unseen_epitope.py` — unseen-epitope prediction, with seen-epitope positive control and seed sweep
 - `grammar_of_immunity_demo.py` — original illustrative demo (superseded by the phase scripts; kept for provenance)
 
 ## Quick Start
@@ -94,6 +144,7 @@ replication counts for every significant bigram.
 git clone https://github.com/antigenomics/vdjdb-db.git
 python3 phase1_dataset.py
 python3 phase2_grammaticality.py
+python3 phase3_unseen_epitope.py    # ~5 min
 ```
 
 Python 3.8+, standard library only. No dependencies.
@@ -111,9 +162,30 @@ Records whose annotation extends past the CDR3 boundary (FR4 included, so the
 germline J suffix appears twice) are detected and dropped rather than parsed —
 32 such records exist.
 
-## What would falsify this project
+## Where this stands
 
-Phase 3: if morpheme-aware tokenization does not beat k-mer tokenization at
-predicting binding for epitopes held out of training entirely, then the
-grammar is real but useless for the problem that matters, and that negative
-result should be published.
+The project set out to test whether linguistic structure in TCR sequences would
+generalize to unseen antigens. It ran the test and the answer, at this scale
+with this model class, is no. The structure is real (Phase 2, +0.1013 AUC,
+capacity-controlled) and it helps when the epitope is known (Phase 3 seen,
++0.0546 over k-mers), but it buys nothing for novel epitopes (+0.0046, CI
+crossing zero).
+
+Honest options from here, in descending order of how much they interest me:
+
+1. **Move to the epitope side.** The failure is in mapping a novel peptide to
+   the receptor features it selects. That is where the unsolved problem
+   actually lives.
+2. **Stronger model class.** A pCFG or a neural model might extract transferable
+   structure that hashed feature crosses cannot. This is the Phase 2/3 plan in
+   the research doc, and it is a real possibility — but note the baseline is at
+   chance too, so the ceiling being tested is generalization itself, not
+   representation.
+3. **Publish the negative result.** "Morphological tokenization of TCR CDR3
+   improves seen-epitope prediction but does not transfer to unseen epitopes,
+   and the transferable component is germline V/J usage rather than junctional
+   sequence" is a clean, useful claim with controls behind it.
+
+Caveat on all absolute numbers: negatives are shuffled pairs, not verified
+non-binders, which the IMMREP post-mortems flag as inflating performance. The
+between-arm comparisons are the result; the levels are optimistic.
