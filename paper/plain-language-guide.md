@@ -177,6 +177,33 @@ Here's the thing, though: **this was published in 1998.** Our method rediscovere
 a 28-year-old finding. That's genuinely good news — it shows the method sees real
 biology — but it isn't a discovery, and we say so plainly.
 
+### Figure 7 — The one bit of good news
+
+If our clever cutting only works when there's lots of data, the obvious question
+is: what happens as you add more? Does it help up to a point and then stop, or is
+it still improving when you run out of data?
+
+We trained the same models on six different amounts of data, from about 7,000
+examples up to about 68,000, and plotted the result.
+
+**Left panel:** the red line (our method) climbs steadily as data increases. The
+blue line (naive chopping) is flat — it does not improve at all. More data simply
+doesn't help the naive approach, while it keeps helping ours.
+
+**Right panel:** the size of our advantage, plotted against how much data we
+trained on. It rises the whole way and shows no sign of levelling off at the
+largest amount we could get our hands on.
+
+That's genuinely encouraging: the limit we ran into isn't a flaw in the method,
+it's just that the world's public collection of this data is small. The method is
+hungry, not broken.
+
+The sobering part is in the purple line, the one for brand-new germs. It's also
+rising — but so gently that if you follow the trend, you'd need roughly
+**2,400 times** more data than exists today to get to a useful level. That's not
+a matter of waiting a few years. It's the strongest argument in the whole study
+for attacking the problem from the other direction.
+
 ---
 
 ## What we concluded
@@ -186,15 +213,21 @@ biology — but it isn't a discovery, and we say so plainly.
    demonstrated, with the controls to back it.
 
 2. **It doesn't transfer to new germs.** Nothing we or anyone else tried performs
-   better than a coin flip on unfamiliar targets.
+   better than a coin flip on unfamiliar targets. The gap does close very
+   slightly as we add data — but on that trend it would take thousands of times
+   more data than exists to matter.
 
-3. **What little advantage exists is mostly explained by something simpler.**
+3. **The method is data-hungry, not capped.** Where it does help, it keeps
+   helping as data grows, while the naive approach flatlines. That's a point in
+   favor of the underlying idea.
+
+4. **What little advantage exists is mostly explained by something simpler.**
    Just knowing which inherited pieces a receptor uses — no clever analysis of
    the random middle at all — performs about as well as our full method. The
    creative middle, which is the whole point of the linguistic idea, adds very
    little.
 
-4. **We think the problem is on the other side.** Everything here describes the
+5. **We think the problem is on the other side.** Everything here describes the
    *receptor*. But nothing about a receptor tells you how a brand-new germ
    fragment maps onto the receptors that will catch it. We were carefully
    optimizing the half of the problem that isn't broken. The better question is
@@ -210,7 +243,7 @@ beyond this project:
 - Count distinct things, not database rows.
 - Check whether your discovery is just one laboratory.
 - Test at more than one data size, or you can't tell a better method from a
-  hungrier one.
+  hungrier one — and if you do sweep sizes, you learn which one you have.
 
 Every claim here comes with the code that produces it, runs on a laptop in a few
 minutes, and needs no special software.

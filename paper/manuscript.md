@@ -20,6 +20,8 @@
 
 **Robustness.** Retraining under four negative-generation schemes leaves two conclusions intact — no arm exceeds 0.5062 on unseen peptides, and morphological features never meaningfully exceed germline V/J identity alone — while revealing that the advantage of morphology over raw k-mers is contingent on training-set size (+0.034 at ~68,000 pairs, absent at ~29,000), with a size-matched control excluding decoy similarity as the cause.
 
+**Learning curve.** Sweeping training size across six points reveals the advantage to be a trend rather than a threshold: it rises monotonically from +0.0080 to +0.0375 Macro AUC0.1 (+0.0118 per log training pair, r = 0.985) and is still rising at the largest size available, while raw k-mer performance stays flat. Morphological tokenization is thus more data-responsive rather than simply better. The unseen-peptide advantage also rises monotonically (+0.0048 per log pair) but remains within noise, and extrapolation implies roughly 2,400x the available data would be needed for a +0.05 unseen-peptide gain.
+
 **Conclusions.** Linguistic structure in CDR3 sequences is real and quantifiable, but it does not convert into cross-epitope predictive power, and the transferable component of the seen-epitope advantage is germline segment usage rather than junctional grammar. We argue the binding-prediction bottleneck lies on the epitope side: no receptor-side representation specifies how a novel peptide maps to the receptor features it selects. We additionally document that apparent epitope-specific sequence signal in public data can be dominated by single-study batch effects, and report a single-seed false positive that reseeding eliminated.
 
 **Keywords:** T-cell receptor, CDR3, epitope specificity, morphology, tokenization, generalization, negative result, batch effect
@@ -109,7 +111,16 @@ positives, altering training size and class balance as well as decoy difficulty;
 dissimilar pool, holding size and balance fixed so that decoy similarity is the
 only difference.
 
-### 2.8 Statistics and reproducibility
+### 2.8 Learning curve
+
+Because §2.7 established that the morpheme-over-k-mer advantage depends on
+training-set size, we characterized that dependence rather than merely noting it.
+The full pair set was built once under the challenge protocol and then subsampled
+**by positive**, carrying each positive's five negatives with it so class balance
+is constant across sizes. Six sizes spanning 6,786 to 67,872 pairs were run at
+two seeds each, evaluated always on the complete official test set.
+
+### 2.9 Statistics and reproducibility
 
 Enrichment used Fisher's exact test with Benjamini–Hochberg FDR control and a minimum count of 20, replacing an earlier pseudocount ratio. AUC was computed via the Mann–Whitney U statistic with tie handling. Confidence intervals are paired bootstrap (200 resamples for model comparison, 2,000 for per-epitope deltas).
 
@@ -215,6 +226,44 @@ intrinsic property of the representation, and should not be reported as the
 latter. We note the implication cuts both ways: the effect might also grow with
 data beyond the scale available here.
 
+### 3.8 The size dependence is a trend, not a threshold
+
+Table 8 and Figure 7 resolve the question §3.7 raised. The advantage of
+morphological tokenization over raw k-mers rises monotonically with training
+size, from +0.0080 at 6,786 pairs to +0.0375 at 67,872, at +0.0118 Macro AUC0.1
+per natural-log unit of training pairs (r = 0.985). It shows no sign of
+flattening: the slope over the upper half of the range (+0.0131) is slightly
+steeper than over the whole range.
+
+The mechanism is visible in the arms separately. Raw k-mer performance is
+essentially flat across the sweep (0.6028 to 0.6003, slope +0.0009), while
+morphological performance climbs (0.6108 to 0.6378, slope +0.0127). Morphological
+tokenization is not a better fixed representation so much as a **more
+data-responsive** one: it converts additional training data into performance
+where flat k-mers do not.
+
+One further comparison qualifies even this. The V/J-only arm is itself
+data-responsive, and in fact rises faster than the morpheme arm (+0.0167 per
+log-pair, r = 0.951, versus +0.0127). What additional data buys is therefore
+better estimation of germline segment preferences rather than of junctional
+grammar, which is the same conclusion §3.5 and §3.6 reached by other routes.
+
+The unseen-peptide delta also rises monotonically, from +0.0019 to +0.0134 at
++0.0048 per log-pair (r = 0.986). This is suggestive rather than conclusive: the
+quantity is measured on seven peptides and its confidence interval crosses zero
+throughout (§3.6). Taken at face value, however, the slope permits a rough
+extrapolation. Reaching a +0.05 unseen-peptide advantage by this trend alone
+would require on the order of 10⁸ training pairs, roughly 2,400 times the data
+available here. Reaching +0.10 is not reachable by extrapolation in any
+meaningful sense.
+
+This materially qualifies §3.4, §3.6 and §3.7 in the project's favour and against
+it simultaneously. In its favour: the representational advantage is real, and it
+grows with data rather than saturating, so the ceiling we observed is a property
+of current public data volume rather than of the method. Against it: the rate of
+growth for the quantity that matters — generalization to unseen antigens — is so
+shallow that data alone will not deliver a usable predictor.
+
 ## 4. Discussion
 
 Two results stand in tension and their combination is the contribution. Junctional N-regions demonstrably carry order-dependent, morphologically conditioned structure, measurable at +0.1013 AUC with capacity controlled and generalizing across unseen studies. Yet exposing that structure to a binding classifier yields no advantage for epitopes outside training.
@@ -228,6 +277,17 @@ there uses all six CDR loops of both chains without any morphological analysis,
 outperforming our decomposition of CDR3β by a wide margin on seen peptides.
 Where receptor-side information helps at all, breadth of coverage appears to
 matter more than depth of linguistic structure.
+
+The learning curve reframes what "does not work" means here. Morphological
+tokenization is data-responsive where k-mer tokenization is not, and at no point
+in the sweep does it stop improving. A reader inclined to pursue the linguistic
+program is therefore not refuted by our null result on unseen antigens; they are
+told that the receptor-side representation is sound and that data volume, not
+representation, bounds it. Our extrapolation nonetheless indicates that closing
+the unseen-antigen gap by scaling data alone would require two to three orders of
+magnitude more annotated TCR-epitope pairs than currently exist publicly, which
+we regard as a stronger argument for shifting attention to the antigen side than
+any of our own negative results.
 
 Data scale deserves emphasis. The one advantage morphological tokenization does
 show — over raw k-mers, for known epitopes — is present at 68,000 training pairs
@@ -250,7 +310,12 @@ We emphasize what this work does not show. It does not show that grammar-aware m
 
 ## 6. Conclusion
 
-Morphological decomposition of TCR CDR3 sequences reveals genuine, quantifiable, order-dependent structure conditioned on germline segment usage. That structure does not transfer into predictive power for unseen epitopes, and the portion of the seen-epitope advantage that does transfer is germline segment identity rather than junctional sequence. Public epitope-specific signal can additionally be dominated by single-study batch effects, and single-seed evaluation in this regime produces false positives. We suggest redirecting the linguistic program from receptor morphology toward antigen-side semantics.
+Morphological decomposition of TCR CDR3 sequences reveals genuine, quantifiable, order-dependent structure conditioned on germline segment usage. That structure does not transfer into predictive power for unseen epitopes, and the portion of the seen-epitope advantage that does transfer is germline segment identity rather than junctional sequence. Public epitope-specific signal can additionally be dominated by single-study batch effects, and single-seed evaluation in this regime produces false positives. The advantage that does exist grows with training data rather than saturating, so
+the limit we observe reflects the volume of public annotated data rather than the
+representation itself; extrapolation nonetheless suggests two to three orders of
+magnitude more data would be required for a usable unseen-antigen gain. We
+suggest redirecting the linguistic program from receptor morphology toward
+antigen-side semantics.
 
 ---
 
@@ -306,6 +371,11 @@ frequency in N-regions.
 **Figure 6** (`fig6_motif_paradigm.png`). A, database redundancy — CASSIRSSYEQYF
 occupies 1,077 rows but one clonotype (log scale). B, the 1998 motif at
 clonotype level.
+
+**Figure 7** (`fig7_learning_curve.png`). A, Macro AUC0.1 on seen peptides against
+training-set size: morphological tokenization improves with data while raw k-mers
+stay flat. B, the morpheme-minus-k-mer advantage against training size for seen
+and unseen peptides; both rise monotonically and neither plateaus.
 
 ## Tables
 
@@ -377,6 +447,19 @@ Morpheme − 3-mers = +0.0046 ± 0.0104, pooled per-epitope bootstrap 95% CI [�
 | random | any | 67,872 | 16.7% | +0.0333 | −0.0023 | 0.4978 |
 | hard | Levenshtein ≤ 3 | 28,085 | 40.3% | −0.0022 | −0.0057 | 0.5062 |
 | matched | Levenshtein > 3 | 29,957 | 37.8% | −0.0009 | −0.0068 | 0.4931 |
+
+**Table 8.** Learning curve on the official IMMREP23 benchmark. Each row averages two seeds; class balance is constant across sizes.
+
+| Training pairs | Morpheme (seen) | 3-mers (seen) | Δ seen | Δ unseen |
+|---|---|---|---|---|
+| 6,786 | 0.6108 | 0.6028 | +0.0080 | +0.0019 |
+| 13,572 | 0.6211 | 0.6004 | +0.0207 | +0.0045 |
+| 23,754 | 0.6290 | 0.6060 | +0.0230 | +0.0071 |
+| 33,936 | 0.6414 | 0.6131 | +0.0283 | +0.0080 |
+| 50,904 | 0.6365 | 0.6046 | +0.0318 | +0.0111 |
+| 67,872 | 0.6378 | 0.6003 | **+0.0375** | +0.0134 |
+
+Slopes per natural-log training pair: Δ seen +0.0118 (r = 0.985), Δ unseen +0.0048 (r = 0.986); morpheme seen +0.0127, 3-mers seen +0.0009.
 
 ---
 

@@ -321,6 +321,54 @@ def fig6_motifs(ann):
     save(fig, 'fig6_motif_paradigm.png')
 
 
+def fig7_learning_curve():
+    """Learning curve from learning_curve.json (produced by learning_curve.py)."""
+    import json
+    path = 'learning_curve.json'
+    if not os.path.exists(path):
+        print("  skipping fig7: run learning_curve.py first")
+        return
+    c = json.load(open(path))
+    n = np.array([x['pairs'] for x in c], float)
+    d_seen = np.array([x['delta_seen'] for x in c])
+    d_uns = np.array([x['delta_unseen'] for x in c])
+    m_seen = np.array([x['morpheme_seen'] for x in c])
+    k_seen = np.array([x['kmer3_seen'] for x in c])
+
+    fig, axes = plt.subplots(1, 2, figsize=(7.2, 3.2))
+
+    ax = axes[0]
+    ax.plot(n, m_seen, 'o-', color=C_TREAT, lw=1.6, ms=4.5,
+            label='morpheme')
+    ax.plot(n, k_seen, 's--', color=C_BASE, lw=1.6, ms=4.5,
+            label='raw CDR3$\\beta$ 3-mers')
+    ax.set_xscale('log')
+    ax.set_xlabel('training pairs (log scale)')
+    ax.set_ylabel('Macro AUC0.1, seen peptides')
+    ax.legend(frameon=False, fontsize=8, loc='upper left')
+    ax.set_title('A  Morphology benefits from data;\n     k-mers do not',
+                 loc='left', fontsize=9.5)
+
+    ax = axes[1]
+    ax.plot(n, d_seen, 'o-', color=C_TREAT, lw=1.6, ms=4.5,
+            label='seen peptides')
+    ax.plot(n, d_uns, '^-', color=C_ACC, lw=1.6, ms=4.5,
+            label='unseen peptides')
+    ax.axhline(0, color='#333333', lw=0.8)
+    ax.set_xscale('log')
+    ax.set_xlabel('training pairs (log scale)')
+    ax.set_ylabel('morpheme − 3-mers (Macro AUC0.1)')
+    ax.legend(frameon=False, fontsize=8, loc='lower right')
+    ax.text(n[0] * 1.05, d_seen[-1] * 0.98,
+            f'still rising at the largest\nsize tested (+{d_seen[-1]:.4f})',
+            fontsize=7.5, va='top', color='#333333')
+    ax.set_title('B  The advantage is a trend, not a plateau',
+                 loc='left', fontsize=9.5)
+
+    fig.tight_layout()
+    save(fig, 'fig7_learning_curve.png')
+
+
 def main():
     print("Loading VDJdb for data-derived figures...")
     ann, v_anch, j_anch = load_annotated()
@@ -332,6 +380,7 @@ def main():
     fig4_data_scale()
     fig5_batch(ann)
     fig6_motifs(ann)
+    fig7_learning_curve()
     print("Done.")
     return 0
 
