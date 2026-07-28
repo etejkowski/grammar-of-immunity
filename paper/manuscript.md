@@ -302,6 +302,20 @@ We emphasize what this work does not show. It does not show that grammar-aware m
 ## 5. Limitations
 
 1. **Reference baselines are reimplementations, not the original software.** We evaluate on the official IMMREP23 data with the official metric, and against TCRbase-style and TCRdist-style nearest-neighbour baselines that we implemented. We did not run NetTCR, ERGO-II, tcrdist3, GLIPH2, or TEINet as published, nor protein-language-model embeddings, and we did not submit to the IMMREP25 test set. Our reimplementations should be read as calibration, not as authoritative scores for those methods.
+
+   We examined running NetTCR-2.2 specifically and declined for a reason worth
+   stating. Its published pretrained weights are trained on data drawn from
+   IEDB, VDJdb and 10X Genomics, and its repository additionally distributes
+   IMMREP 2022 benchmark training data. The IMMREP23 test TCRs derive from the
+   same sources, so scoring that test set with the released weights risks
+   evaluating a model on its own training data and would inflate its apparent
+   performance relative to ours. NetTCR-2.1's released models are moreover
+   peptide-specific, covering six peptides of which three appear in the IMMREP23
+   test set and none among the seven unseen peptides, so they cannot address the
+   generalization question at all. A valid comparison requires retraining
+   NetTCR-2.2 on the identical IMMREP23 training split used here; we regard that
+   as the single most valuable addition to this work and leave it as declared
+   future work rather than report a contaminated number.
 2. **Negatives are shuffled pairs**, not experimentally verified non-binders. The IMMREP post-mortems identify this as inflating performance. On the IMMREP23 benchmark we follow the challenge's own negative-generation protocol, which mitigates but does not eliminate the concern; in the VDJdb experiments the concern stands in full.
 3. **Linear model class.** Hashed feature crosses cannot represent higher-order interaction; a null result under this class does not generalize to all model classes.
 4. **β chain only.** No α chain, and MHC enters only as an epitope-associated token, though MHC restriction is known to matter.
