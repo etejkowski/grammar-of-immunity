@@ -172,6 +172,14 @@ of the antibody language: defines tokens and grammar, diagnoses current antibody
 models as domain-unspecific, calls for grammar-aware implementations. A perspective paper;
 no model.
 
+**Lehner et al. (1995) / Moss, Callan et al. (1998)** [9] — the influenza M1
+(GILGFVFTL) response was shown to be constrained to the BV17 family (TRBV19 in
+current nomenclature) with a conserved **I/sRS(A)/S motif in CDR3β**, and the
+structural basis of that conserved arginine-serine-serine was solved in 2003
+[10]. This matters directly: any N-region analysis of GILGFVFTL that recovers
+`IRSS` and its single-substitution variants is **reproducing a known result**.
+Useful as pipeline validation; not a contribution.
+
 **Xu et al. (2023), SPAN-TCR** [3] — *Cell Systems*. Scanning Parametrized by Normalized
 TCR length. Entropic analysis identifies positional 2-mer motifs that **decrease the
 entropy** of antigen-specific CDR3 groups, including motifs shared across different
@@ -303,9 +311,72 @@ when a CDR3 carried an extra trailing residue, pushing the entire J region into 
 N-region for 962 EBV sequences and manufacturing spurious `TN`/`NE`/`KN` "discriminative"
 bigrams. Those artifacts are gone from the figures above.
 
-**Interpretation.** The `IRSS` paradigm and its enrichment are real and survive
-deduplication. What is *not* yet established is that this beats a k-mer baseline at
-prediction — that is Phase 3, and nothing here substitutes for it.
+**Interpretation.** The `IRSS` paradigm is real, survives deduplication, and
+replicates across all 8 independent flu studies — but it was published in 1998
+[9] and structurally explained in 2003 [10]. Recovering it validates the
+pipeline; it is not a finding.
+
+---
+
+## Phase 1 and Phase 2 Results (completed)
+
+`phase1_dataset.py` and `phase2_grammaticality.py` supersede the demo above.
+Standard library only; deterministic under a fixed seed.
+
+### Phase 1 — defensible dataset
+
+| | |
+|---|---|
+| VDJdb rows | 203,308 |
+| Human TCRβ, fully annotated | 157,206 |
+| Unique clonotypes (CDR3, V, J, epitope) | 121,467 |
+| Row inflation from duplication | 1.29x overall (2.07x for GILGFVFTL) |
+| Decomposed | 115,951 (95.5%) |
+| Dropped, malformed CDR3 (FR4 included) | 32 |
+| J-suffix leakage into N-region | 0 (asserted) |
+
+Germline anchors are now derived empirically — 71 V and 15 J segments, versus
+the 40 hand-typed entries before and the 16 V / 13 J in VDJdb's bundled
+reference — and validated against that reference where they overlap: 28
+consistent, 1 discrepant (TRBV7-2, data `CASS` vs reference `CTSSL`).
+Decomposition coverage for the EBV group rose from 67.2% to 91.3%.
+
+### Phase 1 — batch confounding is the dominant methodological risk
+
+| Epitope | Clonotypes | Studies | Largest single-study share |
+|---|---|---|---|
+| GILGFVFTL (flu) | 6,639 | 28 | 33.9% |
+| NLVPMVATV (CMV) | 13,042 | 47 | 63.7% |
+| GLCTLVAML (EBV) | 6,279 | 29 | **79.5%** (PMID 32184241) |
+
+With Fisher exact + BH FDR + a count floor + cross-study replication, the flu
+signals hold everywhere (`IR` 11.7x, q=5.8e-88, replicating in 8/8 studies with
+≥200 clonotypes) while the EBV cysteine signals replicate in only 1 of 2
+(`NC` 83.3x, 1/2; `CF` 18.0x, 1/2). That single dominant study has 10.8% of
+N-regions containing cysteine against 0.4–0.6% in the flu and CMV groups. The
+`CF` enrichment previously reported as a headline result is a batch artifact.
+
+### Phase 2 — the falsification test passes
+
+Can a model separate real N-regions from decoys that preserve length and
+amino-acid composition and destroy **only order**? Trained on 320 studies,
+evaluated on 79 entirely held-out studies, 16,304 real/decoy pairs:
+
+| Model | AUC | Tests |
+|---|---|---|
+| length only | 0.5000 | control; must be 0.5 |
+| flat bigram | 0.6149 | order, no morphology |
+| **(V,J)-conditioned bigram** | **0.7162** | order + morphology |
+| permuted-label control | 0.6115 | identical capacity, randomized labels |
+
+morpheme − flat = **+0.1013**, 95% bootstrap CI [+0.0995, +0.1031].
+permuted − flat = **−0.0035**, so none of the gain is attributable to the
+conditioned model's extra parameters.
+
+**What this establishes**: N-regions carry order-dependent structure, and
+morphological context (the V/J pair) adds real information beyond flat
+sequence statistics, generalizing to unseen studies. **What it does not
+establish**: that any of this improves binding prediction. That is Phase 3.
 
 ---
 
@@ -408,7 +479,9 @@ result is worth more than an unreproducible one.
 | Data sparsity for unseen epitopes | That *is* the problem statement — structure should generalize where memorization cannot |
 | **Public data is clonally redundant and epitope-biased** | Deduplicate, weight by clone count, and never evaluate on an epitope that appears in training |
 | **The grammar may be real but useless for prediction** | Phase 2's falsification test is the checkpoint; a negative result is publishable and honest |
-| Hand-built germline tables silently corrupt decomposition | Already bit us once (J-suffix leakage). Move to IMGT; assert that no N-region contains a germline suffix |
+| Hand-built germline tables silently corrupt decomposition | Already bit us once (J-suffix leakage). Now empirical anchors, validated against reference, with an assertion that no N-region contains a germline J suffix |
+| **Epitope groups are dominated by single studies, so "specificity" signal is batch** | Report largest-study share per epitope; require cross-study replication before believing any enrichment; split train/test **by study** in every experiment |
+| Rediscovering known motifs and mistaking them for findings | Literature-check every motif before claiming it (`IRSS` was published in 1998) |
 
 ---
 
@@ -434,6 +507,16 @@ result is worth more than an unreproducible one.
    methods struggle to generalize to unseen epitopes.
 7. VDJdb — https://github.com/antigenomics/vdjdb-db
 8. IEDB — https://www.iedb.org
+9. A class I MHC-restricted recall response to a viral peptide is highly polyclonal
+   despite stringent CDR3 selection. *J Immunol* (1998); PMID 9510187. Reports the
+   BV17 (= TRBV19) constraint and the I/sRS(A)/S CDR3β motif for influenza M1
+   GILGFVFTL — i.e. the motif this project's decomposition independently recovers.
+10. A structural basis for immunodominant human T cell receptor recognition.
+    *Nat Immunol* (2003); PMID 12796775. Vβ17Vα10.2 TCRs with a conserved
+    arginine-serine-serine in CDR3β dominate the M1 response.
+11. Tetramer-sort dataset contributing 79.5% of the GLCTLVAML clonotypes analyzed
+    here — PMID 32184241 (VDJdb `reference.id` PMID:32184241, 23,666 rows,
+    method.identification = tetramer-sort, no verification field).
 
 ---
 

@@ -4,3 +4,7 @@ vdjdb-db/
 # Python
 __pycache__/
 *.pyc
+
+# Generated analysis outputs
+annotated_cdr3.tsv
+enrichment.tsv
