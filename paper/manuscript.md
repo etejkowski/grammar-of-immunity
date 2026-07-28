@@ -81,7 +81,7 @@ swapped between peptides whose Levenshtein distance exceeds 3, at five negatives
 per positive, yielding 67,872 training pairs.
 
 Scoring used the official metric, Macro AUC0.1: per-peptide partial ROC AUC to a
-false-positive rate of 0.1 with McClish standardisation, averaged across
+false-positive rate of 0.1 with McClish standardization, averaged across
 peptides. We verified the implementation against the challenge documentation,
 which states that an all-zero submission scores 0.5; ours scores 0.5000 exactly.
 
@@ -113,7 +113,7 @@ only difference.
 
 Enrichment used Fisher's exact test with Benjamini–Hochberg FDR control and a minimum count of 20, replacing an earlier pseudocount ratio. AUC was computed via the Mann–Whitney U statistic with tie handling. Confidence intervals are paired bootstrap (200 resamples for model comparison, 2,000 for per-epitope deltas).
 
-All analyses are implemented in Python standard library only, with no external dependencies, and are deterministic given a fixed seed (stable CRC32 hashing rather than Python's randomized `hash`). Code: `https://github.com/etejkowski/grammar-of-immunity`, commit `d4bf7fb`. Runtime is approximately six minutes on a 2026 laptop (Python 3.9.6, macOS 14.8.4, arm64).
+All analyzes are implemented in Python standard library only, with no external dependencies, and are deterministic given a fixed seed (stable CRC32 hashing rather than Python's randomized `hash`). Code: `https://github.com/etejkowski/grammar-of-immunity`, commit `d4bf7fb`. Runtime is approximately six minutes on a 2026 laptop (Python 3.9.6, macOS 14.8.4, arm64).
 
 ## 3. Results
 
@@ -138,7 +138,7 @@ clonotype (Figure 6A). Counting rows produces motif frequencies inflated by
 three orders of magnitude for the most redundant sequences, and an earlier
 version of this analysis reported such counts as clonotype counts. After
 deduplication no individual N-region exceeds nine clonotypes, so the motif is
-properly characterised as a distributed family — `RS` at the core with variable
+properly characterized as a distributed family — `RS` at the core with variable
 flanks — rather than as a small set of frequent strings.
 
 This reproduces a result published in 1998, which reported the influenza M1
@@ -246,7 +246,7 @@ We emphasize what this work does not show. It does not show that grammar-aware m
 4. **β chain only.** No α chain, and MHC enters only as an epitope-associated token, though MHC restriction is known to matter.
 5. **Empirical anchors are not IMGT.** The consensus procedure could in principle absorb convergent junctional residues into a germline anchor; reference agreement (28/29) and the ≥0.80 threshold mitigate but do not eliminate this.
 6. **Twenty epitopes, capped at 800 clonotypes.** Larger scale might reveal a small transferable effect that our confidence intervals cannot exclude.
-7. **Data scale is not swept systematically.** §3.7 establishes that the morpheme-vs-k-mer advantage is size dependent using two training sizes (~68k and ~29k pairs). A proper learning-curve analysis across several sizes would characterise this rather than merely detect it.
+7. **Data scale is not swept systematically.** §3.7 establishes that the morpheme-vs-k-mer advantage is size dependent using two training sizes (~68k and ~29k pairs). A proper learning-curve analysis across several sizes would characterize this rather than merely detect it.
 
 ## 6. Conclusion
 
@@ -300,7 +300,7 @@ negative-generation schemes. The `matched` scheme has the same training size as
 `hard` but dissimilar decoys, isolating training-set size as the cause.
 
 **Figure 5** (`fig5_batch_effect.png`). Left, share of clonotypes contributed by
-the single largest study per epitope. Right, the resulting artefact: cysteine
+the single largest study per epitope. Right, the resulting artifact: cysteine
 frequency in N-regions.
 
 **Figure 6** (`fig6_motif_paradigm.png`). A, database redundancy — CASSIRSSYEQYF

@@ -102,7 +102,7 @@ def dedup_clonotypes(rows):
     Collapse to unique (cdr3, v, j, epitope). VDJdb carries the same clonotype
     from multiple studies; counting rows inflates every downstream frequency.
     The row multiplicity is kept as 'n_rows' so it can be used as a weight,
-    but analyses should default to one vote per clonotype. 'studies' retains
+    but analyzes should default to one vote per clonotype. 'studies' retains
     the set of contributing studies, which is what makes cross-study
     replication testing possible.
     """
@@ -342,19 +342,19 @@ def benjamini_hochberg(pvals):
 
 def auc(scores_pos, scores_neg):
     """Mann-Whitney U / ROC AUC with tie handling."""
-    labelled = [(s, 1) for s in scores_pos] + [(s, 0) for s in scores_neg]
-    labelled.sort(key=lambda t: t[0])
+    labeled = [(s, 1) for s in scores_pos] + [(s, 0) for s in scores_neg]
+    labeled.sort(key=lambda t: t[0])
     ranks = {}
     i = 0
-    n = len(labelled)
+    n = len(labeled)
     rank_sum_pos = 0.0
     while i < n:
         j = i
-        while j + 1 < n and labelled[j + 1][0] == labelled[i][0]:
+        while j + 1 < n and labeled[j + 1][0] == labeled[i][0]:
             j += 1
         avg_rank = (i + j) / 2.0 + 1.0
         for k in range(i, j + 1):
-            if labelled[k][1] == 1:
+            if labeled[k][1] == 1:
                 rank_sum_pos += avg_rank
         i = j + 1
     n_pos, n_neg = len(scores_pos), len(scores_neg)

@@ -385,7 +385,7 @@ def main():
     print(f"\n   morpheme - kmer3 across seeds: {m_d:+.4f} +/- {sd_d:.4f}")
     print(f"   pooled per-epitope bootstrap 95% CI: [{lo:+.4f}, {hi:+.4f}]")
     n_pos = sum(1 for d in deltas if d > 0)
-    print(f"   seeds favouring morpheme: {n_pos}/{len(deltas)}")
+    print(f"   seeds favoring morpheme: {n_pos}/{len(deltas)}")
 
     rule('-')
     print("VERDICT")

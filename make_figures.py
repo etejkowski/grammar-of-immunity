@@ -143,7 +143,7 @@ def fig2_grammaticality():
     ax.text(2.46, 0.6655, '+0.1013\nCI [+0.0995,\n+0.1031]', fontsize=7,
             ha='left', va='center', color='#222222')
     ax.set_xlim(-0.6, 3.9)
-    ax.set_title('Junctional structure is real and not a capacity artefact\n'
+    ax.set_title('Junctional structure is real and not a capacity artifact\n'
                  '79 held-out studies, 16,304 real/decoy pairs', loc='left')
     save(fig, 'fig2_grammaticality.png')
 

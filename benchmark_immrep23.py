@@ -11,8 +11,8 @@ Data (from https://github.com/justin-barton/IMMREP23):
   solutions.csv           official test set WITH labels and public/private flag
 
 Official metric: Macro AUC0.1 — partial ROC AUC to FPR 0.1 with McClish
-standardisation, computed per peptide, then averaged. Implemented via
-sklearn roc_auc_score(max_fpr=0.1), which is McClish-standardised.
+standardization, computed per peptide, then averaged. Implemented via
+sklearn roc_auc_score(max_fpr=0.1), which is McClish-standardized.
 
 Negative generation follows the challenge protocol: TCRs are swapped between
 peptides whose Levenshtein distance exceeds 3, at 5 negatives per positive.
@@ -78,7 +78,7 @@ def levenshtein(a, b):
 
 
 def norm_sim(a, b):
-    """Length-normalised similarity in [0,1] from edit distance."""
+    """Length-normalized similarity in [0,1] from edit distance."""
     if not a or not b:
         return 0.0
     return 1.0 - levenshtein(a, b) / max(len(a), len(b))
