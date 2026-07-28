@@ -102,9 +102,16 @@ def decompose_cdr3(cdr3, v_gene, j_gene):
         else:
             return None
     if not cdr3.endswith(j_suffix):
-        for i in range(1, len(j_suffix)):
-            if cdr3.endswith(j_suffix[i:]):
-                j_suffix = j_suffix[i:]
+        # VDJdb CDR3s sometimes carry an extra trailing residue (e.g. the
+        # germline suffix NEKLF appearing as ...NEKLFF). A strict endswith()
+        # test fails on those, and the shortest fallback ('F') then matches,
+        # which pushes the whole J-region into the N-region. Search for the
+        # longest germline suffix anchored near the 3' end instead.
+        for i in range(0, len(j_suffix)):
+            candidate = j_suffix[i:]
+            idx = cdr3.rfind(candidate)
+            if idx >= 0 and len(cdr3) - (idx + len(candidate)) <= 2:
+                j_suffix = cdr3[idx:]
                 break
         else:
             return None
@@ -151,8 +158,7 @@ def analyze_epitope(records, epitope_seq, epitope_name=""):
     if not tcrs:
         print(f"No TCRs found for epitope {epitope_seq}")
         return {}
-    print(f"
-{'='*70}")
+    print(f"\n{'='*70}")
     print(f"EPITOPE: {epitope_seq} ({epitope_name})")
     print(f"{'='*70}")
     print(f"Total TCRs: {len(tcrs)}")
@@ -165,8 +171,7 @@ def analyze_epitope(records, epitope_seq, epitope_name=""):
     print(f"Successfully decomposed: {len(decomposed)} ({success_rate:.1f}%)")
     n_regions = [d[1] for d in decomposed if d[1]]
     n_counts = Counter(n_regions)
-    print(f"
-Top 15 N-region motifs (the 'semantic core'):")
+    print(f"\nTop 15 N-region motifs (the 'semantic core'):")
     for nr, c in n_counts.most_common(15):
         pct = 100 * c / len(n_regions)
         bar = '█' * int(pct * 2)
@@ -176,13 +181,11 @@ Top 15 N-region motifs (the 'semantic core'):")
         for bg in get_bigrams(nr):
             bigrams[bg] += 1
     total_bg = sum(bigrams.values())
-    print(f"
-Top 10 N-region bigrams ('phonotactics'):")
+    print(f"\nTop 10 N-region bigrams ('phonotactics'):")
     for bg, c in bigrams.most_common(10):
         print(f"  {bg} — {100*c/total_bg:.2f}%")
     lengths = Counter(len(nr) for nr in n_regions)
-    print(f"
-N-region length distribution:")
+    print(f"\nN-region length distribution:")
     for l in sorted(lengths.keys())[:10]:
         bar = '█' * (lengths[l] // max(1, max(lengths.values()) // 30))
         print(f"  {l} aa: {lengths[l]:5d} {bar}")
@@ -193,8 +196,7 @@ N-region length distribution:")
     }
 
 def compare_epitopes(results_a, results_b):
-    print(f"
-{'='*70}")
+    print(f"\n{'='*70}")
     print(f"DISCRIMINATIVE ANALYSIS: {results_a['name']} vs {results_b['name']}")
     print(f"{'='*70}")
     bg_a, bg_b = results_a['bigrams'], results_b['bigrams']
@@ -204,8 +206,7 @@ def compare_epitopes(results_a, results_b):
         freq_a = bg_a[bg] / total_a
         freq_b = bg_b.get(bg, 0.5) / total_b
         ratios_a[bg] = freq_a / max(freq_b, 0.0001)
-    print(f"
-Bigrams enriched in {results_a['name']}:")
+    print(f"\nBigrams enriched in {results_a['name']}:")
     for bg, ratio in sorted(ratios_a.items(), key=lambda x: -x[1])[:10]:
         print(f"  {bg} — {ratio:.1f}x enriched")
     ratios_b = {}
@@ -213,8 +214,7 @@ Bigrams enriched in {results_a['name']}:")
         freq_b = bg_b[bg] / total_b
         freq_a = bg_a.get(bg, 0.5) / total_a
         ratios_b[bg] = freq_b / max(freq_a, 0.0001)
-    print(f"
-Bigrams enriched in {results_b['name']}:")
+    print(f"\nBigrams enriched in {results_b['name']}:")
     for bg, ratio in sorted(ratios_b.items(), key=lambda x: -x[1])[:10]:
         print(f"  {bg} — {ratio:.1f}x enriched")
 
@@ -225,8 +225,7 @@ Bigrams enriched in {results_b['name']}:")
 def main():
     print("Grammar of Immunity — Morphological Decomposition Demo")
     print("=" * 70)
-    print("
-Loading VDJdb...")
+    print("\nLoading VDJdb...")
     records = load_vdjdb()
     print(f"Total records: {len(records)}")
     human_beta = filter_human_beta(records)
@@ -238,8 +237,7 @@ Loading VDJdb...")
         compare_epitopes(flu, cmv)
     if flu and ebv:
         compare_epitopes(flu, ebv)
-    print(f"
-{'='*70}")
+    print(f"\n{'='*70}")
     print("DETAILED DECOMPOSITION EXAMPLES")
     print(f"{'='*70}")
     print()
@@ -257,9 +255,7 @@ Loading VDJdb...")
         if result:
             v, n, j = result
             print(f"{cdr3:<25s} -> [{v:<8s}] + [{n:<10s}] + [{j:<8s}]")
-    print("
-
-Done! See grammar-of-immunity-research.md for the full research plan.")
+    print("\n\nDone! See grammar-of-immunity-research.md for the full research plan.")
 
 if __name__ == '__main__':
     main()

@@ -1,0 +1,6 @@
+# VDJdb data is cloned separately (see README Quick Start)
+vdjdb-db/
+
+# Python
+__pycache__/
+*.pyc

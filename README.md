@@ -12,9 +12,18 @@ Morphological decomposition of 203K+ TCR sequences reveals **massive discriminat
 
 | Comparison | Top Discriminative Bigram | Enrichment |
 |---|---|---|
-| Flu vs EBV | `IR` | **71.8x** |
-| Flu vs CMV | `IR` | 33.3x |
-| EBV vs Flu | `CF` | 26.3x |
+| Flu vs EBV | `IR` | **62.5x** |
+| Flu vs CMV | `IR` | 24.5x |
+| EBV vs Flu | `CF` | 30.8x |
+
+Figures are as reproduced by `grammar_of_immunity_demo.py` against VDJdb (203,308 records,
+157,210 human TCRβ with full V/J/epitope annotation).
+
+**Caveat, pending follow-up**: these counts include duplicate clonotype rows. Deduplicating
+on `(cdr3, V, J)` reduces `IR` in Flu vs EBV from 62.5x to 13.5x. The signal survives, but the
+raw-row figures are inflated roughly 5x by clonal redundancy, and the enrichment ratio uses a
+0.5 pseudocount for absent bigrams, which amplifies rare ones. Both need addressing before
+these numbers go into a writeup.
 
 ## Files
 
