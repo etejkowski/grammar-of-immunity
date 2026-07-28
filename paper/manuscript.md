@@ -1,10 +1,10 @@
 # Morphological structure in TCR CDR3 sequences is measurable but does not transfer to unseen epitopes
 
-**Erick Tejkowski**¹ and **Maria Paredes**¹
+**Erick Tejkowski**¹ and **Maria Elisa Paredes**¹
 
-¹ Independent researchers, St. Louis, Missouri, USA
+¹ Independent researchers, Fairview Heights, Illinois, USA (Greater St. Louis)
 
-*Correspondence*: [email]
+*Correspondence*: erick.tejkowski@gmail.com
 
 ---
 
@@ -260,7 +260,7 @@ VDJdb: `https://github.com/antigenomics/vdjdb-db`. Analysis code, standard-libra
 
 ## Author contributions
 
-**ET**: conceptualization, linguistic formalization, software, analysis, writing — original draft. **MP**: biological and immunological interpretation, verification of motif prior art, linguistic framing, critical revision. Both authors approved the submitted version and accept accountability for its content.
+**ET**: conceptualization, linguistic formalization, software, analysis, writing — original draft. **MEP**: biological and immunological interpretation, verification of motif prior art, linguistic framing, critical revision. Both authors approved the submitted version and accept accountability for its content.
 
 ## Competing interests
 
