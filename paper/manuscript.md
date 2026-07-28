@@ -1,6 +1,7 @@
 # Morphological structure in TCR CDR3 sequences is measurable but does not transfer to unseen epitopes
 
-**Erick Tejkowski**¹ and **Maria Elisa Paredes**¹
+**Erick Tejkowski**¹ (ORCID: 0009-0006-9879-0777) and
+**Maria Elisa Paredes**¹ (ORCID: pending)
 
 ¹ Independent researchers, Fairview Heights, Illinois, USA (Greater St. Louis)
 
