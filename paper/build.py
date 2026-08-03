@@ -63,7 +63,15 @@ def main():
     # pandoc runs from paper/ so the relative figures/ paths resolve
     common = ['--from', 'markdown+pipe_tables+tex_math_dollars',
               '--resource-path', HERE, '--standalone']
-    targets = [('manuscript.docx', []),
+    # reference.docx is pandoc's default template with the Microsoft fonts
+    # (Aptos, Consolas, Times New Roman, Segoe UI) swapped for macOS-native
+    # equivalents, so Pages and Preview stop reporting missing fonts and the
+    # PDF export is not silently substituted. Regenerate with:
+    #   pandoc --print-default-data-file reference.docx > ref.docx
+    # then patch the font names in word/styles.xml and word/theme/theme1.xml.
+    ref = os.path.join(HERE, 'reference.docx')
+    docx_extra = ['--reference-doc', ref] if os.path.exists(ref) else []
+    targets = [('manuscript.docx', docx_extra),
                ('manuscript.html', ['--embed-resources', '--toc'])]
     for name, extra in targets:
         dest = os.path.join(BUILD, name)
