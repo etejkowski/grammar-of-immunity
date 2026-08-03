@@ -122,29 +122,54 @@ def fig1_decomposition(v_anch, j_anch):
 # ---------------------------------------------------------------------------
 
 def fig2_grammaticality():
-    # Source: phase2_grammaticality.py, shuffled-decoy column
-    labels = ['length\nonly', 'flat\nbigram', '(V,J)-cond.\nbigram',
-              'permuted-label\ncontrol']
+    # Source: phase2_grammaticality.py (A) and boundary_trim_control.py (B)
+    labels = ['length\nonly', 'flat\nbigram', '(V,J)\nconditioned',
+              'permuted\nlabel']
     vals = [0.5000, 0.6149, 0.7162, 0.6115]
     cols = [C_CTRL, C_BASE, C_TREAT, C_CTRL]
 
-    fig, ax = plt.subplots(figsize=(4.7, 3.2))
-    bars = ax.bar(labels, vals, color=cols, width=0.66)
+    fig, (ax, ax2) = plt.subplots(1, 2, figsize=(9.8, 3.5),
+                                  gridspec_kw={'width_ratios': [1, 1.2]})
+    bars = ax.bar(labels, vals, color=cols, width=0.62)
     ax.axhline(0.5, color='#333333', lw=0.9, ls=':', zorder=0)
-    ax.text(3.42, 0.505, 'chance', fontsize=7.5, color='#333333', ha='right')
+    ax.text(3.85, 0.505, 'chance', fontsize=7.5, color='#333333', ha='right')
     ax.set_ylim(0.45, 0.78)
     ax.set_ylabel('AUC, real vs order-shuffled N-region')
     for b, v in zip(bars, vals):
         ax.text(b.get_x() + b.get_width() / 2, v + 0.006, f'{v:.4f}',
                 ha='center', fontsize=8)
-    # annotate the gain
-    ax.annotate('', xy=(2.36, 0.7162), xytext=(2.36, 0.6149),
+    ax.annotate('', xy=(2.35, 0.7162), xytext=(2.35, 0.6149),
                 arrowprops=dict(arrowstyle='<->', color='#222222', lw=0.9))
-    ax.text(2.46, 0.6655, '+0.1013\nCI [+0.0995,\n+0.1031]', fontsize=7,
+    ax.text(2.45, 0.6655, '+0.1013\nCI [+0.0995,\n+0.1031]', fontsize=7,
             ha='left', va='center', color='#222222')
     ax.set_xlim(-0.6, 3.9)
-    ax.set_title('Junctional structure is real and not a capacity artifact\n'
-                 '79 held-out studies, 16,304 real/decoy pairs', loc='left')
+    ax.tick_params(axis='x', labelsize=8)
+    ax.set_title('A  Real, and not a capacity artifact\n'
+                 '79 held-out studies, 16,304 pairs', loc='left')
+
+    # ---- Panel B: boundary-trim control -------------------------------------
+    # Source: boundary_trim_control.py
+    tlab = ['none', '1 each\nend *', '2 each\nend', '3 each\nend',
+            "2 from\n5\u2032 only *", "2 from\n3\u2032 only"]
+    gaps = [0.1017, 0.0392, 0.0204, 0.0039, 0.0703, 0.0665]
+    pairs = [16304, 14529, 7939, 1831, 14535, 14553]
+    tcols = [C_TREAT, C_ACC, C_ACC, C_ACC, C_BASE, C_BASE]
+    x = np.arange(len(tlab))
+    b2 = ax2.bar(x, gaps, color=tcols, width=0.62)
+    ax2.set_xticks(x)
+    ax2.set_xticklabels(tlab, fontsize=7.8)
+    ax2.set_ylabel('(V,J)-conditioned \u2212 flat, AUC')
+    ax2.set_ylim(0, 0.142)
+    for b, g, n in zip(b2, gaps, pairs):
+        cx = b.get_x() + b.get_width() / 2
+        ax2.text(cx, g + 0.0035, f'{g:+.4f}', ha='center', fontsize=7.4)
+        ax2.text(cx, g + 0.0105, f'n={n:,}', ha='center', fontsize=6.3,
+                 color='#666666')
+    ax2.text(0.98, 0.135, '* same two residues removed, same n:\n'
+             '   position, not amount, drives the gap',
+             fontsize=6.9, va='top', ha='left', color='#222222')
+    ax2.set_title('B  Most of the gain sits at the germline boundaries\n'
+                  'residues trimmed from the N-region edges', loc='left')
     save(fig, 'fig2_grammaticality.png')
 
 
