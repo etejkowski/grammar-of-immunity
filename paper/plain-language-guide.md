@@ -113,6 +113,16 @@ receptor they've seen before, so when a germ is genuinely new they have nothing
 to look up and simply shrug. They're not tuned badly — they're structurally
 incapable of the task.
 
+The rightmost pair of bars is the strongest version of the objection we could
+build against ourselves. It's a published neural network (NetTCR-2.2) that reads
+all six loops of both receptor arms, retrained by us on exactly the same training
+data everything else here saw. If our failure were just a matter of using a
+simple method, this is where it would show. It doesn't: the network matches our
+crudest approach on familiar germs and lands at the coin-flip line on unfamiliar
+ones. On its own practice questions — new receptors for germs it studied — it
+scores 92%. It learned the material; it just can't transfer it to a germ it has
+never seen.
+
 ### Figure 4 — Our one positive result turned out to be about data volume
 
 We did find one real improvement: cutting at the seams beat naive chopping, for

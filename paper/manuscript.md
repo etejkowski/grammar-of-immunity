@@ -1,31 +1,34 @@
-# Morphological structure in TCR CDR3 sequences is measurable but does not transfer to unseen epitopes
+# Biologically informed TCR representations improve in-distribution prediction but fail to generalize to unseen epitopes
 
 **Erick Tejkowski**¹ (ORCID: 0009-0006-9879-0777) and
-**Maria Elisa Paredes**¹ (ORCID: pending)
+**Maria Elisa Paredes**¹ (ORCID: 0009-0007-4967-8612)
 
 ¹ Independent researchers, Fairview Heights, Illinois, USA (Greater St. Louis)
 
 *Correspondence*: erick.tejkowski@gmail.com
 
+ORCID iDs: Erick Tejkowski, `https://orcid.org/0009-0006-9879-0777`;
+Maria Elisa Paredes, `https://orcid.org/0009-0007-4967-8612`
+
 ---
 
 ## Abstract
 
-**Background.** Niels Jerne's 1984 Nobel lecture framed the adaptive immune system as a generative grammar, and a 2024 formalization by Vu et al. argued that antibody and receptor language models fail because their tokenization is linguistically naive. That argument implies a testable prediction: tokenizing T-cell receptor CDR3 sequences along their morphological seams — germline V-contributed prefix, stochastic junctional N-region, germline J-contributed suffix — should yield representations that generalize to antigens absent from training, which is precisely where current predictors collapse.
+**Background.** Current T-cell receptor (TCR) specificity predictors perform reasonably on epitopes represented during training but fail to generalize to previously unseen epitopes [4–7]. One proposed explanation is that existing receptor representations ignore biologically meaningful organization created during V(D)J recombination [1,2]. We tested that prediction.
 
-**Methods.** Using 203,308 VDJdb records (121,467 unique human TCRβ clonotypes after deduplication), we derived germline anchors empirically per V and J segment by residue-level consensus, validated them against VDJdb's bundled reference, and decomposed each CDR3 into (V-prefix, N-region, J-suffix). We then asked two questions. First, does the N-region carry order-dependent structure? We trained bigram models to discriminate real N-regions from decoys preserving length and amino-acid composition exactly, evaluated on entirely held-out studies, with a permuted-label control matching model capacity. Second, does morphological tokenization improve binding prediction? We trained logistic regression over hashed TCR×epitope feature crosses, comparing morpheme features against raw CDR3 3-mers and against a V/J-gene-only control, evaluated both on seen epitopes and on epitopes withheld from training entirely, across five random seeds.
+**Methods.** Using 203,308 VDJdb records (121,467 unique human TCRβ clonotypes after deduplication), we derived and reference-validated empirical V- and J-segment anchors, segmented each CDR3 into germline-derived termini and a junctional N-region, quantified order-dependent junctional organization, and compared biologically informed receptor features with raw CDR3 3-mers and a V/J-only control. Binding models were evaluated on both represented epitopes and epitopes withheld entirely from training, with independent confirmation on the official IMMREP23 benchmark.
 
 **Results.** N-regions carry substantial order-dependent structure. A flat bigram model separates real from order-shuffled N-regions at AUC 0.6149; conditioning on the (V,J) pair raises this to 0.7162, a gain of +0.1013 (95% bootstrap CI [+0.0995, +0.1031]) that is not attributable to model capacity, since randomizing the conditioning labels removes it entirely (−0.0035). On seen epitopes, morphological tokenization outperforms raw 3-mers (0.7135 ± 0.0017 vs 0.6589 ± 0.0063). However, V and J gene identity alone reaches 0.7089 ± 0.0017, leaving approximately +0.005 attributable to junctional sequence. On unseen epitopes, all arms perform at chance and the morphological advantage disappears (+0.0046 ± 0.0104, pooled 95% CI [−0.0084, +0.0175]).
 
-**Benchmark confirmation.** On the official IMMREP23 challenge data scored with the official Macro AUC0.1 metric, all conclusions replicate: morphological tokenization beats raw 3-mers (+0.0375 on seen peptides, CI [+0.0086, +0.0677]) but not V/J identity alone (+0.0091, CI [−0.0166, +0.0338]), and on the seven test peptides absent from training no method exceeds 0.52. A TCRdist-style baseline using all six CDR loops of both chains outperforms our morphological model (0.6281 vs 0.5893 overall), indicating that breadth of receptor coverage matters more than depth of morphological analysis.
+**Benchmark confirmation.** On the official IMMREP23 challenge data [13] scored with the official Macro AUC0.1 metric, all conclusions replicate: morphological tokenization beats raw 3-mers (+0.0375 on seen peptides, CI [+0.0086, +0.0677]) but not V/J identity alone (+0.0091, CI [−0.0166, +0.0338]), and on the seven test peptides absent from training no method exceeds 0.52. A TCRdist-style baseline using all six CDR loops of both chains outperforms our morphological model (0.6281 vs 0.5893 overall), indicating that breadth of receptor coverage matters more than depth of morphological analysis. NetTCR-2.2 [19], a published convolutional architecture over all six loops, retrained on the identical training split, reaches 0.6003 on seen peptides and 0.4868 on unseen peptides — statistically indistinguishable from raw CDR3β 3-mers (+0.0004, CI [−0.0425, +0.0339]) and below the TCRdist-style baseline (−0.0675, CI [−0.1164, −0.0272]), confirming that the failure on unseen peptides is not an artifact of our linear model class.
 
 **Robustness.** Retraining under four negative-generation schemes leaves two conclusions intact — no arm exceeds 0.5062 on unseen peptides, and morphological features never meaningfully exceed germline V/J identity alone — while revealing that the advantage of morphology over raw k-mers is contingent on training-set size (+0.034 at ~68,000 pairs, absent at ~29,000), with a size-matched control excluding decoy similarity as the cause.
 
-**Learning curve.** Sweeping training size across six points reveals the advantage to be a trend rather than a threshold: it rises monotonically from +0.0080 to +0.0375 Macro AUC0.1 (+0.0118 per log training pair, r = 0.985) and is still rising at the largest size available, while raw k-mer performance stays flat. Morphological tokenization is thus more data-responsive rather than simply better. The unseen-peptide advantage also rises monotonically (+0.0048 per log pair) but remains within noise, and extrapolation implies roughly 2,400x the available data would be needed for a +0.05 unseen-peptide gain.
+**Learning curve.** Across six training-set sizes, the advantage over raw k-mers rose monotonically from +0.0080 to +0.0375 Macro AUC0.1 (+0.0118 per log training pair, r = 0.985), while raw k-mer performance remained approximately flat. The unseen-peptide advantage also increased monotonically but remained within experimental uncertainty throughout the observed range.
 
-**Conclusions.** Linguistic structure in CDR3 sequences is real and quantifiable, but it does not convert into cross-epitope predictive power, and the transferable component of the seen-epitope advantage is germline segment usage rather than junctional grammar. We argue the binding-prediction bottleneck lies on the epitope side: no receptor-side representation specifies how a novel peptide maps to the receptor features it selects. We additionally document that apparent epitope-specific sequence signal in public data can be dominated by single-study batch effects, and report a single-seed false positive that reseeding eliminated.
+**Conclusions.** Biologically informed segmentation captures genuine, germline-conditioned organization within TCR CDR3 sequences, but those gains do not extend to previously unseen epitopes. Most of the within-distribution advantage is explained by V/J identity rather than junctional sequence. Improving receptor representation alone therefore appears insufficient for cross-epitope prediction.
 
-**Keywords:** T-cell receptor, CDR3, epitope specificity, morphology, tokenization, generalization, negative result, batch effect
+**Keywords:** T-cell receptor, CDR3, biologically informed representation, V(D)J recombination, epitope specificity, generalization
 
 ---
 
@@ -33,25 +36,23 @@
 
 Predicting which antigen a T-cell receptor recognizes remains unsolved. The receptor repertoire is generated by V(D)J recombination, a stochastic process joining germline segments with nucleotide deletion and non-templated insertion at the junctions, concentrating diversity in CDR3 — the loop that contacts the peptide–MHC complex.
 
-Community benchmarks have converged on a consistent verdict. IMMREP25, which evaluated 126 named submissions predicting the specificity of 1,000 TCRs against 20 unseen peptides restricted by HLA-A\*02:01 or HLA-B\*40:01, found that performance on novel peptides does not approach usability. Independent assessments agree: methods incorporating multiple features outperform CDR3β-only models on seen epitopes yet all struggle to generalize to unseen epitopes, and predictors succeed on frequently observed epitopes while failing on infrequent ones. Shortcut learning has been named as a mechanism, with models associating V-gene identity, CDR3 length, or peptide positional bias with binding rather than encoding structural complementarity.
+Recent community benchmarks consistently show that current predictors perform reasonably on epitopes represented during training but fail to generalize to previously unseen epitopes [4–7]. A benchmark of 50 published models across 21 datasets reported that methods incorporating features beyond CDR3β outperform CDR3β-only models on represented epitopes, yet all struggle on unseen ones [5]; an independent evaluation of 21 predictors reached the same conclusion for infrequently observed epitopes [6]. Proposed explanations include shortcut learning, where models rely on V-gene identity, CDR3 length, or peptide frequency rather than receptor–antigen recognition [8].
 
-A distinct line of argument holds that the problem is representational. Jerne's 1984 Nobel lecture, *The Generative Grammar of the Immune System*, proposed a formal analogy between linguistics and immunology but did not implement it. Vu et al. (2024) revived the argument concretely, characterizing the tokens and grammar of the antibody language and diagnosing existing language models as domain-unspecific: they inherit NLP architectures while tokenizing at the amino acid or arbitrary k-mer level, encoding no immune-specific structure. Their paper is a framework and explicitly invites implementation.
+A distinct line of argument holds that the problem is representational. Jerne's 1984 Nobel lecture, *The Generative Grammar of the Immune System*, proposed a formal analogy between linguistics and immunology but did not implement it [1]. Vu et al. (2024) revived the argument concretely, characterizing the tokens and grammar of the antibody language and diagnosing existing language models as domain-unspecific: they inherit NLP architectures while tokenizing at the amino acid or arbitrary k-mer level, encoding no immune-specific structure [2]. Their paper is a framework and explicitly invites implementation.
 
-That invitation contains a falsifiable claim. If CDR3 sequences are morphologically derived forms, the appropriate unit is the morpheme — the germline-contributed edges and the junctional interior — and tokenizing along those seams should expose regularities that flat tokenization smears out. If those regularities are properties of the receptor-generation grammar rather than of particular antigens, they should transfer to antigens never seen in training.
+This framework yields a simple prediction. If biologically meaningful CDR3 segments capture transferable information about receptor generation, then representations built from those segments should improve prediction for epitopes absent from training.
 
-We tested this. We report that the first half of the claim holds and the second does not.
-
-Our contributions are: (i) an empirical, reference-validated morphological decomposition of 115,951 human TCRβ clonotypes that does not depend on hand-curated germline tables; (ii) a quantification of order-dependent structure in the junctional N-region, with a capacity control, generalizing across studies; (iii) a direct test of whether morphological tokenization improves unseen-epitope binding prediction, which it does not; (iv) a decomposition showing that the seen-epitope advantage of morphological features is almost entirely germline segment usage; and (v) two methodological cautions concerning single-study batch dominance and seed-dependent false positives in this data.
+We tested this prediction directly. The results support the existence of biologically meaningful CDR3 organization but do not support the stronger prediction that this organization improves generalization to previously unseen epitopes.
 
 ## 2. Methods
 
 ### 2.1 Data and deduplication
 
-We used VDJdb (accessed 2026-07-27), comprising 203,308 records. We retained human TCRβ entries with a CDR3β sequence, resolved V and J gene assignments, an annotated epitope, and only canonical amino acids, yielding 157,206 records. VDJdb reports the same clonotype from multiple studies; counting records inflates every downstream frequency. We collapsed to unique (CDR3, V, J, epitope) tuples, giving **121,467 clonotypes** (1.29× row inflation overall, 2.07× for the influenza M1 epitope GILGFVFTL), retaining source study identifiers to permit cross-study replication analysis.
+We used VDJdb [17,18] (accessed 2026-07-27), comprising 203,308 records. We retained human TCRβ entries with a CDR3β sequence, resolved V and J gene assignments, an annotated epitope, and only canonical amino acids, yielding 157,206 records. VDJdb reports the same clonotype from multiple studies; counting records inflates every downstream frequency. We collapsed to unique (CDR3, V, J, epitope) tuples, giving **121,467 clonotypes** (1.29× row inflation overall, 2.07× for the influenza M1 epitope GILGFVFTL), retaining source study identifiers to permit cross-study replication analysis.
 
 ### 2.2 Empirical germline anchors
 
-Rather than hand-typing germline CDR3 contributions, we derived them from data. For each V segment with at least 20 clonotypes, we computed the modal residue and its frequency at successive positions from the 5′ end, extending the anchor while modal frequency remained ≥0.80, capped at 8 residues; the procedure was mirrored from the 3′ end for J segments. Germline-encoded positions are near-invariant across clonotypes while junctional positions are not, producing a sharp frequency drop at the boundary.
+Rather than hand-typing germline CDR3 contributions, or deriving them from reference-based annotation tools such as Stitchr [15] and ANARCI [16], we derived them from data. For each V segment with at least 20 clonotypes, we computed the modal residue and its frequency at successive positions from the 5′ end, extending the anchor while modal frequency remained ≥0.80, capped at 8 residues; the procedure was mirrored from the 3′ end for J segments. Germline-encoded positions are near-invariant across clonotypes while junctional positions are not, producing a sharp frequency drop at the boundary.
 
 This yielded anchors for **71 V and 15 J** segments. VDJdb bundles a partial reference (`res/segments.aaparts.txt`) covering 16 V and 13 J human TRB segments; where the two overlap, 28 of 29 derived anchors are consistent with the reference (a derived anchor being a prefix/suffix of the reference contribution, or vice versa). The single discrepancy is TRBV7-2, where data support `CASS` and the reference lists `CTSSL`.
 
@@ -59,7 +60,7 @@ This yielded anchors for **71 V and 15 J** segments. VDJdb bundles a partial ref
 
 Each CDR3 was parsed as V-prefix + N-region + J-suffix. The V-prefix is the longest anchor prefix the sequence begins with. The J-suffix is the longest anchor suffix occurring at or within two residues of the 3′ end, requiring at least two matched residues; a strict terminal-match test fails on sequences carrying an extra trailing residue and causes the entire J region to be absorbed into the N-region, an error we encountered and corrected. Anchors shorter than three residues, arising from unresolved gene family names, were rejected. Records in which a germline J suffix occurs internally — framework FR4 sequence erroneously included, 32 records — were detected and excluded rather than parsed. Decomposition succeeded for **115,951 clonotypes (95.5%)**, and we assert post hoc that no retained N-region contains a full germline J suffix.
 
-### 2.4 Phonotactic structure and its controls
+### 2.4 Order-dependent junctional structure and its controls
 
 We asked whether N-regions carry information in residue *order*. For each held-out N-region we generated a decoy by permuting its residues, preserving length and composition exactly, so that only order is destroyed; a composition-randomized decoy was also generated as a sanity ceiling. Three add-0.5-smoothed bigram models were compared: a length-only control, a flat model pooled over all segments, and a model conditioned on the (V,J) pair interpolated with the pooled model (weight 0.7). Scores are log-likelihoods; discrimination is quantified by AUC.
 
@@ -67,16 +68,18 @@ Training and evaluation were split **by study** (320 training studies, 79 held o
 
 ### 2.5 Unseen-epitope binding prediction
 
+We intentionally used a simple linear classifier to isolate the contribution of receptor representation rather than maximize benchmark performance. Holding the learning algorithm fixed across feature sets makes differences easier to attribute to the representations themselves.
+
 We formulated binding prediction as classification over (TCR, epitope) pairs. Positives are observed pairs; negatives re-pair a TCR with a different epitope from the same split, excluding known positives. Because a linear model on concatenated features cannot represent interaction and interaction is the task, we hashed the cross product of TCR and epitope features into 2¹⁸ buckets and trained logistic regression by SGD (3 epochs, learning rate 0.08, L2 1e-6). Epitope features (identity, length, position-specific residues, 3-mers) were held identical across arms.
 
-Three arms differed only in TCR featurization: **kmer3** (raw CDR3 3-mers), **morpheme** (V gene, J gene, V-prefix, J-suffix, N-region length bucket, N-region 2- and 3-mers), and **vjonly** (V and J gene identity alone).
+The three models differed only in receptor representation: (i) raw CDR3 3-mers, (ii) a biologically informed representation comprising V gene, J gene, germline-derived termini, junctional-length bucket, and junctional 2- and 3-mers, and (iii) a V/J-only control.
 
 We used the 20 most-represented epitopes, capped at 800 clonotypes each (16,000 total). For the unseen condition, epitopes were partitioned into 5 folds and withheld entirely; any test clonotype whose (CDR3, V, J) also occurred under a training epitope was dropped. The entire experiment was repeated across 5 seeds, since fold assignment and negative sampling both depend on the seed. A seen-epitope positive control (80/20 clonotype split within epitopes, 3 seeds) establishes that the harness can detect an effect.
 
 ### 2.6 Official IMMREP23 benchmark
 
 To situate results against community data and a community metric, we repeated
-the comparison on the official IMMREP23 challenge dataset. We used the released
+the comparison on the official IMMREP23 challenge dataset [13]. We used the released
 sample training set (11,312 positive paired-chain records, 808 peptides) and the
 released test set with labels (3,484 records, 20 peptides, 17.2% positive).
 Negatives for training were generated by the challenge protocol: TCRs were
@@ -91,18 +94,43 @@ which states that an all-zero submission scores 0.5; ours scores 0.5000 exactly.
 Beyond the three arms above we added **cdr123**, using 3-mers of all six CDR
 loops of both chains, and two published-style reference baselines requiring no
 training: **TCRbase-style** nearest-neighbour similarity of CDR3β to the known
-binders of the query peptide, and **TCRdist-style** nearest-neighbour over all
-six CDR loops with CDR3 weighted threefold. Learned arms used L2-regularised
-logistic regression over hashed feature crosses (2¹⁸ buckets).
+binders of the query peptide, as used as an IMMREP baseline [19], and
+**TCRdist-style** nearest-neighbour over all six CDR loops with CDR3 weighted
+threefold [14]. Learned arms used L2-regularised logistic regression over hashed
+feature crosses (2¹⁸ buckets).
 
 Critically, 13 of the 20 test peptides occur in the official training data and 7
 do not, providing a seen/unseen partition within a single benchmark that we did
 not construct.
 
-### 2.7 Negative-scheme robustness
+### 2.7 Retrained comparison with a published deep architecture
+
+To test whether the pattern above depends on our model class, we retrained
+NetTCR-2.2 [19] — a convolutional network over all six CDR loops of both chains,
+and a strong performer in the IMMREP22 assessment — on the identical split. We
+used the published pan-specific architecture and default hyperparameters
+(92,529 parameters, BLOSUM50 encoding divided by 5, dropout 0.6, Adam at
+lr 1e-3, batch 64, up to 200 epochs, checkpoint selected on validation AUC0.1).
+Positives lacking any CDR loop were dropped, as NetTCR cannot encode them, and
+rows exceeding the published input widths were dropped rather than widening the
+architecture, giving 67,698 training pairs (54,144 train, 13,554 validation,
+split by positive so a positive and its five negatives stay together) against
+67,872 for our own arms. All 3,484 official test rows were retained, so scores
+are directly comparable with §2.6.
+
+We retrained rather than scoring the released weights deliberately. NetTCR-2.2's
+published weights are trained on data compiled from IEDB, VDJdb and 10X
+Genomics, and its repository additionally distributes IMMREP22 benchmark
+training data; IMMREP23's TCRs derive from those same sources, so the released
+weights risk being evaluated partly on their own training data. NetTCR-2.1's
+released models are moreover peptide-specific [20], covering six peptides, none
+of them among the seven unseen test peptides, and so cannot address
+generalization at all.
+
+### 2.8 Negative-scheme robustness
 
 Because negative-example construction is the factor community post-mortems most
-often blame for unstable TCR-specificity results, we retrained under four
+often blame for unstable TCR-specificity results [5,13], we retrained under four
 schemes and scored all of them on the identical official test set: **challenge**
 (decoy peptides at Levenshtein > 3, the official protocol), **random** (any
 other peptide), **hard** (decoy peptides at Levenshtein ≤ 3, adversarial), and
@@ -112,32 +140,32 @@ positives, altering training size and class balance as well as decoy difficulty;
 dissimilar pool, holding size and balance fixed so that decoy similarity is the
 only difference.
 
-### 2.8 Learning curve
+### 2.9 Learning curve
 
-Because §2.7 established that the morpheme-over-k-mer advantage depends on
+Because §2.8 established that the morpheme-over-k-mer advantage depends on
 training-set size, we characterized that dependence rather than merely noting it.
 The full pair set was built once under the challenge protocol and then subsampled
 **by positive**, carrying each positive's five negatives with it so class balance
 is constant across sizes. Six sizes spanning 6,786 to 67,872 pairs were run at
 two seeds each, evaluated always on the complete official test set.
 
-### 2.9 Statistics and reproducibility
+### 2.10 Statistics and reproducibility
 
-Enrichment used Fisher's exact test with Benjamini–Hochberg FDR control and a minimum count of 20, replacing an earlier pseudocount ratio. AUC was computed via the Mann–Whitney U statistic with tie handling. Confidence intervals are paired bootstrap (200 resamples for model comparison, 2,000 for per-epitope deltas).
+Enrichment used Fisher's exact test with Benjamini–Hochberg FDR control and a minimum count of 20, replacing an earlier pseudocount ratio. AUC was computed via the Mann–Whitney U statistic with tie handling. Confidence intervals are paired bootstrap (200 resamples for model comparison, 2,000 for per-epitope deltas, 5,000 for per-peptide deltas on IMMREP23).
 
-All analyzes are implemented in Python standard library only, with no external dependencies, and are deterministic given a fixed seed (stable CRC32 hashing rather than Python's randomized `hash`). Code: `https://github.com/etejkowski/grammar-of-immunity`, commit `d4bf7fb`. Runtime is approximately six minutes on a 2026 laptop (Python 3.9.6, macOS 14.8.4, arm64).
+The VDJdb analyses are implemented in Python standard library only, with no external dependencies, and are deterministic given a fixed seed (stable CRC32 hashing rather than Python's randomized `hash`). The benchmark arms additionally use NumPy, pandas and scikit-learn, and the NetTCR comparison uses TensorFlow with third-party code obtained separately. Code: `https://github.com/etejkowski/grammar-of-immunity`, commit `53226f2`. Runtime for the standard-library analyses is approximately six minutes on a 2026 laptop (Python 3.9.6, macOS 14.8.4, arm64); the NetTCR retrain is the only step requiring longer.
 
 ## 3. Results
 
-### 3.1 Apparent epitope-specific signal can be single-study batch effect
+### 3.1 Validation: public datasets can contain strong study-specific effects
 
 Before analyzing sequence signal we characterized study composition (Table 1). The three most-studied epitopes differ sharply in how concentrated their evidence is: GILGFVFTL draws on 28 studies with the largest contributing 33.9%, whereas GLCTLVAML draws on 29 studies but a single tetramer-sort study (PMID 32184241) contributes **79.5%** of clonotypes.
 
 This is consequential. Bigram enrichment of GLCTLVAML N-regions against GILGFVFTL is dominated by cysteine-containing bigrams (`NC` 83.3×, q=3.9×10⁻²⁵; `CV` 26.1×; `CF` 18.0×). Cysteine occurs in 10.8% of N-regions in the EBV group against 0.4–0.6% in the influenza and CMV groups, and 667 of 679 cysteine-containing EBV N-regions originate from that one study. Requiring replication across independent studies separates the cases cleanly: influenza signals hold in 8 of 8 studies contributing ≥200 clonotypes (`IR` 11.7×, q=5.8×10⁻⁸⁸; `MR` 14.6×), while the EBV cysteine signals hold in only 1 of 2.
 
-An earlier iteration of this work reported the EBV `CF` enrichment as a headline finding. It is a batch artifact. We report this because the failure mode generalizes: in public TCR databases, "epitope-specific" and "study-specific" are frequently the same axis.
+These observations illustrate how apparently epitope-specific sequence patterns can arise from study composition rather than immune biology. An earlier iteration of this work reported the EBV `CF` enrichment as a substantive finding; it is a batch artifact, and we report the correction because the failure mode generalizes.
 
-### 3.2 The decomposition recovers a known motif
+### 3.2 Validation of biologically informed segmentation
 
 Decomposition of the influenza M1 group recovers the expected junctional
 signature. At the level of distinct clonotypes, 12.9% of GILGFVFTL-specific
@@ -155,34 +183,38 @@ flanks — rather than as a small set of frequent strings.
 
 This reproduces a result published in 1998, which reported the influenza M1
 response to be constrained to the BV17 family (TRBV19 in current nomenclature)
-with a conserved I/sRS(A)/S CDR3β motif, and explained structurally in 2003. The
-41.0% TRBV19 usage and the `RS` core we measure correspond directly to those two
-observations. We present it as pipeline validation, not as a finding: recovering a 28-year-old result from first principles is evidence the decomposition tracks real biology.
+with a conserved I/sRS(A)/S CDR3β motif [10], and explained structurally in
+2003 [11]. The 41.0% TRBV19 usage and the `RS` core we measure correspond
+directly to those two observations. We present it as pipeline validation, not as
+a finding: recovering a 28-year-old result from first principles is evidence the
+decomposition tracks real biology.
 
-### 3.3 N-regions carry order-dependent structure beyond composition
+### 3.3 Junctional regions contain reproducible order-dependent structure
 
-Table 2 reports discrimination of real N-regions from order-shuffled decoys on 79 entirely held-out studies (16,304 pairs). The length-only control scores exactly 0.5000, as required since shuffling preserves length, confirming the evaluation is sound. The flat bigram model reaches 0.6149, establishing that residue order carries information. Conditioning on the (V,J) pair reaches 0.7162, a gain of **+0.1013** (95% CI [+0.0995, +0.1031]).
+We next asked whether junctional N-regions contain reproducible sequence organization beyond amino-acid composition alone, a question related to earlier entropic analyses of CDR3 information content [3]. Using held-out studies and order-preserving decoys, we found that residue order carries substantial information and that conditioning on germline V/J context markedly strengthens discrimination (Table 2). The length-only control scores exactly 0.5000, as required since shuffling preserves length. The flat bigram model reaches 0.6149, establishing that residue order carries information, and conditioning on the (V,J) pair reaches 0.7162, a gain of **+0.1013** (95% CI [+0.0995, +0.1031]).
 
 The permuted-label control scores 0.6115, i.e. **−0.0035 relative to flat**: randomizing the conditioning labels while holding the model class and parameter count fixed removes the entire advantage. The gain is therefore attributable to morphological context, not capacity. Results against composition-randomized decoys are equivalent (0.6124 flat, 0.7229 conditioned).
 
-### 3.4 Morphological tokenization does not improve unseen-epitope prediction
+### 3.4 Biologically informed segmentation does not improve generalization to unseen epitopes
 
 On seen epitopes (Table 3), morphological features outperform raw 3-mers by **+0.0546** AUC (0.7135 ± 0.0017 vs 0.6589 ± 0.0063), consistently across all three seeds. The harness therefore detects effects of this magnitude.
 
-On unseen epitopes, all arms perform at chance: kmer3 0.5052 ± 0.0075, morpheme 0.5072 ± 0.0065, vjonly 0.4991 ± 0.0127. The morphological advantage is **+0.0046 ± 0.0104** with pooled per-epitope bootstrap 95% CI **[−0.0084, +0.0175]** — null. Baseline collapse from 0.66 to 0.51 reproduces the field-wide pattern; the addition here is a positive control demonstrating the same pipeline attains 0.71 when the epitope is known, which licenses interpreting the unseen result as generalization failure rather than pipeline failure.
+On unseen epitopes, all arms perform at chance: kmer3 0.5052 ± 0.0075, morpheme 0.5072 ± 0.0065, vjonly 0.4991 ± 0.0127. The morphological advantage is **+0.0046 ± 0.0104** with pooled per-epitope bootstrap 95% CI **[−0.0084, +0.0175]** — null. Baseline collapse from 0.66 to 0.51 reproduces the field-wide pattern [5,6]; the addition here is a positive control demonstrating the same pipeline attains 0.71 when the epitope is known, which licenses interpreting the unseen result as generalization failure rather than pipeline failure.
 
-We note a methodological trap. A single seed initially yielded +0.0402 with a bootstrap CI excluding zero, i.e. an apparently significant positive result, which reseeding eliminated. Given that fold assignment over 20 epitopes and negative sampling both depend on the seed, single-split results in this regime are not trustworthy.
+A single random seed initially produced an apparently significant improvement (+0.0402, bootstrap CI excluding zero). Repeating the experiment across independent seeds eliminated the effect, indicating that single-seed evaluations are unreliable in this setting.
 
-### 3.5 The transferable seen-epitope signal is germline usage, not junctional grammar
+### 3.5 The within-distribution gain is explained primarily by germline V/J usage
 
-The V/J-only arm reaches 0.7089 ± 0.0017 on seen epitopes against morpheme's 0.7135 ± 0.0017. Germline segment identity thus accounts for essentially the whole morphological advantage, leaving roughly **+0.005** attributable to junctional N-region sequence — the "creative middle" that the linguistic framing concerns.
+The V/J-only arm reaches 0.7089 ± 0.0017 on seen epitopes against morpheme's 0.7135 ± 0.0017. Germline segment identity thus accounts for essentially the whole morphological advantage, leaving roughly **+0.005** attributable to junctional N-region sequence.
 
-This corroborates, by a different route, existing concern that TCR specificity models exploit V-gene identity as a shortcut, and earlier work dissecting the contribution of V and J genes relative to CDR3 in binding prediction.
+These results are consistent with previous reports that V- and J-gene identity accounts for much of the apparent predictive signal in TCR specificity models [8,9].
 
-### 3.6 Confirmation on the official IMMREP23 benchmark
+### 3.6 Independent benchmark confirms the pattern
 
-Table 5 reports Macro AUC0.1 on the official test set, partitioned by whether
-the test peptide occurs in the official training data.
+Evaluation on the official IMMREP23 benchmark reproduced the principal findings
+(Table 5, Figure 3). Biologically informed segmentation consistently outperformed
+raw CDR3 3-mers on peptides represented during training but provided no
+meaningful improvement for peptides absent from the training set.
 
 Every internal conclusion replicates. Morphological tokenization beats raw
 CDR3β 3-mers overall (+0.0291, 95% CI [+0.0093, +0.0505], 15/20 peptides) and on
@@ -192,19 +224,34 @@ independent data with an independent metric. On the seven unseen peptides the
 advantage is not significant (+0.0134, CI [−0.0016, +0.0267]) and all methods
 sit between 0.479 and 0.519 (Table 6).
 
-Two further observations. First, the morpheme model is **not** state of the art:
-a TCRdist-style weighted comparison across all six CDR loops of both chains
-reaches 0.6281 overall and 0.6971 on seen peptides, substantially above the
-morpheme model's 0.5893 and 0.6378. Using more of the receptor outperforms
-decomposing part of it more carefully. Second, both nearest-neighbour baselines
-score exactly 0.5000 on unseen peptides by construction, since no reference
-binders exist for a peptide absent from training and the methods emit a constant
-score. Nearest-neighbour approaches are structurally incapable of unseen-epitope
-prediction, which is a property of the method class rather than a tuning
-deficiency, and worth stating explicitly given how often such methods appear as
-benchmark baselines.
+A TCRdist-style comparison across all six CDR loops of both chains reached 0.6281
+overall and 0.6971 on seen peptides, exceeding the biologically informed CDR3β
+model (0.5893 and 0.6378). Both nearest-neighbour baselines scored exactly 0.5000
+on unseen peptides because no reference binders exist for peptides absent from
+training and the methods emit a constant score; nearest-neighbour approaches are
+structurally incapable of unseen-epitope prediction, which is a property of the
+method class rather than a tuning deficiency.
 
-### 3.7 The morphological advantage is a data-scale effect, not a representational one
+A published deep architecture behaves the same way. NetTCR-2.2 [19], retrained on
+the identical split (§2.7), reaches 0.5606 overall, 0.6003 on seen peptides and
+0.4868 on unseen peptides. Its per-peptide profile is strong where the peptide is
+well represented (GILGFVFTL 0.9293, GLCTLVAML 0.8648) and at or below chance for
+all seven unseen peptides (maximum 0.5057). Paired per-peptide comparison places
+it level with our simplest arm — raw CDR3β 3-mers — overall (+0.0004, CI
+[−0.0425, +0.0339]) and on seen peptides (−0.0000, CI [−0.0641, +0.0507]), below
+the morpheme arm without significance (−0.0287, CI [−0.0783, +0.0104]), and
+significantly below the TCRdist-style baseline (−0.0675, CI [−0.1164, −0.0272])
+and below the cdr123 arm on unseen peptides (−0.0323, CI [−0.0552, −0.0109]).
+
+That the retrained network fits its own held-out validation pairs well
+(AUC 0.9172, AUC0.1 0.7821 on 13,554 validation pairs drawn from the same
+peptides) while scoring 0.4868 on unseen test peptides locates the failure in
+generalization across peptides rather than in undertraining. It also answers the
+main objection to §3.4: the null result on unseen epitopes is not an artifact of
+using a linear model over hashed feature crosses, since a convolutional network
+with access to all six loops does no better.
+
+### 3.7 Training-set size determines the within-distribution advantage
 
 Table 7 retrains under four negative-generation schemes. Two conclusions hold
 throughout. No arm exceeds 0.5062 on unseen peptides under any scheme, and
@@ -221,13 +268,11 @@ Decoy similarity is therefore not responsible; training-set size is. At roughly
 +0.034, and at roughly 29,000 pairs the advantage disappears irrespective of
 negative difficulty.
 
-This qualifies §3.4 and §3.6 materially. The seen-epitope benefit of
-morphological tokenization is contingent on data scale rather than being an
-intrinsic property of the representation, and should not be reported as the
-latter. We note the implication cuts both ways: the effect might also grow with
-data beyond the scale available here.
+These findings indicate that the within-distribution benefit depends strongly on
+training-set size. They do not alter the principal conclusion that performance on
+unseen epitopes remains at chance.
 
-### 3.8 The size dependence is a trend, not a threshold
+### 3.8 Learning-curve analysis
 
 Table 8 and Figure 7 resolve the question §3.7 raised. The advantage of
 morphological tokenization over raw k-mers rises monotonically with training
@@ -249,94 +294,48 @@ log-pair, r = 0.951, versus +0.0127). What additional data buys is therefore
 better estimation of germline segment preferences rather than of junctional
 grammar, which is the same conclusion §3.5 and §3.6 reached by other routes.
 
-The unseen-peptide delta also rises monotonically, from +0.0019 to +0.0134 at
-+0.0048 per log-pair (r = 0.986). This is suggestive rather than conclusive: the
-quantity is measured on seven peptides and its confidence interval crosses zero
-throughout (§3.6). Taken at face value, however, the slope permits a rough
-extrapolation. Reaching a +0.05 unseen-peptide advantage by this trend alone
-would require on the order of 10⁸ training pairs, roughly 2,400 times the data
-available here. Reaching +0.10 is not reachable by extrapolation in any
-meaningful sense.
+The unseen-peptide delta also increased monotonically, from +0.0019 to +0.0134 at
++0.0048 per log-pair (r = 0.986). This trend is suggestive rather than conclusive
+because it is estimated from seven peptides and its confidence interval crosses
+zero throughout.
 
-This materially qualifies §3.4, §3.6 and §3.7 in the project's favour and against
-it simultaneously. In its favour: the representational advantage is real, and it
-grows with data rather than saturating, so the ceiling we observed is a property
-of current public data volume rather than of the method. Against it: the rate of
-growth for the quantity that matters — generalization to unseen antigens — is so
-shallow that data alone will not deliver a usable predictor.
+These results indicate that biologically informed features become more
+data-responsive at larger sample sizes, while gains for unseen epitopes remain
+too uncertain to support a claim of improved generalization.
 
 ## 4. Discussion
 
-Two results stand in tension and their combination is the contribution. Junctional N-regions demonstrably carry order-dependent, morphologically conditioned structure, measurable at +0.1013 AUC with capacity controlled and generalizing across unseen studies. Yet exposing that structure to a binding classifier yields no advantage for epitopes outside training.
+This study tested a specific prediction arising from biologically informed representations of antigen receptors: that segmenting CDR3 along the boundaries created by V(D)J recombination would yield representations transferable to unseen antigens. Two results stand in tension, and their combination is the contribution. Junctional N-regions demonstrably carry order-dependent, germline-conditioned structure, measurable at +0.1013 AUC with model capacity controlled and generalizing across held-out studies. Yet exposing that structure to a binding classifier yields no advantage for epitopes outside the training set. The distinction the data draw is between modeling how receptors are generated and modeling what they recognize.
 
-The natural reading is that morphological structure encodes the *generative* grammar of recombination — which segments combine with which junctional patterns — rather than the *semantic* mapping from receptor to antigen. A model of how receptors are built need not constrain what they bind. Under that reading, the structure we measure is real and the inference from Vu et al.'s framework to cross-antigen generalization does not follow.
+This distinction is biologically plausible. V(D)J recombination determines how receptor diversity is generated, whereas antigen recognition determines which peptide–MHC complexes individual receptors bind. A representation may therefore accurately capture the statistical organization created during receptor generation without encoding the information required for receptor–antigen recognition. Our results suggest that the order-dependent structure measured within CDR3 reflects the former more strongly than the latter.
 
-This localizes the bottleneck on the epitope side. In our setup, an unseen epitope supplies no learned parameters beyond shared positional and 3-mer features, and nothing in a receptor-side representation specifies which receptor features a novel peptide should recruit. Improving receptor tokenization optimizes the half of the problem that is not broken. We suggest the productive question is not how to tokenize receptors but what representation of a peptide–MHC complex predicts the receptor motifs it selects — a question about physicochemical and structural complementarity rather than about sequence morphology.
+Independent evaluation on the official IMMREP23 benchmark reinforces this interpretation. The same qualitative conclusions emerge under an independent dataset, community evaluation protocol, and official scoring metric. Morphology-aware representations outperform raw CDR3 k-mer features for peptides represented during training, yet provide no significant advantage for peptides absent from training. A receptor representation incorporating all six CDR loops outperforms the present morphology-aware model, indicating that expanding receptor coverage currently contributes more predictive information than increasing representational sophistication within CDR3 alone. A published convolutional architecture retrained on the identical split reproduces the same profile, which removes model class as an explanation for the unseen-peptide result.
 
-The IMMREP23 comparison sharpens the practical implication. The best performer
-there uses all six CDR loops of both chains without any morphological analysis,
-outperforming our decomposition of CDR3β by a wide margin on seen peptides.
-Where receptor-side information helps at all, breadth of coverage appears to
-matter more than depth of linguistic structure.
+Learning-curve analysis suggests that biologically informed representations benefit more from additional data than raw k-mer representations. However, the corresponding gains for previously unseen epitopes remain within experimental uncertainty, indicating that increased scale alone is unlikely to resolve the generalization problem with current representations. A practical implication follows for how representational claims in this field are evaluated: a fixed-size comparison cannot distinguish a better representation from a more data-efficient one, so reports of representational improvement warrant a scale sweep.
 
-The learning curve reframes what "does not work" means here. Morphological
-tokenization is data-responsive where k-mer tokenization is not, and at no point
-in the sweep does it stop improving. A reader inclined to pursue the linguistic
-program is therefore not refuted by our null result on unseen antigens; they are
-told that the receptor-side representation is sound and that data volume, not
-representation, bounds it. Our extrapolation nonetheless indicates that closing
-the unseen-antigen gap by scaling data alone would require two to three orders of
-magnitude more annotated TCR-epitope pairs than currently exist publicly, which
-we regard as a stronger argument for shifting attention to the antigen side than
-any of our own negative results.
-
-Data scale deserves emphasis. The one advantage morphological tokenization does
-show — over raw k-mers, for known epitopes — is present at 68,000 training pairs
-and absent at 29,000, with decoy difficulty excluded as an explanation by a
-size-matched control. Reports of representational improvements in this field
-should therefore be accompanied by a scale sweep; a fixed-size comparison cannot
-distinguish a better representation from a more data-efficient one.
-
-We emphasize what this work does not show. It does not show that grammar-aware models cannot work; it shows that morpheme-level tokenization under a linear interaction model at this data scale does not transfer. Richer formalisms — probabilistic context-free grammars over CDR3, or neural architectures with explicit morphological inductive bias — remain untested. Our baseline is also at chance, so what we probe is the ceiling on generalization itself, not only representation quality.
+Our results distinguish between modeling how immune receptors are generated and modeling what they recognize. Improving representations of receptor generation improves prediction within known antigen distributions but does not, by itself, improve prediction for previously unseen epitopes. Future progress is therefore likely to depend on models that jointly represent receptor and peptide–MHC biology rather than increasingly detailed receptor representations alone.
 
 ## 5. Limitations
 
-1. **Reference baselines are reimplementations, not the original software.** We evaluate on the official IMMREP23 data with the official metric, and against TCRbase-style and TCRdist-style nearest-neighbour baselines that we implemented. We did not run NetTCR, ERGO-II, tcrdist3, GLIPH2, or TEINet as published, nor protein-language-model embeddings, and we did not submit to the IMMREP25 test set. Our reimplementations should be read as calibration, not as authoritative scores for those methods.
+**Model scope.** The primary learned models use hashed feature crosses with logistic regression. This design isolates representation quality but cannot represent all higher-order interactions, and the null result should not be generalized to every possible model class. The retrained NetTCR-2.2 comparison (§2.7, §3.6) addresses this concern for one published deep architecture but not for all; protein-language-model embeddings were not run, and richer grammatical formalisms — probabilistic context-free grammars over CDR3 of the kind applied to protein sequence analysis [12], or neural architectures with explicit morphological inductive bias — remain untested. Our TCRbase-style and TCRdist-style implementations serve as calibration rather than authoritative reproductions of those methods.
 
-   We examined running NetTCR-2.2 specifically and declined for a reason worth
-   stating. Its published pretrained weights are trained on data drawn from
-   IEDB, VDJdb and 10X Genomics, and its repository additionally distributes
-   IMMREP 2022 benchmark training data. The IMMREP23 test TCRs derive from the
-   same sources, so scoring that test set with the released weights risks
-   evaluating a model on its own training data and would inflate its apparent
-   performance relative to ours. NetTCR-2.1's released models are moreover
-   peptide-specific, covering six peptides of which three appear in the IMMREP23
-   test set and none among the seven unseen peptides, so they cannot address the
-   generalization question at all. A valid comparison requires retraining
-   NetTCR-2.2 on the identical IMMREP23 training split used here; we regard that
-   as the single most valuable addition to this work and leave it as declared
-   future work rather than report a contaminated number.
-2. **Negatives are shuffled pairs**, not experimentally verified non-binders. The IMMREP post-mortems identify this as inflating performance. On the IMMREP23 benchmark we follow the challenge's own negative-generation protocol, which mitigates but does not eliminate the concern; in the VDJdb experiments the concern stands in full.
-3. **Linear model class.** Hashed feature crosses cannot represent higher-order interaction; a null result under this class does not generalize to all model classes.
-4. **β chain only.** No α chain, and MHC enters only as an epitope-associated token, though MHC restriction is known to matter.
-5. **Empirical anchors are not IMGT.** The consensus procedure could in principle absorb convergent junctional residues into a germline anchor; reference agreement (28/29) and the ≥0.80 threshold mitigate but do not eliminate this.
-6. **Twenty epitopes, capped at 800 clonotypes.** Larger scale might reveal a small transferable effect that our confidence intervals cannot exclude.
-7. **Data scale is not swept systematically.** §3.7 establishes that the morpheme-vs-k-mer advantage is size dependent using two training sizes (~68k and ~29k pairs). A proper learning-curve analysis across several sizes would characterize this rather than merely detect it.
+**Dataset scope.** Negative examples are generated by receptor–peptide re-pairing rather than experimentally verified non-binders; on IMMREP23 we follow the challenge's own protocol, which mitigates but does not remove the concern. The internal analysis is limited to 20 epitopes capped at 800 clonotypes each, and the IMMREP23 unseen analysis contains seven peptides. These constraints may obscure small transferable effects.
+
+**Biological scope.** The primary analysis uses TCRβ, while α-chain and peptide–MHC context are incompletely represented. Empirical anchors are not IMGT annotations and may occasionally absorb convergent junctional residues, although agreement with the available reference is high (28 of 29 overlapping anchors).
+
+**Scale.** The learning curve spans 6,786 to 67,872 training pairs. Although the within-distribution advantage increases across this range, the available data do not establish whether the trend will persist or saturate at substantially larger scales.
 
 ## 6. Conclusion
 
-Morphological decomposition of TCR CDR3 sequences reveals genuine, quantifiable, order-dependent structure conditioned on germline segment usage. That structure does not transfer into predictive power for unseen epitopes, and the portion of the seen-epitope advantage that does transfer is germline segment identity rather than junctional sequence. Public epitope-specific signal can additionally be dominated by single-study batch effects, and single-seed evaluation in this regime produces false positives. The advantage that does exist grows with training data rather than saturating, so
-the limit we observe reflects the volume of public annotated data rather than the
-representation itself; extrapolation nonetheless suggests two to three orders of
-magnitude more data would be required for a usable unseen-antigen gain. We
-suggest redirecting the linguistic program from receptor morphology toward
-antigen-side semantics.
+We tested whether a receptor representation aligned with V(D)J-derived CDR3 boundaries would improve generalization to previously unseen epitopes. The representation captured genuine, germline-conditioned sequence organization and improved prediction within the training distribution, but those gains did not extend to unseen epitopes. Most of the observed advantage was explained by V/J identity rather than junctional sequence, and a published deep architecture retrained on the same data showed the same pattern. These findings indicate that receptor-side biological realism alone is insufficient for cross-epitope prediction and that future progress will likely require models that learn receptor–peptide–MHC relationships directly.
 
 ---
 
 ## Data and code availability
 
-VDJdb: `https://github.com/antigenomics/vdjdb-db`. Analysis code, standard-library Python only, deterministic under fixed seeds: `https://github.com/etejkowski/grammar-of-immunity`, commit `d4bf7fb`. `phase1_dataset.py` builds the annotated dataset and enrichment tables; `phase2_grammaticality.py` reproduces Table 2; `phase3_unseen_epitope.py` reproduces Tables 3 and 4.
+VDJdb: `https://github.com/antigenomics/vdjdb-db`. IMMREP23 challenge data: `https://github.com/justin-barton/IMMREP23`. NetTCR-2.2 is third-party software under its own academic licence and is obtained separately from `https://github.com/mnielLab/NetTCR-2.2`.
+
+Analysis code: `https://github.com/etejkowski/grammar-of-immunity`, commit `53226f2`, deterministic under fixed seeds. `phase1_dataset.py` builds the annotated dataset and enrichment tables (Table 1); `phase2_grammaticality.py` reproduces Table 2; `phase3_unseen_epitope.py` reproduces Tables 3 and 4; `benchmark_immrep23.py` reproduces Tables 5 and 6; `negatives_robustness.py` reproduces Table 7; `learning_curve.py` reproduces Table 8; `prepare_nettcr_data.py` and `score_nettcr.py` build and score the NetTCR-2.2 comparison; `make_figures.py` regenerates all figures.
 
 ## Author contributions
 
@@ -359,8 +358,8 @@ We thank the VDJdb curators for maintaining an openly available, study-attribute
 ## Figures
 
 All figures are generated by `make_figures.py`. Figures 1, 5 and 6 are computed
-directly from VDJdb; Figures 2–4 plot values produced by the phase and benchmark
-scripts.
+directly from VDJdb; Figures 2–4 and 7 plot values produced by the phase,
+benchmark and NetTCR scripts.
 
 **Figure 1** (`fig1_decomposition.png`). Morphological decomposition of CDR3β into
 germline V-prefix, junctional N-region, and germline J-suffix, for five real
@@ -373,7 +372,8 @@ order-shuffled decoys on 79 held-out studies. The length-only control is exactly
 
 **Figure 3** (`fig3_seen_vs_unseen.png`). Macro AUC0.1 on the official IMMREP23
 test set, split by whether the test peptide appears in the official training
-data. Solid bars, seen peptides (13); hatched bars, unseen (7).
+data. Solid bars, seen peptides (13); hatched bars, unseen (7). The rightmost
+pair is NetTCR-2.2 retrained on the identical training split.
 
 **Figure 4** (`fig4_data_scale.png`). The morpheme-over-k-mer advantage under four
 negative-generation schemes. The `matched` scheme has the same training size as
@@ -441,6 +441,7 @@ Morpheme − 3-mers = +0.0046 ± 0.0104, pooled per-epitope bootstrap 95% CI [�
 | All CDR loops, both chains | 0.6039 | 0.6495 | 0.5192 |
 | TCRbase-style nearest binder | 0.5919 | 0.6414 | 0.5000\* |
 | TCRdist-style weighted CDR | **0.6281** | **0.6971** | 0.5000\* |
+| NetTCR-2.2, retrained on this split | 0.5606 | 0.6003 | 0.4868 |
 
 \* Constant score by construction; see §3.6.
 
@@ -453,6 +454,10 @@ Morpheme − 3-mers = +0.0046 ± 0.0104, pooled per-epitope bootstrap 95% CI [�
 | Morpheme − 3-mers, unseen | 7 | 6 | +0.0134 | [−0.0016, +0.0267] | no |
 | Morpheme − V/J only, all | 20 | 13 | +0.0091 | [−0.0166, +0.0338] | no |
 | Morpheme − V/J only, seen | 13 | 7 | +0.0032 | [−0.0333, +0.0403] | no |
+| NetTCR-2.2 − 3-mers, all | 20 | 12 | +0.0004 | [−0.0425, +0.0339] | no |
+| NetTCR-2.2 − morpheme, all | 20 | 7 | −0.0287 | [−0.0783, +0.0104] | no |
+| NetTCR-2.2 − TCRdist-style, all | 20 | 4 | −0.0675 | [−0.1164, −0.0272] | yes |
+| NetTCR-2.2 − all CDR loops, unseen | 7 | 0 | −0.0323 | [−0.0552, −0.0109] | yes |
 
 **Table 7.** Negative-scheme robustness, all scored on the official IMMREP23 test set. `matched` is the size- and balance-matched control for `hard`, differing only in decoy peptide similarity.
 
@@ -481,20 +486,22 @@ Slopes per natural-log training pair: Δ seen +0.0118 (r = 0.985), Δ unseen +0.
 ## References
 
 1. Jerne NK. The generative grammar of the immune system. Nobel lecture, 8 December 1984. *Biosci Rep*. 1985;5(6):439–451. PMID 3899210.
-2. Vu MH, et al. Linguistics-based formalization of the antibody language as a basis for antibody language models. *Nat Comput Sci*. 2024. doi:10.1038/s43588-024-00642-3.
-3. Xu AM, et al. Entropic analysis of antigen-specific CDR3 domains identifies essential binding motifs shared by CDR3s with different antigen specificities. *Cell Syst*. 2023. PMID 37001518.
-4. IMMREP25: Unseen Peptides. 126 named submissions; 1,000 TCRs; 20 unseen peptides restricted by HLA-A\*02:01 and HLA-B\*40:01.
-5. Assessment of computational methods in predicting TCR–epitope binding recognition. *Nat Methods*. 2025. doi:10.1038/s41592-025-02910-0.
-6. Benchmarking of T cell receptor-epitope predictors with ePytope-TCR. *Cell Genomics*. 2025. PMID 40628266.
-7. New Benchmarking Shows Limited Generalization Power of TCR Antigenic Epitope Prediction Models. arXiv:2606.04994.
-8. Counterfactual Peptide Editing for Causal TCR–pMHC Binding Inference. arXiv:2604.13256. (Shortcut learning via V-gene identity and CDR3 length.)
-9. Contribution of T Cell Receptor Alpha and Beta CDR3, MHC Typing, V and J Genes to Peptide Binding Prediction. *Front Immunol*. 2021;12:664514.
-10. A class I MHC-restricted recall response to a viral peptide is highly polyclonal despite stringent CDR3 selection. *J Immunol*. 1998. PMID 9510187.
-11. A structural basis for immunodominant human T cell receptor recognition. *Nat Immunol*. 2003. PMID 12796775.
-12. Dyrka W, Pyzik M, et al. Probabilistic context-free grammars for protein sequence analysis: binding-site detection (*BMC Syst Biol* 2007); helix–helix contact classification (*Algorithms Mol Biol* 2013;8:31); pCFG estimation under contact-map constraints (*PeerJ* 2019;7:e6559).
-13. IMMREP23 challenge datasets. `https://github.com/justin-barton/IMMREP23`. Kaggle: TCR Specificity Prediction Challenge.
-14. Dash P, et al. Quantifiable predictive features define epitope-specific T cell receptor repertoires. *Nature*. 2017. (TCRdist.)
-15. Heather JM, et al. Stitchr: stitching coding TCR nucleotide sequences from V/J/CDR3 information. *Nucleic Acids Res*. 2022;gkac190.
+2. Vu MH, Robert PA, Akbar R, et al. Linguistics-based formalization of the antibody language as a basis for antibody language models. *Nat Comput Sci*. 2024;4:412–422. doi:10.1038/s43588-024-00642-3.
+3. Xu AM, Chour W, Heidari A, et al. Entropic analysis of antigen-specific CDR3 domains identifies essential binding motifs shared by CDR3s with different antigen specificities. *Cell Syst*. 2023;14(4):273–284. PMID 37001518.
+4. IMMREP25: Unseen Peptides challenge. 126 named submissions; 1,000 TCRs; 20 unseen peptides restricted by HLA-A\*02:01 and HLA-B\*40:01. `https://github.com/immrep/`.
+5. Lu Y, Wang Y, Xu M, Xie B, Yang Y, Xu H, Suo S. Assessment of computational methods in predicting TCR–epitope binding recognition. *Nat Methods*. 2026;23(1):248–259. doi:10.1038/s41592-025-02910-0. PMID 41315816.
+6. Drost F, Dorigatti E, Straub A, et al. Benchmarking of T cell receptor-epitope predictors with ePytope-TCR. *Cell Genomics*. 2025;5(8):100946. PMID 40628266.
+7. Liao Y, Li Y, Jiang N, Li B, Chen K. New benchmarking shows limited generalization power of TCR antigenic epitope prediction models. arXiv:2606.04994 (2026). doi:10.48550/arXiv.2606.04994.
+8. Khudoyberdiev S, Bekov A. Counterfactual peptide editing for causal TCR–pMHC binding inference. arXiv:2604.13256 (2026). doi:10.48550/arXiv.2604.13256. (Shortcut learning via V-gene co-occurrence and peptide length bias.)
+9. Springer I, Tickotsky N, Louzoun Y. Contribution of T cell receptor alpha and beta CDR3, MHC typing, V and J genes to peptide binding prediction. *Front Immunol*. 2021;12:664514. doi:10.3389/fimmu.2021.664514.
+10. Lehner PJ, Wang ECY, Moss PAH, et al. A class I MHC-restricted recall response to a viral peptide is highly polyclonal despite stringent CDR3 selection. *J Immunol*. 1998. PMID 9510187.
+11. Stewart-Jones GBE, McMichael AJ, Bell JI, Stuart DI, Jones EY. A structural basis for immunodominant human T cell receptor recognition. *Nat Immunol*. 2003;4(7):657–663. PMID 12796775.
+12. Dyrka W, Nebel JC, Kotulska M. Probabilistic grammatical model of protein language and its application to helix–helix contact site classification. *Algorithms Mol Biol*. 2013;8:31. See also Dyrka W, Nebel JC. A stochastic context free grammar based framework for analysis of protein sequences. *BMC Bioinformatics*. 2009;10:323, and Dyrka W, Pyzik M, Coste F, Talibart H. Estimating probabilistic context-free grammars for proteins using contact map constraints. *PeerJ*. 2019;7:e6559.
+13. Nielsen M, Eugster A, Jensen MF, et al. Lessons learned from the IMMREP23 TCR–epitope prediction challenge. *ImmunoInformatics*. 2024;16:100045. Datasets: `https://github.com/justin-barton/IMMREP23`.
+14. Dash P, Fiore-Gartland AJ, Hertz T, et al. Quantifiable predictive features define epitope-specific T cell receptor repertoires. *Nature*. 2017;547:89–93. (TCRdist.)
+15. Heather JM, Spindler MJ, Alonso MH, et al. Stitchr: stitching coding TCR nucleotide sequences from V/J/CDR3 information. *Nucleic Acids Res*. 2022;50(12):e68. doi:10.1093/nar/gkac190.
 16. Dunbar J, Deane CM. ANARCI: antigen receptor numbering and receptor classification. *Bioinformatics*. 2016;32(2):298–300.
 17. Goncharov M, Bagaev D, Shcherbinin D, et al. VDJdb in the pandemic era: a compendium of T cell receptors specific for SARS-CoV-2. *Nat Methods*. 2022;19:1017–1019.
-18. Shugay M, et al. VDJdb: a curated database of T-cell receptor sequences with known antigen specificity. `https://github.com/antigenomics/vdjdb-db`.
+18. Shugay M, Bagaev DV, Zvyagin IV, et al. VDJdb: a curated database of T-cell receptor sequences with known antigen specificity. *Nucleic Acids Res*. 2018;46(D1):D419–D427. Repository: `https://github.com/antigenomics/vdjdb-db`.
+19. Jensen MF, Nielsen M. Enhancing TCR specificity predictions by combined pan- and peptide-specific training, loss-scaling, and sequence similarity integration. *eLife*. 2024;12:RP93934. doi:10.7554/eLife.93934. (NetTCR-2.2; code `https://github.com/mnielLab/NetTCR-2.2`.)
+20. Montemurro A, Jessen LE, Nielsen M. NetTCR-2.1: lessons and guidance on how to develop models for TCR specificity predictions. *Front Immunol*. 2022;13:1055151. doi:10.3389/fimmu.2022.1055151.

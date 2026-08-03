@@ -6,8 +6,8 @@ Adapt the bracketed fields per venue. Keep it to one page — editors skim.
 
 Dear Editors,
 
-We submit for your consideration **"Morphological structure in TCR CDR3
-sequences is measurable but does not transfer to unseen epitopes."**
+We submit for your consideration **"Biologically informed TCR representations
+improve in-distribution prediction but fail to generalize to unseen epitopes."**
 
 Jerne's 1984 Nobel lecture proposed that the immune system be understood as a
 generative grammar, and Vu et al. (*Nature Computational Science*, 2024)
@@ -23,9 +23,9 @@ versus 0.6149 for a flat model, on 79 entirely held-out studies, and a
 permuted-label control confirms the gain is not model capacity. But that
 structure does not convert into predictive power for epitopes absent from
 training. On the official IMMREP23 benchmark scored with the official Macro
-AUC0.1 metric, no method we evaluated — including our own and reimplementations
-of published approaches — exceeds 0.52 on the seven test peptides absent from
-the training data.
+AUC0.1 metric, no method we evaluated — including our own, reimplementations of
+published approaches, and a retrained NetTCR-2.2 — exceeds 0.52 on the seven
+test peptides absent from the training data.
 
 Three further results may interest your readers beyond the immediate hypothesis:
 
@@ -44,11 +44,20 @@ Three further results may interest your readers beyond the immediate hypothesis:
    cysteine-containing against 0.4–0.6% elsewhere, manufacturing a
    convincing-looking specificity signature.
 
+To rule out the obvious objection that our null result reflects our model class,
+we retrained NetTCR-2.2 — a published convolutional network over all six CDR
+loops of both chains — on the identical IMMREP23 training split. It reaches
+0.6003 Macro AUC0.1 on seen peptides and 0.4868 on unseen peptides, level with
+raw CDR3β 3-mers (+0.0004, CI [−0.0425, +0.0339]) and significantly below a
+TCRdist-style baseline (−0.0675, CI [−0.1164, −0.0272]), while fitting its own
+validation pairs at AUC 0.9172. The generalization failure survives a change of
+architecture.
+
 We report our own corrected errors in the manuscript rather than omitting them,
 including a row-versus-clonotype counting mistake and a single-seed false
-positive that reseeding eliminated. All analyses are implemented in the Python
-standard library alone, are deterministic under fixed seeds, run in minutes on a
-laptop, and are openly available at
+positive that reseeding eliminated. The VDJdb analyses are implemented in the
+Python standard library alone, are deterministic under fixed seeds, run in
+minutes on a laptop, and are openly available at
 https://github.com/etejkowski/grammar-of-immunity.
 
 On our background, since we submit without institutional affiliation: ET's
@@ -67,7 +76,7 @@ Thank you for your consideration.
 Sincerely,
 
 Erick Tejkowski (ORCID 0009-0006-9879-0777)
-Maria Elisa Paredes (ORCID [pending])
+Maria Elisa Paredes (ORCID 0009-0007-4967-8612)
 Fairview Heights, Illinois, USA
 erick.tejkowski@gmail.com
 
@@ -80,7 +89,8 @@ erick.tejkowski@gmail.com
   stdlib-only and deterministic points.
 - **PeerJ / BMC Bioinformatics** — these judge soundness rather than novelty, so
   emphasize the controls: positive control, capacity control, size-matched
-  control, cross-study replication, seed stability.
+  control, cross-study replication, seed stability, and the retrained NetTCR-2.2
+  arm.
 - **Frontiers in Immunology (Systems/Computational)** — lead with the immunology:
   the batch-effect finding and the germline-versus-junctional decomposition
   matter more to that readership than the tokenization question.
@@ -89,5 +99,6 @@ erick.tejkowski@gmail.com
   TCR benchmarking assessments. Do not suggest anyone you have corresponded with.
 - Some venues ask you to state why a negative result merits publication. The
   answer: the hypothesis was published and endorsed, the test was direct, the
-  controls rule out the obvious confounds, and the result redirects effort from
-  the receptor side to the antigen side.
+  controls rule out the obvious confounds — including model class, now that a
+  published deep architecture reproduces the failure — and the result redirects
+  effort from the receptor side to the antigen side.
