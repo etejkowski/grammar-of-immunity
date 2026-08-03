@@ -153,16 +153,16 @@ def fig2_grammaticality():
 # ---------------------------------------------------------------------------
 
 def fig3_seen_unseen():
-    # Source: benchmark_immrep23.py
+    # Source: benchmark_immrep23.py; nettcr2.2 from score_nettcr.py
     models = ['CDR3$\\beta$\n3-mers', 'morpheme', 'V/J genes\nonly',
               'all CDR loops\nboth chains', 'TCRbase-\nstyle',
-              'TCRdist-\nstyle']
-    seen = [0.6003, 0.6378, 0.6346, 0.6495, 0.6414, 0.6971]
-    unseen = [0.4858, 0.4992, 0.4791, 0.5192, 0.5000, 0.5000]
-    cols = [C_BASE, C_TREAT, C_CTRL, C_ACC, C_REF, C_REF]
+              'TCRdist-\nstyle', 'NetTCR-2.2\nretrained']
+    seen = [0.6003, 0.6378, 0.6346, 0.6495, 0.6414, 0.6971, 0.6003]
+    unseen = [0.4858, 0.4992, 0.4791, 0.5192, 0.5000, 0.5000, 0.4868]
+    cols = [C_BASE, C_TREAT, C_CTRL, C_ACC, C_REF, C_REF, C_REF]
 
     x = np.arange(len(models))
-    fig, ax = plt.subplots(figsize=(7.0, 3.4))
+    fig, ax = plt.subplots(figsize=(8.0, 3.4))
     ax.bar(x - 0.2, seen, width=0.38, color=cols, label='seen peptides (13)')
     ax.bar(x + 0.2, unseen, width=0.38, color=cols, alpha=0.42,
            hatch='///', label='unseen peptides (7)')

@@ -35,6 +35,7 @@ Usage:
     .venv/bin/python benchmark_immrep23.py
 """
 
+import json
 import sys
 from collections import defaultdict
 
@@ -52,6 +53,7 @@ N_NEG = 5
 HASH_FEATURES = 2 ** 18
 TRAIN_CSV = 'benchmarks/immrep23_VDJdb_paired_chain.csv'
 TEST_CSV = 'benchmarks/immrep23_solutions.csv'
+PER_PEPTIDE_JSON = 'immrep23_per_peptide.json'
 
 BLOSUM_FALLBACK = 4.0
 
@@ -361,6 +363,15 @@ def main():
     print("   training and emit a constant score. Nearest-neighbour methods are")
     print("   structurally incapable of unseen-epitope prediction; that is a")
     print("   property of the method class, not a tuning failure.")
+
+    # persist per-peptide scores so other scripts (score_nettcr.py) can run
+    # paired comparisons against these arms without retraining them
+    with open(PER_PEPTIDE_JSON, 'w') as fh:
+        json.dump({'seen_peptides': sorted(seen_peps & set(test_peps)),
+                   'unseen_peptides': unseen,
+                   'per_peptide': {arm: results[arm][1] for arm in results}},
+                  fh, indent=1, sort_keys=True)
+    print(f"\nwrote {PER_PEPTIDE_JSON}")
     rule()
     return 0
 

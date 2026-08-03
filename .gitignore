@@ -17,3 +17,18 @@ benchmarks/*.csv
 
 # Built submission artifacts (regenerate with python3 paper/build.py)
 paper/build/
+
+# NetTCR-2.2 is third-party, distributed under its own academic software
+# licence; clone it from https://github.com/mnielLab/NetTCR-2.2 rather than
+# redistributing it here. See prepare_nettcr_data.py for the retraining recipe.
+NetTCR-2.2/
+
+# NetTCR training split, checkpoint and predictions (regenerate with
+# prepare_nettcr_data.py, NetTCR-2.2/src/train_nettcr_2_2_pan.py, score_nettcr.py)
+nettcr_run/
+
+# Per-peptide benchmark scores (regenerate with benchmark_immrep23.py)
+immrep23_per_peptide.json
+
+# macOS
+.DS_Store
