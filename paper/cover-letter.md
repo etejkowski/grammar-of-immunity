@@ -20,7 +20,10 @@ reason. Morphological decomposition of CDR3β into germline-contributed edges an
 the junctional interior does capture real structure: a (V,J)-conditioned model
 separates real junctional regions from order-shuffled decoys at AUC 0.7162
 versus 0.6149 for a flat model, on 79 entirely held-out studies, and a
-permuted-label control confirms the gain is not model capacity. But that
+permuted-label control confirms the gain is not model capacity. A boundary-trim
+control we report alongside it shows most of that gain sits at the germline
+boundaries, leaving +0.0392 attributable to the junctional interior — smaller,
+but robust and, we think, the honest figure. But that
 structure does not convert into predictive power for epitopes absent from
 training. On the official IMMREP23 benchmark scored with the official Macro
 AUC0.1 metric, no method we evaluated — including our own, reimplementations of
