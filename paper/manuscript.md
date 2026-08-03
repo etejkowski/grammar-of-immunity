@@ -399,11 +399,13 @@ Analysis code: `https://github.com/etejkowski/grammar-of-immunity`, commit `5322
 
 ## Author contributions
 
-**ET**: conceptualization, linguistic formalization, software, analysis, writing — original draft. **MEP**: biological and immunological interpretation, verification of motif prior art, linguistic framing, critical revision. Both authors approved the submitted version and accept accountability for its content.
+CRediT roles. **Erick Tejkowski:** Conceptualization, Methodology, Software, Formal analysis, Data curation, Visualization, Writing — original draft, Writing — review and editing. **Maria Elisa Paredes:** Conceptualization, Validation, Formal analysis, Writing — review and editing.
 
-## Competing interests
+In detail: ET contributed the linguistic formalization, all software and quantitative analysis, and the original draft. MEP contributed the biological and immunological interpretation, verification of the motif prior art, the linguistic framing, and critical revision. Both authors approved the submitted version and accept accountability for its content.
 
-None declared.
+## Declaration of competing interest
+
+The authors declare that they have no known competing financial interests or personal relationships that could have appeared to influence the work reported in this paper.
 
 ## Funding
 
@@ -569,6 +571,12 @@ Morpheme − 3-mers = +0.0046 ± 0.0104, pooled per-epitope bootstrap 95% CI [�
 | 67,872 | 0.6378 | 0.6003 | **+0.0375** | +0.0134 |
 
 Slopes per natural-log training pair: Δ seen +0.0118 (r = 0.985), Δ unseen +0.0048 (r = 0.986); morpheme seen +0.0127, 3-mers seen +0.0009.
+
+---
+
+## Declaration of generative AI and AI-assisted technologies in the writing process
+
+During the preparation of this work the authors used an AI coding assistant (Kiro CLI, Anthropic Claude) to draft and revise manuscript text, to implement and run analysis code, and to verify bibliographic records against public databases. All analyses were re-executed and their outputs checked by the authors, every reported number was confirmed against script output, and every reference was confirmed against the corresponding publisher record. The authors reviewed and edited the content and take full responsibility for the content of the publication.
 
 ---
 
