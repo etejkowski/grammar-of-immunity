@@ -14,15 +14,15 @@ Maria Elisa Paredes, `https://orcid.org/0009-0007-4967-8612`
 
 ## Abstract
 
-**Background.** TCR specificity predictors work on epitopes seen in training and fail on unseen ones [4–6]. One proposed explanation is that receptor representations ignore the organization created by V(D)J recombination [1,2]. We tested that prediction.
+**Background.** TCR specificity predictors work on epitopes seen in training and fail on unseen ones [4–6]. One explanation holds that receptor representations ignore the organization created by V(D)J recombination [1,2]. We tested it.
 
-**Methods.** From 203,308 VDJdb records (121,467 unique human TCRβ clonotypes) we derived reference-validated empirical V- and J-segment anchors, split each CDR3 into germline termini and a junctional N-region, and compared biologically informed features against raw CDR3 3-mers and a V/J-only control — on seen epitopes, on epitopes withheld entirely, and on the official IMMREP23 benchmark [12].
+**Methods.** From 121,467 deduplicated human TCRβ clonotypes in VDJdb we derived reference-validated germline anchors, split each CDR3 into germline termini and a junctional N-region, and compared biologically informed features against raw CDR3 3-mers and a V/J-only control, on seen epitopes, on withheld epitopes, and on the official IMMREP23 benchmark [12].
 
-**Results.** Junctional regions carry order-dependent structure: conditioning a bigram model on the (V,J) pair improves discrimination of real from order-shuffled N-regions by +0.1013 AUC, a gain that a permuted-label control shows is not model capacity. A boundary-trim control locates most of it at the germline boundaries, leaving +0.0392 in the junctional interior. Binding prediction tells a different story: morphological features beat raw 3-mers on seen epitopes (0.7135 vs 0.6589) but not V/J identity alone (0.7089), and on withheld epitopes every arm performs at chance, the morphological advantage falling to +0.0046 with a confidence interval spanning zero.
+**Results.** Junctional regions carry order-dependent structure: conditioning a bigram model on the (V,J) pair improves discrimination of real from order-shuffled N-regions by +0.1013 AUC, not attributable to model capacity (permuted-label control). A boundary-trim control locates most of it at the germline boundaries, leaving +0.0392 in the junctional interior. Binding prediction differs: morphological features beat raw 3-mers on seen epitopes (0.7135 vs 0.6589) but not V/J identity alone (0.7089), and on withheld epitopes every arm sits at chance, the advantage falling to +0.0046 with a CI spanning zero.
 
-**Validation.** Conclusions replicate on IMMREP23, where no method exceeds 0.52 on the seven unseen peptides, including a TCRdist-style baseline that otherwise outperforms our model (0.6281 vs 0.5893) and NetTCR-2.2 retrained on the identical split (0.4868 unseen) [18]. The advantage over k-mers proves contingent on training-set size.
+**Validation.** Conclusions replicate on IMMREP23, where no method exceeds 0.52 on the seven unseen peptides, including a TCRdist-style baseline that otherwise outperforms our model and NetTCR-2.2 retrained on the identical split (0.4868 unseen) [18]. The advantage over k-mers proves contingent on training-set size.
 
-**Conclusions.** Biologically informed segmentation captures genuine germline-conditioned organization that does not extend to unseen epitopes, and most of the within-distribution advantage reflects V/J identity rather than junctional sequence. Receptor representation alone appears insufficient for cross-epitope prediction.
+**Conclusions.** Biologically informed segmentation captures genuine germline-conditioned organization that does not extend to unseen epitopes, and most of the within-distribution advantage reflects V/J identity rather than junctional sequence. Receptor representation alone appears insufficient.
 
 **Keywords:** T-cell receptor, CDR3, biologically informed representation, V(D)J recombination, epitope specificity, generalization
 
