@@ -20,8 +20,21 @@ contribution.
   manuscript.
 - **Include the preprint DOI** once you have it. It lets an editor read the whole
   paper in one click if interested, which is the best possible outcome.
-- **Send all of them the same day.** Inquiries are not exclusive; submissions are.
+- **Send all four the same day.** Inquiries are not exclusive; submissions are. A
+  positive reply obligates you to nothing, so there is no reason to stagger them
+  or to hold any venue back.
 - **Silence for two weeks means no.** Move on without following up.
+
+## The question worth asking first
+
+The single most decision-relevant unknown in the whole venue plan is whether
+ImmunoInformatics will waive its USD 1,900 fee. Everything else about that journal
+already favours it — it published both IMMREP workshop reports, so its editors and
+reviewers are the community that built the benchmark you scored yourself against,
+and a negative benchmarking result needs no justification there.
+
+Cost is the only thing pushing it to fifth place in `paper/venue-plan.md`. If a
+waiver is available, it goes to first. Ask on day one, not after three rejections.
 
 ## Reading the reply
 
@@ -135,11 +148,18 @@ Same study, framed as evaluation practice rather than immunogenetics.
 > Sincerely,
 > [as above]
 
-## 4. ImmunoInformatics (Elsevier) — hold in reserve
+## 4. ImmunoInformatics (Elsevier) — send this one first
 
-Only send this if the free venues decline on scope. No inquiry is really needed —
-they publish the IMMREP post-mortems, so scope is not in doubt — but it is worth
-asking about a fee waiver in the same message.
+Send it with the others, on the same day. There is no reason to hold it back:
+asking costs nothing, inquiries are not exclusive, and a "yes" obligates you to
+nothing.
+
+It is arguably the **most** valuable of the four, because it carries the one
+question whose answer could reorder the entire plan. Scope is not in doubt — this
+journal publishes the IMMREP post-mortems — so the real unknown is the fee. If a
+waiver is available, ImmunoInformatics becomes both the best scientific fit and
+free, and it goes from fifth choice to first. If no waiver is available, you have
+learned that for the price of an email.
 
 > Dear Editors,
 >

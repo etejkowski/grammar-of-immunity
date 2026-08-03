@@ -83,18 +83,21 @@ Subscription-based, 3,090 PubMed records, strong on methods and evaluation. Less
 read by immunologists, so the audience is more computational than the paper's
 biology deserves. **Verify** whether they levy mandatory page charges.
 
-### 5. ImmunoInformatics (Elsevier) — USD 1,900, best community fit
+### 5. ImmunoInformatics (Elsevier) — USD 1,900, best community fit, ask about a waiver on day one
 
 Keep this on the list, because scientifically it remains the sharpest match: it
 published both IMMREP workshop reports, so its editors and reviewers are the
-people who built the benchmark you used. But it is fully open access at USD 1,900,
-and it is **not** in PubMed — zero records — so you would be paying for community
-fit rather than reach.
+people who built the benchmark you used, and a negative benchmarking result needs
+no defence there. But it is fully open access at USD 1,900, and it is **not** in
+PubMed — zero records — so you would be paying for community fit rather than reach.
 
-If you go this route, ask about a waiver explicitly. Elsevier says waivers may be
-available for fully open access journals, and you are unaffiliated with no
-funding. Their waiver programme is aimed mainly at low- and lower-middle-income
-countries, so do not count on it.
+**Cost is the only reason it sits at number five.** Ask about a waiver in your
+first round of pre-submission inquiries, not after other venues decline. Elsevier
+says waivers may be available for fully open access journals and DOAJ records a
+waiver policy for this title; their programme is aimed mainly at low- and
+lower-middle-income countries, so do not count on it. But if a waiver is granted,
+this journal becomes both free and the best fit, and it moves to first choice.
+That one answer reorders this entire document, and it costs an email to obtain.
 
 ### 6. Frontiers in Immunology — CHF 3,150
 
@@ -105,19 +108,25 @@ programme excludes US authors. Only worth it if reach justifies the cost to you.
 
 ## What I would actually do
 
-Submit to **Immunogenetics** first. It costs nothing, it is properly indexed, and
-its scope matches the finding that carries the paper.
+**Send all four pre-submission inquiries on the same day** (drafts in
+`paper/presubmission-inquiries.md`). They cost nothing, they are not exclusive, and
+they answer in about a week what a blind submission takes six weeks to reveal.
 
-If it is rejected, submit to **Computers in Biology and Medicine**, and use
-whatever the first reviewers said, even in rejection — free peer review is still
-peer review.
+Then let the replies decide:
 
-Run **PCI Mathematical and Computational Biology** in parallel or after, if you
-want public, citable reviews of the preprint at no cost. Check their policy on
-concurrent journal submission first.
+- **If ImmunoInformatics grants a waiver**, submit there. Best fit, and free.
+- **Otherwise submit to Immunogenetics**, which costs nothing, is properly indexed,
+  and whose scope matches the finding that carries the paper.
+- **If Immunogenetics declines**, go to Computers in Biology and Medicine, and use
+  whatever the first reviewers said even in rejection — free peer review is still
+  peer review.
+- **If several decline on scope rather than quality**, that is evidence the natural
+  audience is the IMMREP community, and paying the USD 1,900 becomes a considered
+  choice rather than a default cost.
 
-Treat **ImmunoInformatics** as the option you choose deliberately if you decide the
-IMMREP audience is worth USD 1,900 to you.
+Run **PCI Mathematical and Computational Biology** in parallel or afterwards if you
+want public, citable reviews at no cost. Check their policy on concurrent journal
+submission first.
 
 ---
 
