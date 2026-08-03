@@ -86,8 +86,22 @@ by being bigger. By feeding it scrambled information and watching the gain
 disappear, we proved the improvement comes from real biology, not from the model
 being fancier.
 
-**Verdict: the linguistic structure is real and measurable.** So far, the idea is
-working.
+**The second panel is us attacking our own result.** We find the inherited front
+and back by looking for letters that hardly vary between receptors — but that rule
+stops a little early, so a few inherited letters get counted as part of the
+"random" middle. Those letters are completely predictable from which inherited
+piece was used. A model could look smart just by spotting them, while
+understanding nothing about the middle.
+
+So we deleted the letters at each edge of the middle and ran the whole thing
+again. The advantage fell by about 60%, from +0.10 to +0.04. The remaining bars
+show that this is about *where* the letters were, not how many: removing two
+letters from one edge costs far less than removing one letter from each edge, even
+though both delete two letters from the same number of receptors.
+
+**Verdict: the structure is real, and smaller than it first looked.** Roughly a
+third of what we originally measured survives once the boundary letters are
+excluded. We report both numbers, because the honest figure is the smaller one.
 
 ### Figure 3 — And it doesn't help at all where it counts
 
