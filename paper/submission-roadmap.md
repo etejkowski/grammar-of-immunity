@@ -84,28 +84,33 @@ next, the work is yours and it is public.
 
 ## Stage 4 — Journal preparation (1 hour, Erick)
 
-Open ImmunoInformatics' guide for authors in a browser:
-https://www.elsevier.com/journals/immunoinformatics/2667-1190/guide-for-authors
+**Decide the venue first.** `paper/venue-plan.md` lays out the routes that cost
+nothing, and recommends **Immunogenetics** (Springer) as the first submission:
+free if you decline open access, indexed in PubMed, and its scope covers immune
+receptor genetics, which is what the paper's central finding is about.
+ImmunoInformatics remains the best community fit but is fully open access at USD
+1,900 and is not in PubMed, so it is a deliberate paid choice rather than the
+default.
 
-That page blocks automated access, so four things are unresolved. Find and copy
-these sections:
+Whichever you pick, open its guide for authors in a browser and find these:
 
-1. Abstract word limit — ours is 264. If the cap is 250, cut the TCRdist
+1. Current publishing model, and whether any page or colour-figure charges apply
+   even without open access. **Models flip** — two journals I had listed as free
+   are no longer free.
+2. Abstract word limit. Ours is 264 words. If the cap is 250, cut the TCRdist
    parenthetical.
-2. Whether structured-abstract headings are fixed. Ours end with "Validation",
+3. Whether structured-abstract headings are fixed. Ours end with "Validation",
    which is non-standard.
-3. Whether Highlights are required, and their character limit. Five are ready.
-4. Reference style, and whether figure captions belong in the manuscript or a
+4. Whether Highlights are required, and their character limit. Five are ready.
+5. Reference style, and whether figure captions belong in the manuscript or a
    separate file.
-
-Also read their generative-AI policy. Your declaration is already in the
-manuscript before the references. Read how they frame it so you are not surprised
-later.
+6. Their generative-AI policy. Your declaration is already in the manuscript
+   before the references; read how they frame it so you are not surprised later.
 
 Paste those sections to the assistant; the files get conformed in one pass.
 
-**Done when:** the abstract is within their limit, headings match their format,
-and the highlights file is saved as .docx.
+**Done when:** the venue is chosen, the abstract is within its limit, headings
+match its format, and the highlights file is saved as .docx.
 
 ---
 
@@ -200,19 +205,21 @@ The likely requests and their real cost, for planning:
 
 Nothing about a rejection invalidates the work, and your preprint stays up.
 
-**Next venue, in my order of preference:**
+**Next venue, in my order of preference:** see `paper/venue-plan.md`, which plans
+the route that costs nothing and corrects two journals I had wrongly listed as
+free — Bioinformatics and Briefings in Bioinformatics both flipped to fully open
+access, in 2023 and 2024 respectively. In short:
 
-1. **Frontiers in Immunology**, Systems Immunology or Methods section. Reaches
-   many more readers and is PubMed-indexed, but the APC is CHF 3,150 — roughly
-   twice ImmunoInformatics — and their fee-support program does not cover US
-   authors. Reframe the cover letter to lead with the immunology: the batch-effect
-   finding and the germline-versus-junctional decomposition.
-2. **A zero-cost hybrid** such as Briefings in Bioinformatics or Bioinformatics,
-   declining the open-access option so there is no charge. Both are
-   PubMed-indexed. The accepted version sits behind a paywall while your preprint
-   stays free. Confirm current pricing before relying on this.
-3. **PeerJ or BMC Bioinformatics.** These judge soundness rather than novelty,
-   which suits this paper. Emphasize the control architecture.
+1. **Immunogenetics** (Springer) — free if you decline open access, PubMed-indexed,
+   and its scope covers immune receptor genetics, which is what your central
+   finding is about. This is where I would go first.
+2. **Computers in Biology and Medicine** or **Molecular Immunology** (Elsevier) —
+   also free without the OA option, also PubMed-indexed.
+3. **PCI Mathematical and Computational Biology** → Peer Community Journal — free,
+   rigorous, publishes the reviews alongside the paper, and requires the open code
+   you already have. Weak PubMed presence is the tradeoff.
+4. **Frontiers in Immunology** — widest readership, CHF 3,150, no fee support for
+   US authors.
 
 Whichever you choose, incorporate anything useful the first set of reviewers
 said, even if they rejected it. Free peer review is still peer review.
@@ -221,8 +228,12 @@ said, even if they rejected it. Free peer review is still peer review.
 
 ## Stage 10 — Acceptance
 
-1. **Pay the APC.** ImmunoInformatics is USD 1,900. DOAJ lists a waiver policy;
-   as unaffiliated authors with no funding, ask about it explicitly before paying.
+1. **Settle any charges.** If you followed `paper/venue-plan.md` and submitted to
+   a hybrid or subscription journal while declining open access, there is nothing
+   to pay — decline the OA offer when it appears at acceptance, and check the
+   acceptance letter for page or colour-figure charges. If you chose
+   ImmunoInformatics, the APC is USD 1,900; ask about a waiver explicitly, since
+   you are unaffiliated and unfunded.
 2. **Proofs arrive within about two weeks.** Check the tables character by
    character — typesetters re-key numbers, and this paper is mostly numbers.
    Confirm β renders, the en-dashes in ranges survive, and every CI bracket is
