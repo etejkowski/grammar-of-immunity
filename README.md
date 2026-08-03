@@ -47,9 +47,12 @@ morpheme − kmer3 = **+0.0046 ± 0.0104**, pooled per-epitope bootstrap 95% CI
 zero; reseeding showed that was noise, which is why the script sweeps seeds.
 
 Everything sits at chance, baseline included. This reproduces the field-wide
-collapse IMMREP25 documents — the difference is that here it is reproduced with
-a positive control demonstrating the same pipeline reaches 0.71 when the
-epitope is known.
+collapse documented by the recent benchmarking assessments — Lu et al.
+(*Nat Methods* 2026, 50 models across 21 datasets), Drost et al. (*Cell Genomics*
+2025, 21 predictors via ePytope-TCR) and Liao et al. (arXiv:2606.04994), with the
+IMMREP25 challenge reaching the same verdict — the difference is that here it is
+reproduced with a positive control demonstrating the same pipeline reaches 0.71
+when the epitope is known.
 
 ## Result 7: the size dependence is a trend, not a ceiling
 

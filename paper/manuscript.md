@@ -181,19 +181,24 @@ deduplication no individual N-region exceeds nine clonotypes, so the motif is
 properly characterized as a distributed family — `RS` at the core with variable
 flanks — rather than as a small set of frequent strings.
 
-This reproduces results first reported three decades ago. The HLA-A2-restricted
-influenza M1 response was shown to be dominated by TCRs bearing the BV17 family
-(TRBV19 in current nomenclature) with a conserved CDR3β motif [20,21], and shown
-in 1998 to be highly polyclonal *within* that constraint: 95 distinct CDR3β
-clonotypes carrying the I/sRS(A)/S motif, with a power-law distribution of
-clonotype frequencies [9]. The structural basis followed in 2003 [10]. The 41.0%
-TRBV19 usage and the `RS` core we measure correspond directly to the first
-observation, and the distributed-family character we recover after deduplication
-— no N-region exceeding nine clonotypes — corresponds to the second. We present
-this as pipeline validation, not as a finding: recovering a result of that age
-from first principles is evidence the decomposition tracks real biology, and the
-fact that raw row counts would have obscured the polyclonality that the 1998
-study emphasized is a further argument for clonotype-level counting.
+This reproduces observations first reported in the 1990s. Lehner et al. found the
+HLA-A0201-restricted M58–66 response to be dominated by TCRs bearing Vβ17 —
+TRBV19 in current nomenclature — accounting for up to 85% of peptide-specific
+CTL, with extensive CDR3β conservation including a conserved arginine–serine
+motif [20]; conserved junctional sequences in this response had been noted
+earlier [21]. Naumov et al. subsequently showed the response to be highly
+polyclonal *within* that constraint, identifying 95 distinct CDR3β clonotypes
+carrying the motif they denote I/sRS(A)/S, with a power-law distribution of
+clonotype frequencies [9]. The structural basis followed in 2003 [10]. Our
+decomposition recovers both features: the TRBV19 preference and the `RS` core
+reproduce the first, and the distributed-family character we find after
+deduplication — no N-region exceeding nine clonotypes — reproduces the second.
+The percentages are not directly comparable, since Lehner et al. report the Vβ17
+share of peptide-specific cells within CTL lines whereas we report the TRBV19
+share of distinct clonotypes pooled across 28 studies. We present this as
+pipeline validation, not as a finding. It also sharpens the counting point:
+row-level counts would have concealed exactly the polyclonality the 1998 study
+emphasized.
 
 ### 3.3 Junctional regions contain reproducible order-dependent structure
 
