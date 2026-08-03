@@ -27,6 +27,7 @@ sys.path.insert(0, '.')
 import goi_core as core
 
 OUT = os.path.join('paper', 'figures')
+VEC = os.path.join('paper', 'figures', 'vector')
 DPI = 300
 
 # Muted, print-safe palette; distinguishable in greyscale by ordering.
@@ -37,6 +38,10 @@ C_REF = '#55A868'       # published-style references
 C_ACC = '#8172B2'
 
 plt.rcParams.update({
+    # Publishers commonly reject Type 3 fonts, which is matplotlib's default for
+    # PDF and EPS. 42 selects TrueType, which embeds cleanly and stays editable.
+    'pdf.fonttype': 42,
+    'ps.fonttype': 42,
     'font.size': 9,
     'axes.titlesize': 10,
     'axes.labelsize': 9,
@@ -51,8 +56,15 @@ def save(fig, name):
     os.makedirs(OUT, exist_ok=True)
     path = os.path.join(OUT, name)
     fig.savefig(path, dpi=DPI)
+    # Vector copy for journal submission. Most publishers prefer vector for
+    # line art and bar charts; PDF keeps text as selectable glyphs so the
+    # typesetter can rescale without resampling. Swap the suffix for '.eps'
+    # if a submission system insists on EPS.
+    vec = os.path.join(VEC, name.replace('.png', '.pdf'))
+    os.makedirs(VEC, exist_ok=True)
+    fig.savefig(vec)
     plt.close(fig)
-    print(f"  wrote {path}")
+    print(f"  wrote {path}  and  {vec}")
 
 
 # ---------------------------------------------------------------------------
