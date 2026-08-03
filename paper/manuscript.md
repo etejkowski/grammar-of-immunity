@@ -18,7 +18,7 @@ Maria Elisa Paredes, `https://orcid.org/0009-0007-4967-8612`
 
 **Methods.** Using 203,308 VDJdb records (121,467 unique human TCRβ clonotypes after deduplication), we derived and reference-validated empirical V- and J-segment anchors, segmented each CDR3 into germline-derived termini and a junctional N-region, quantified order-dependent junctional organization, and compared biologically informed receptor features with raw CDR3 3-mers and a V/J-only control. Binding models were evaluated on both represented epitopes and epitopes withheld entirely from training, with independent confirmation on the official IMMREP23 benchmark.
 
-**Results.** N-regions carry substantial order-dependent structure. A flat bigram model separates real from order-shuffled N-regions at AUC 0.6149; conditioning on the (V,J) pair raises this to 0.7162, a gain of +0.1013 (95% bootstrap CI [+0.0995, +0.1031]) that is not attributable to model capacity, since randomizing the conditioning labels removes it entirely (−0.0035). On seen epitopes, morphological tokenization outperforms raw 3-mers (0.7135 ± 0.0017 vs 0.6589 ± 0.0063). However, V and J gene identity alone reaches 0.7089 ± 0.0017, leaving approximately +0.005 attributable to junctional sequence. On unseen epitopes, all arms perform at chance and the morphological advantage disappears (+0.0046 ± 0.0104, pooled 95% CI [−0.0084, +0.0175]).
+**Results.** N-regions carry substantial order-dependent structure. A flat bigram model separates real from order-shuffled N-regions at AUC 0.6149; conditioning on the (V,J) pair raises this to 0.7162, a gain of +0.1013 (95% bootstrap CI [+0.0995, +0.1031]) that is not attributable to model capacity, since randomizing the conditioning labels removes it entirely (−0.0035). A boundary-trim control locates most of that gain at the germline boundaries rather than in the junctional interior: removing one residue from each N-region end reduces it to +0.0392 (CI [+0.0377, +0.0411]), and at matched information loss the position of the trimmed residues, not the amount, drives the difference. Germline-conditioned interior organization is therefore real but roughly a third of the raw figure. On seen epitopes, morphological tokenization outperforms raw 3-mers (0.7135 ± 0.0017 vs 0.6589 ± 0.0063). However, V and J gene identity alone reaches 0.7089 ± 0.0017, leaving approximately +0.005 attributable to junctional sequence. On unseen epitopes, all arms perform at chance and the morphological advantage disappears (+0.0046 ± 0.0104, pooled 95% CI [−0.0084, +0.0175]).
 
 **Benchmark confirmation.** On the official IMMREP23 challenge data [12] scored with the official Macro AUC0.1 metric, all conclusions replicate: morphological tokenization beats raw 3-mers (+0.0375 on seen peptides, CI [+0.0086, +0.0677]) but not V/J identity alone (+0.0091, CI [−0.0166, +0.0338]), and on the seven test peptides absent from training no method exceeds 0.52. A TCRdist-style baseline using all six CDR loops of both chains outperforms our morphological model (0.6281 vs 0.5893 overall), indicating that breadth of receptor coverage matters more than depth of morphological analysis. NetTCR-2.2 [18], a published convolutional architecture over all six loops, retrained on the identical training split, reaches 0.6003 on seen peptides and 0.4868 on unseen peptides — statistically indistinguishable from raw CDR3β 3-mers (+0.0004, CI [−0.0425, +0.0339]) and below the TCRdist-style baseline (−0.0675, CI [−0.1164, −0.0272]), confirming that the failure on unseen peptides is not an artifact of our linear model class.
 
@@ -65,6 +65,26 @@ Each CDR3 was parsed as V-prefix + N-region + J-suffix. The V-prefix is the long
 We asked whether N-regions carry information in residue *order*. For each held-out N-region we generated a decoy by permuting its residues, preserving length and composition exactly, so that only order is destroyed; a composition-randomized decoy was also generated as a sanity ceiling. Three add-0.5-smoothed bigram models were compared: a length-only control, a flat model pooled over all segments, and a model conditioned on the (V,J) pair interpolated with the pooled model (weight 0.7). Scores are log-likelihoods; discrimination is quantified by AUC.
 
 Training and evaluation were split **by study** (320 training studies, 79 held out entirely), not by record, so no model can profit from memorizing a single laboratory's batch. Because the conditioned model has many more parameters than the flat model, we added a **permuted-label control**: an identical conditioned model trained after randomly permuting (V,J) labels across clonotypes. If the conditioned model's advantage were capacity, this control would reproduce it.
+
+The permuted-label control cannot, however, separate junctional structure from
+residual germline sequence. Empirical anchors stop extending when modal residue
+frequency falls below 0.80 (§2.2), so where a segment's germline contribution
+runs longer than its derived anchor, germline residues remain at the edge of what
+we treat as the N-region — and those residues are predictable from segment
+identity, which would inflate the conditioned model without any junctional
+grammar being involved. Permuting the labels destroys that leakage along with the
+signal, so it leaves the question open.
+
+We therefore added a **boundary-trim control**: the identical experiment repeated
+with k residues removed from the N-region edges, on the same study split and
+seed, trimming from both ends and from each end separately. Trimming also
+shortens sequences and so costs every model information, which the flat model's
+AUC tracks; the informative comparison is between conditions that remove the same
+number of residues from different positions. Sequences falling below the
+three-residue minimum after trimming are dropped, which is why the k = 3
+condition retains only a small and length-biased subset. We also report, as a
+direct diagnostic, how far each N-region position is determined by the abutting
+segment, measured as the mean modal-residue frequency within segment.
 
 ### 2.5 Unseen-epitope binding prediction
 
@@ -206,6 +226,35 @@ We next asked whether junctional N-regions contain reproducible sequence organiz
 
 The permuted-label control scores 0.6115, i.e. **−0.0035 relative to flat**: randomizing the conditioning labels while holding the model class and parameter count fixed removes the entire advantage. The gain is therefore attributable to morphological context, not capacity. Results against composition-randomized decoys are equivalent (0.6124 flat, 0.7229 conditioned).
 
+Most of that gain, however, comes from residues adjacent to the germline anchors
+rather than from the junctional interior. The leakage diagnostic makes the
+mechanism visible: the first N-region position is determined by V identity at a
+mean modal-residue frequency of 0.517, and the last by J identity at 0.548,
+against 0.251–0.327 for interior positions (Table 2, panel B). Removing one
+residue from each end reduces the conditioned advantage from +0.1017 to
+**+0.0392** (95% CI [+0.0377, +0.0411]) — still positive and significant, but 61%
+smaller. Two residues from each end give +0.0204; the three-residue condition
+retains only 1,831 pairs and is too length-biased to interpret.
+
+Trimming costs every model information, so the placement of the trimmed residues
+is what carries the inference. Two conditions remove the same two residues and
+leave almost the same number of test pairs: trimming both ends by one (14,529
+pairs) retains 39% of the advantage, whereas trimming the 5′ end by two (14,535
+pairs) retains 69%. Equal information loss, unequal effect. The residues
+immediately abutting each germline anchor therefore account for a substantial
+share of the conditioned model's advantage, consistent with the diagnostic above.
+The permuted-label control remains below the flat model in every trim condition,
+so the capacity conclusion is unaffected throughout.
+
+We report the untrimmed figure as the primary measurement, since it is what the
+decomposition as defined yields, but the interpretation should be the trimmed one:
+germline-conditioned organization within the junctional interior is real and
+reproducible across held-out studies at roughly +0.04 AUC, and the larger raw
+figure reflects imperfect anchor boundaries as much as junctional grammar. This
+does not affect any downstream result, since the binding-prediction arms use
+germline segment identity as an explicit feature rather than inferring it from
+N-region edges.
+
 ### 3.4 Biologically informed segmentation does not improve generalization to unseen epitopes
 
 On seen epitopes (Table 3), morphological features outperform raw 3-mers by **+0.0546** AUC (0.7135 ± 0.0017 vs 0.6589 ± 0.0063), consistently across all three seeds. The harness therefore detects effects of this magnitude.
@@ -316,7 +365,7 @@ too uncertain to support a claim of improved generalization.
 
 ## 4. Discussion
 
-This study tested a specific prediction arising from biologically informed representations of antigen receptors: that segmenting CDR3 along the boundaries created by V(D)J recombination would yield representations transferable to unseen antigens. Two results stand in tension, and their combination is the contribution. Junctional N-regions demonstrably carry order-dependent, germline-conditioned structure, measurable at +0.1013 AUC with model capacity controlled and generalizing across held-out studies. Yet exposing that structure to a binding classifier yields no advantage for epitopes outside the training set. The distinction the data draw is between modeling how receptors are generated and modeling what they recognize.
+This study tested a specific prediction arising from biologically informed representations of antigen receptors: that segmenting CDR3 along the boundaries created by V(D)J recombination would yield representations transferable to unseen antigens. Two results stand in tension, and their combination is the contribution. Junctional N-regions demonstrably carry order-dependent, germline-conditioned structure — measurable at +0.1013 AUC as the decomposition is defined, and at +0.0392 once residues abutting the germline anchors are excluded, with model capacity controlled in both cases and generalization across held-out studies. Yet exposing that structure to a binding classifier yields no advantage for epitopes outside the training set. The distinction the data draw is between modeling how receptors are generated and modeling what they recognize.
 
 This distinction is biologically plausible. V(D)J recombination determines how receptor diversity is generated, whereas antigen recognition determines which peptide–MHC complexes individual receptors bind. A representation may therefore accurately capture the statistical organization created during receptor generation without encoding the information required for receptor–antigen recognition. Our results suggest that the order-dependent structure measured within CDR3 reflects the former more strongly than the latter.
 
@@ -336,7 +385,7 @@ Protein-language-model embeddings were likewise not run, and richer grammatical 
 
 **Dataset scope.** Negative examples are generated by receptor–peptide re-pairing rather than experimentally verified non-binders; on IMMREP23 we follow the challenge's own protocol, which mitigates but does not remove the concern. The internal analysis is limited to 20 epitopes capped at 800 clonotypes each, and the IMMREP23 unseen analysis contains seven peptides. These constraints may obscure small transferable effects.
 
-**Biological scope.** The primary analysis uses TCRβ, while α-chain and peptide–MHC context are incompletely represented. Empirical anchors are not IMGT annotations and may occasionally absorb convergent junctional residues, although agreement with the available reference is high (28 of 29 overlapping anchors).
+**Biological scope.** The primary analysis uses TCRβ, while α-chain and peptide–MHC context are incompletely represented. Empirical anchors are not IMGT annotations. Agreement with the available reference is high (28 of 29 overlapping anchors), but the boundary-trim control (§3.3) shows the boundaries are imperfect in the direction of under-extension: because an anchor stops extending once modal residue frequency falls below 0.80, germline residues remain at the N-region edges often enough to account for most of the raw (V,J)-conditioned gain. IMGT-based boundaries, or per-segment anchor lengths calibrated against a complete germline reference, would sharpen the decomposition and are the obvious next refinement.
 
 **Scale.** The learning curve spans 6,786 to 67,872 training pairs. Although the within-distribution advantage increases across this range, the available data do not establish whether the trend will persist or saturate at substantially larger scales.
 
@@ -350,7 +399,7 @@ We tested whether a receptor representation aligned with V(D)J-derived CDR3 boun
 
 VDJdb: `https://github.com/antigenomics/vdjdb-db`. IMMREP23 challenge data: `https://github.com/justin-barton/IMMREP23`. NetTCR-2.2 is third-party software under its own academic license and is obtained separately from `https://github.com/mnielLab/NetTCR-2.2`.
 
-Analysis code: `https://github.com/etejkowski/grammar-of-immunity`, commit `53226f2`, deterministic under fixed seeds. `phase1_dataset.py` builds the annotated dataset and enrichment tables (Table 1); `phase2_grammaticality.py` reproduces Table 2; `phase3_unseen_epitope.py` reproduces Tables 3 and 4; `benchmark_immrep23.py` reproduces Tables 5 and 6; `negatives_robustness.py` reproduces Table 7; `learning_curve.py` reproduces Table 8; `prepare_nettcr_data.py` and `score_nettcr.py` build and score the NetTCR-2.2 comparison; `make_figures.py` regenerates all figures.
+Analysis code: `https://github.com/etejkowski/grammar-of-immunity`, commit `53226f2`, deterministic under fixed seeds. `phase1_dataset.py` builds the annotated dataset and enrichment tables (Table 1); `phase2_grammaticality.py` reproduces Table 2, panel A; `boundary_trim_control.py` reproduces Table 2, panel B and the leakage diagnostic; `phase3_unseen_epitope.py` reproduces Tables 3 and 4; `benchmark_immrep23.py` reproduces Tables 5 and 6; `negatives_robustness.py` reproduces Table 7; `learning_curve.py` reproduces Table 8; `prepare_nettcr_data.py` and `score_nettcr.py` build and score the NetTCR-2.2 comparison; `make_figures.py` regenerates all figures.
 
 ## Author contributions
 
@@ -383,7 +432,8 @@ clonotypes spanning four V and four J segments.
 **Figure 2** (`fig2_grammaticality.png`). Discrimination of real N-regions from
 order-shuffled decoys on 79 held-out studies. The length-only control is exactly
 0.5000 as required; the permuted-label control establishes that the
-(V,J)-conditioned model's +0.1013 gain is not model capacity.
+(V,J)-conditioned model's +0.1013 gain is not model capacity. The boundary-trim
+control that qualifies this gain is tabulated in Table 2, panel B.
 
 **Figure 3** (`fig3_seen_vs_unseen.png`). Macro AUC0.1 on the official IMMREP23
 test set, split by whether the test peptide appears in the official training
@@ -417,7 +467,9 @@ and unseen peptides; both rise monotonically and neither plateaus.
 | NLVPMVATV | CMV pp65 | 13,042 | 47 | 63.7% |
 | GLCTLVAML | EBV BMLF1 | 6,279 | 29 | 79.5% (PMID 32184241) |
 
-**Table 2.** Discrimination of real N-regions from order-preserving decoys, 79 held-out studies, 16,304 pairs.
+**Table 2.** Discrimination of real N-regions from order-preserving decoys, 79 held-out studies. **Panel A**, models trained on untrimmed N-regions, 16,304 pairs. **Panel B**, boundary-trim control: the identical experiment with residues removed from the N-region edges, same study split and seed. Decoys are redrawn under a separate random stream, so panel B's untrimmed row reproduces panel A to within 0.0004.
+
+*Panel A — models and controls*
 
 | Model | AUC (shuffled decoy) | AUC (resampled decoy) | Tests |
 |---|---|---|---|
@@ -427,6 +479,32 @@ and unseen peptides; both rise monotonically and neither plateaus.
 | Permuted-label control | 0.6115 | 0.6086 | capacity control |
 
 Conditioned − flat = +0.1013, 95% CI [+0.0995, +0.1031]. Permuted − flat = −0.0035.
+
+*Panel B — boundary-trim control (shuffled decoys)*
+
+| Residues trimmed | Test pairs | Flat | Conditioned | Permuted | Conditioned − flat | 95% CI |
+|---|---|---|---|---|---|---|
+| none | 16,304 | 0.6149 | 0.7166 | 0.6118 | +0.1017 | [+0.0998, +0.1038] |
+| 1 from each end | 14,529 | 0.5559 | 0.5951 | 0.5523 | **+0.0392** | [+0.0377, +0.0411] |
+| 2 from each end | 7,939 | 0.5419 | 0.5623 | 0.5388 | +0.0204 | [+0.0186, +0.0226] |
+| 3 from each end | 1,831 | 0.5490 | 0.5529 | 0.5458 | +0.0039 | [+0.0007, +0.0069] |
+| 1 from 5′ (V) end | 15,833 | 0.6065 | 0.6811 | 0.6022 | +0.0746 | [+0.0728, +0.0760] |
+| 2 from 5′ (V) end | 14,535 | 0.6255 | 0.6958 | 0.6201 | +0.0703 | [+0.0685, +0.0720] |
+| 1 from 3′ (J) end | 15,842 | 0.5644 | 0.6379 | 0.5621 | +0.0735 | [+0.0715, +0.0753] |
+| 2 from 3′ (J) end | 14,553 | 0.5651 | 0.6316 | 0.5631 | +0.0665 | [+0.0647, +0.0687] |
+
+Rows 2 and 6 remove the same number of residues and retain almost the same number of test pairs (14,529 and 14,535) but retain 39% and 69% of the advantage respectively, isolating position rather than information loss as the cause.
+
+*Leakage diagnostic — mean modal-residue frequency within segment*
+
+| N-region position | Conditioned on | Mean modal frequency | Segments |
+|---|---|---|---|
+| 1 (5′-most) | V segment | 0.517 | 55 |
+| 2 | V segment | 0.263 | 55 |
+| 3 | V segment | 0.251 | 55 |
+| −1 (3′-most) | J segment | 0.548 | 13 |
+| −2 | J segment | 0.293 | 13 |
+| −3 | J segment | 0.327 | 13 |
 
 **Table 3.** Binding prediction, seen epitopes (80/20 clonotype split, 3 seeds).
 
