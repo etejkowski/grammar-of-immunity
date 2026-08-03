@@ -14,13 +14,13 @@ Maria Elisa Paredes, `https://orcid.org/0009-0007-4967-8612`
 
 ## Abstract
 
-**Background.** TCR specificity predictors perform reasonably on epitopes represented during training but fail on previously unseen epitopes [4–6]. One proposed explanation is that receptor representations ignore the organization created during V(D)J recombination [1,2]. We tested that prediction.
+**Background.** TCR specificity predictors work on epitopes seen in training and fail on unseen ones [4–6]. One proposed explanation is that receptor representations ignore the organization created by V(D)J recombination [1,2]. We tested that prediction.
 
-**Methods.** From 203,308 VDJdb records (121,467 unique human TCRβ clonotypes) we derived reference-validated empirical V- and J-segment anchors, segmented each CDR3 into germline termini and a junctional N-region, and compared biologically informed receptor features against raw CDR3 3-mers and a V/J-only control — on represented epitopes, on epitopes withheld entirely, and on the official IMMREP23 benchmark and metric [12].
+**Methods.** From 203,308 VDJdb records (121,467 unique human TCRβ clonotypes) we derived reference-validated empirical V- and J-segment anchors, split each CDR3 into germline termini and a junctional N-region, and compared biologically informed features against raw CDR3 3-mers and a V/J-only control — on seen epitopes, on epitopes withheld entirely, and on the official IMMREP23 benchmark [12].
 
 **Results.** Junctional regions carry order-dependent structure: a flat bigram model separates real from order-shuffled N-regions at AUC 0.6149, and (V,J) conditioning raises this to 0.7162 (+0.1013), which a permuted-label control shows is not model capacity. A boundary-trim control places most of that gain at the germline boundaries, leaving +0.0392 for the junctional interior. On seen epitopes, morphological features outperform 3-mers (0.7135 vs 0.6589) but not V/J identity alone (0.7089). On unseen epitopes every arm performs at chance (+0.0046, 95% CI [−0.0084, +0.0175]).
 
-**Validation.** Conclusions replicate on IMMREP23, where no method exceeds 0.52 on the seven unseen peptides — including a TCRdist-style baseline that otherwise outperforms our model (0.6281 vs 0.5893) and NetTCR-2.2 retrained on the identical split (0.4868 unseen) [18]. Four negative-generation schemes leave this intact; a learning curve shows the advantage over k-mers is contingent on training-set size.
+**Validation.** Conclusions replicate on IMMREP23, where no method exceeds 0.52 on the seven unseen peptides, including a TCRdist-style baseline that otherwise outperforms our model (0.6281 vs 0.5893) and NetTCR-2.2 retrained on the identical split (0.4868 unseen) [18]. The advantage over k-mers proves contingent on training-set size.
 
 **Conclusions.** Biologically informed segmentation captures genuine germline-conditioned organization that does not extend to unseen epitopes, and most of the within-distribution advantage reflects V/J identity rather than junctional sequence. Receptor representation alone appears insufficient for cross-epitope prediction.
 
