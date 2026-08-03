@@ -181,13 +181,19 @@ deduplication no individual N-region exceeds nine clonotypes, so the motif is
 properly characterized as a distributed family — `RS` at the core with variable
 flanks — rather than as a small set of frequent strings.
 
-This reproduces a result published in 1998, which reported the influenza M1
-response to be constrained to the BV17 family (TRBV19 in current nomenclature)
-with a conserved I/sRS(A)/S CDR3β motif [10], and explained structurally in
-2003 [11]. The 41.0% TRBV19 usage and the `RS` core we measure correspond
-directly to those two observations. We present it as pipeline validation, not as
-a finding: recovering a 28-year-old result from first principles is evidence the
-decomposition tracks real biology.
+This reproduces results first reported three decades ago. The HLA-A2-restricted
+influenza M1 response was shown to be dominated by TCRs bearing the BV17 family
+(TRBV19 in current nomenclature) with a conserved CDR3β motif [21,22], and shown
+in 1998 to be highly polyclonal *within* that constraint: 95 distinct CDR3β
+clonotypes carrying the I/sRS(A)/S motif, with a power-law distribution of
+clonotype frequencies [10]. The structural basis followed in 2003 [11]. The 41.0%
+TRBV19 usage and the `RS` core we measure correspond directly to the first
+observation, and the distributed-family character we recover after deduplication
+— no N-region exceeding nine clonotypes — corresponds to the second. We present
+this as pipeline validation, not as a finding: recovering a result of that age
+from first principles is evidence the decomposition tracks real biology, and the
+fact that raw row counts would have obscured the polyclonality that the 1998
+study emphasized is a further argument for clonotype-level counting.
 
 ### 3.3 Junctional regions contain reproducible order-dependent structure
 
@@ -487,21 +493,23 @@ Slopes per natural-log training pair: Δ seen +0.0118 (r = 0.985), Δ unseen +0.
 
 1. Jerne NK. The generative grammar of the immune system. Nobel lecture, 8 December 1984. *Biosci Rep*. 1985;5(6):439–451. PMID 3899210.
 2. Vu MH, Robert PA, Akbar R, et al. Linguistics-based formalization of the antibody language as a basis for antibody language models. *Nat Comput Sci*. 2024;4:412–422. doi:10.1038/s43588-024-00642-3.
-3. Xu AM, Chour W, Heidari A, et al. Entropic analysis of antigen-specific CDR3 domains identifies essential binding motifs shared by CDR3s with different antigen specificities. *Cell Syst*. 2023;14(4):273–284. PMID 37001518.
-4. IMMREP25: Unseen Peptides challenge. 126 named submissions; 1,000 TCRs; 20 unseen peptides restricted by HLA-A\*02:01 and HLA-B\*40:01. `https://github.com/immrep/`.
+3. Xu AM, Chour W, DeLucia DC, et al. Entropic analysis of antigen-specific CDR3 domains identifies essential binding motifs shared by CDR3s with different antigen specificities. *Cell Syst*. 2023;14(4):273–284.e5. PMID 37001518.
+4. IMMREP25: Unseen Peptides. Community benchmark report, 2026. 126 named submissions predicting the specificity of 1,000 TCRs against twenty unseen peptides restricted by HLA-A\*02:01 or HLA-B\*40:01.
 5. Lu Y, Wang Y, Xu M, Xie B, Yang Y, Xu H, Suo S. Assessment of computational methods in predicting TCR–epitope binding recognition. *Nat Methods*. 2026;23(1):248–259. doi:10.1038/s41592-025-02910-0. PMID 41315816.
-6. Drost F, Dorigatti E, Straub A, et al. Benchmarking of T cell receptor-epitope predictors with ePytope-TCR. *Cell Genomics*. 2025;5(8):100946. PMID 40628266.
+6. Drost F, Chernysheva A, Albahah M, Kocher K, Schober K, Schubert B. Benchmarking of T cell receptor-epitope predictors with ePytope-TCR. *Cell Genomics*. 2025;5(8):100946. PMID 40628266.
 7. Liao Y, Li Y, Jiang N, Li B, Chen K. New benchmarking shows limited generalization power of TCR antigenic epitope prediction models. arXiv:2606.04994 (2026). doi:10.48550/arXiv.2606.04994.
 8. Khudoyberdiev S, Bekov A. Counterfactual peptide editing for causal TCR–pMHC binding inference. arXiv:2604.13256 (2026). doi:10.48550/arXiv.2604.13256. (Shortcut learning via V-gene co-occurrence and peptide length bias.)
 9. Springer I, Tickotsky N, Louzoun Y. Contribution of T cell receptor alpha and beta CDR3, MHC typing, V and J genes to peptide binding prediction. *Front Immunol*. 2021;12:664514. doi:10.3389/fimmu.2021.664514.
-10. Lehner PJ, Wang ECY, Moss PAH, et al. A class I MHC-restricted recall response to a viral peptide is highly polyclonal despite stringent CDR3 selection. *J Immunol*. 1998. PMID 9510187.
-11. Stewart-Jones GBE, McMichael AJ, Bell JI, Stuart DI, Jones EY. A structural basis for immunodominant human T cell receptor recognition. *Nat Immunol*. 2003;4(7):657–663. PMID 12796775.
-12. Dyrka W, Nebel JC, Kotulska M. Probabilistic grammatical model of protein language and its application to helix–helix contact site classification. *Algorithms Mol Biol*. 2013;8:31. See also Dyrka W, Nebel JC. A stochastic context free grammar based framework for analysis of protein sequences. *BMC Bioinformatics*. 2009;10:323, and Dyrka W, Pyzik M, Coste F, Talibart H. Estimating probabilistic context-free grammars for proteins using contact map constraints. *PeerJ*. 2019;7:e6559.
+10. Naumov YN, Hogan KT, Naumova EN, Pagel JT, Gorski J. A class I MHC-restricted recall response to a viral peptide is highly polyclonal despite stringent CDR3 selection: implications for establishing memory T cell repertoires in "real-world" conditions. *J Immunol*. 1998;160(6):2842–2852. PMID 9510187.
+11. Stewart-Jones GB, McMichael AJ, Bell JI, Stuart DI, Jones EY. A structural basis for immunodominant human T cell receptor recognition. *Nat Immunol*. 2003;4(7):657–663. PMID 12796775.
+12. Dyrka W, Nebel JC, Kotulska M. Probabilistic grammatical model for helix–helix contact site classification. *Algorithms Mol Biol*. 2013;8(1):31. PMID 24350601. See also Dyrka W, Nebel JC. A stochastic context free grammar based framework for analysis of protein sequences. *BMC Bioinformatics*. 2009;10:323. PMID 19814800; and Dyrka W, Pyzik M, Coste F, Talibart H. Estimating probabilistic context-free grammars for proteins using contact map constraints. *PeerJ*. 2019;7:e6559. PMID 30918754.
 13. Nielsen M, Eugster A, Jensen MF, et al. Lessons learned from the IMMREP23 TCR–epitope prediction challenge. *ImmunoInformatics*. 2024;16:100045. Datasets: `https://github.com/justin-barton/IMMREP23`.
 14. Dash P, Fiore-Gartland AJ, Hertz T, et al. Quantifiable predictive features define epitope-specific T cell receptor repertoires. *Nature*. 2017;547:89–93. (TCRdist.)
 15. Heather JM, Spindler MJ, Alonso MH, et al. Stitchr: stitching coding TCR nucleotide sequences from V/J/CDR3 information. *Nucleic Acids Res*. 2022;50(12):e68. doi:10.1093/nar/gkac190.
 16. Dunbar J, Deane CM. ANARCI: antigen receptor numbering and receptor classification. *Bioinformatics*. 2016;32(2):298–300.
 17. Goncharov M, Bagaev D, Shcherbinin D, et al. VDJdb in the pandemic era: a compendium of T cell receptors specific for SARS-CoV-2. *Nat Methods*. 2022;19:1017–1019.
 18. Shugay M, Bagaev DV, Zvyagin IV, et al. VDJdb: a curated database of T-cell receptor sequences with known antigen specificity. *Nucleic Acids Res*. 2018;46(D1):D419–D427. Repository: `https://github.com/antigenomics/vdjdb-db`.
-19. Jensen MF, Nielsen M. Enhancing TCR specificity predictions by combined pan- and peptide-specific training, loss-scaling, and sequence similarity integration. *eLife*. 2024;12:RP93934. doi:10.7554/eLife.93934. (NetTCR-2.2; code `https://github.com/mnielLab/NetTCR-2.2`.)
-20. Montemurro A, Jessen LE, Nielsen M. NetTCR-2.1: lessons and guidance on how to develop models for TCR specificity predictions. *Front Immunol*. 2022;13:1055151. doi:10.3389/fimmu.2022.1055151.
+19. Jensen MF, Nielsen M. Enhancing TCR specificity predictions by combined pan- and peptide-specific training, loss-scaling, and sequence similarity integration. *eLife*. 2024;12:RP93934. doi:10.7554/eLife.93934. PMID 38437160. (NetTCR-2.2; code `https://github.com/mnielLab/NetTCR-2.2`.)
+20. Montemurro A, Jessen LE, Nielsen M. NetTCR-2.1: lessons and guidance on how to develop models for TCR specificity predictions. *Front Immunol*. 2022;13:1055151. doi:10.3389/fimmu.2022.1055151. PMID 36561755.
+21. Lehner PJ, Wang EC, Moss PA, et al. Human HLA-A0201-restricted cytotoxic T lymphocyte recognition of influenza A is dominated by T cells bearing the Vβ17 gene segment. *J Exp Med*. 1995;181(1):79–91. PMID 7807026.
+22. Moss PA, Moots RJ, Rosenberg WM, et al. Extensive conservation of α and β chains of the human T-cell antigen receptor recognizing HLA-A2 and influenza A matrix peptide. *Proc Natl Acad Sci USA*. 1991;88(20):8987–8990. PMID 1833769.

@@ -259,12 +259,15 @@ recovers the published junctional signature:
 | CMV pp65 | 2.5% | 4.0% |
 | EBV BMLF1 | 3.7% | 1.3% |
 
-**This is a rediscovery, not a discovery.** The same motif was reported in 1998 —
-"the TCR beta-chain repertoire ... constrained by the use of the BV17 family and
-the I/sRS(A)/S amino acid motif in the CDR3 region" (PMID 9510187, where BV17 is
-TRBV19 in current nomenclature) — and explained structurally in 2003
-(PMID 12796775). Recovering a 28-year-old result from first principles is
-evidence the decomposition tracks real biology. It is not a contribution.
+**This is a rediscovery, not a discovery.** The BV17 dominance of the HLA-A2
+influenza M1 response was reported in 1991 and 1995 (PMID 1833769, PMID 7807026;
+BV17 is TRBV19 in current nomenclature). A 1998 study then showed the response is
+highly polyclonal *within* that constraint — 95 distinct CDR3β clonotypes sharing
+the I/sRS(A)/S motif, with a power-law frequency distribution (PMID 9510187) —
+and the structural basis was solved in 2003 (PMID 12796775). Recovering a result
+of that age from first principles is evidence the decomposition tracks real
+biology. It is not a contribution. Note that the 1998 polyclonality is exactly
+what raw row counts destroy, which is the other half of the point here.
 
 **Count rows and you will fool yourself.** The single sequence `CASSIRSSYEQYF`
 appears in 1,077 VDJdb rows but is **one** clonotype. An earlier version of this

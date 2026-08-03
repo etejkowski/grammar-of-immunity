@@ -183,9 +183,12 @@ really do share a distinctive pattern — 41% use the same inherited beginning
 piece, and 13% carry a particular two-letter sequence in the middle, versus a few
 percent for the other viruses.
 
-Here's the thing, though: **this was published in 1998.** Our method rediscovered
-a 28-year-old finding. That's genuinely good news — it shows the method sees real
-biology — but it isn't a discovery, and we say so plainly.
+Here's the thing, though: **this was known by the 1990s.** The receptor-family
+preference was published in 1991 and 1995, and a 1998 study showed the response
+uses 95 different versions of the same motif rather than a handful of repeated
+sequences. Our method rediscovered a finding three decades old. That's genuinely
+good news — it shows the method sees real biology — but it isn't a discovery, and
+we say so plainly.
 
 ### Figure 7 — The one bit of good news
 
