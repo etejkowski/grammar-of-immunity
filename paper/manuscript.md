@@ -93,10 +93,10 @@ which states that an all-zero submission scores 0.5; ours scores 0.5000 exactly.
 
 Beyond the three arms above we added **cdr123**, using 3-mers of all six CDR
 loops of both chains, and two published-style reference baselines requiring no
-training: **TCRbase-style** nearest-neighbour similarity of CDR3β to the known
+training: **TCRbase-style** nearest-neighbor similarity of CDR3β to the known
 binders of the query peptide, as used as an IMMREP baseline [18], and
-**TCRdist-style** nearest-neighbour over all six CDR loops with CDR3 weighted
-threefold [13]. Learned arms used L2-regularised logistic regression over hashed
+**TCRdist-style** nearest-neighbor over all six CDR loops with CDR3 weighted
+threefold [13]. Learned arms used L2-regularized logistic regression over hashed
 feature crosses (2¹⁸ buckets).
 
 Critically, 13 of the 20 test peptides occur in the official training data and 7
@@ -237,9 +237,9 @@ sit between 0.479 and 0.519 (Table 6).
 
 A TCRdist-style comparison across all six CDR loops of both chains reached 0.6281
 overall and 0.6971 on seen peptides, exceeding the biologically informed CDR3β
-model (0.5893 and 0.6378). Both nearest-neighbour baselines scored exactly 0.5000
+model (0.5893 and 0.6378). Both nearest-neighbor baselines scored exactly 0.5000
 on unseen peptides because no reference binders exist for peptides absent from
-training and the methods emit a constant score; nearest-neighbour approaches are
+training and the methods emit a constant score; nearest-neighbor approaches are
 structurally incapable of unseen-epitope prediction, which is a property of the
 method class rather than a tuning deficiency.
 
@@ -344,7 +344,7 @@ We tested whether a receptor representation aligned with V(D)J-derived CDR3 boun
 
 ## Data and code availability
 
-VDJdb: `https://github.com/antigenomics/vdjdb-db`. IMMREP23 challenge data: `https://github.com/justin-barton/IMMREP23`. NetTCR-2.2 is third-party software under its own academic licence and is obtained separately from `https://github.com/mnielLab/NetTCR-2.2`.
+VDJdb: `https://github.com/antigenomics/vdjdb-db`. IMMREP23 challenge data: `https://github.com/justin-barton/IMMREP23`. NetTCR-2.2 is third-party software under its own academic license and is obtained separately from `https://github.com/mnielLab/NetTCR-2.2`.
 
 Analysis code: `https://github.com/etejkowski/grammar-of-immunity`, commit `53226f2`, deterministic under fixed seeds. `phase1_dataset.py` builds the annotated dataset and enrichment tables (Table 1); `phase2_grammaticality.py` reproduces Table 2; `phase3_unseen_epitope.py` reproduces Tables 3 and 4; `benchmark_immrep23.py` reproduces Tables 5 and 6; `negatives_robustness.py` reproduces Table 7; `learning_curve.py` reproduces Table 8; `prepare_nettcr_data.py` and `score_nettcr.py` build and score the NetTCR-2.2 comparison; `make_figures.py` regenerates all figures.
 
