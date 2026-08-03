@@ -33,6 +33,36 @@ FIGDIR = os.path.join(HERE, 'figures')
 CAPTION = re.compile(r'^\*\*Figure (\d+)\*\* \(`([^`]+)`\)\.', re.M)
 
 
+def set_letter_page_size(path):
+    """
+    Force 8.5 x 11 inch portrait with 1 inch margins in a built .docx.
+
+    bioRxiv and most publishers require US Letter portrait for reliable PDF
+    conversion, but pandoc does not propagate the reference document's page
+    size into its output, so the file would otherwise inherit whatever default
+    the reading application picks. Sizes are in twips: 12240 x 15840 = 8.5 x 11.
+    """
+    import zipfile
+    name = 'word/document.xml'
+    with zipfile.ZipFile(path) as z:
+        items = {n: z.read(n) for n in z.namelist()}
+    xml = items[name].decode('utf-8')
+    if '<w:pgSz' in xml:
+        return False
+    pg = ('<w:pgSz w:w="12240" w:h="15840" w:orient="portrait"/>'
+          '<w:pgMar w:top="1440" w:right="1440" w:bottom="1440" w:left="1440" '
+          'w:header="720" w:footer="720" w:gutter="0"/>')
+    if re.search(r'<w:sectPr\b[^>]*>', xml):
+        xml = re.sub(r'(<w:sectPr\b[^>]*>)', r'\1' + pg, xml, count=1)
+    else:
+        xml = xml.replace('</w:body>', f'<w:sectPr>{pg}</w:sectPr></w:body>')
+    items[name] = xml.encode('utf-8')
+    with zipfile.ZipFile(path, 'w', zipfile.ZIP_DEFLATED) as z:
+        for n, data in items.items():
+            z.writestr(n, data)
+    return True
+
+
 def main():
     if not shutil.which('pandoc'):
         print("pandoc not found. Install with: brew install pandoc")
@@ -80,6 +110,8 @@ def main():
         if r.returncode != 0:
             print(f"FAILED {name}:\n{r.stderr[:600]}")
             return 1
+        if name.endswith('.docx') and set_letter_page_size(dest):
+            print("    set page size to 8.5 x 11 in portrait")
         size = os.path.getsize(dest)
         print(f"  wrote {os.path.relpath(dest)}  ({size:,} bytes)")
 
