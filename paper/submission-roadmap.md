@@ -15,9 +15,9 @@ Confirm the deliverable still builds and passes its own checks.
 
 ```bash
 cd /Users/e/grammar-of-immunity
-python3 paper/build.py                     # rebuilds DOCX + HTML from the markdown
+python3 paper/build.py                     # DOCX + HTML + PDF + plain abstract
 python3 paper/check_highlights.py          # expect PASS
-.venv/bin/codespell paper/*.md README.md   # expect no output
+.venv/bin/codespell -L FPR paper/*.md README.md   # expect no output
 cp paper/build/manuscript.docx paper/TCR_Manuscript_V3.docx
 ```
 
@@ -29,52 +29,53 @@ last point where changing your mind is free.
 
 ---
 
-## Stage 1 — Post the preprint (20 minutes, Erick)
+## Stage 1 — Post the preprint (1 hour, Erick)
 
-Go to https://www.biorxiv.org/submit-a-manuscript and create an account with
-erick.tejkowski@gmail.com.
+**bioRxiv is out.** It rejected the submission on 2026-08-04 (MS ID#
+BIORXIV/2026/742614) because it requires authors to have an organizational
+affiliation that can adjudicate ethical disputes. That is a policy gate applied
+before anyone read the paper, and it changes nothing from Stage 4 onward.
 
-Work through the form using the table in `paper/submission-packet.md`. The
-answers that people get wrong:
+The replacement route is in `paper/preprint-deposit.md`, which has the
+field-by-field values for both forms:
 
-- **Category:** Bioinformatics. Not Immunology. The paper's audience is
-  methods-minded readers.
-- **License:** CC-BY 4.0. It does not affect journal submission afterward.
-- **Submitted to a journal?** No. That is true today and stays true until Stage 5.
-- **Authors in order:** Erick, then Maria. bioRxiv freezes this into the citation.
+1. **Zenodo–GitHub release** of the repository — no gatekeeper, code and data DOI
+   the same day. `.zenodo.json` and `CITATION.cff` are written and waiting in the
+   repo root; they must be committed and pushed before you cut the release,
+   because Zenodo reads them out of the release tarball.
+2. **OSF Preprints** deposit of `paper/build/manuscript.pdf` — the paper's
+   preprint DOI. Free, indexed, no affiliation requirement, but moderated, and
+   that file explains the one moderation risk to know about in advance.
 
-Upload `paper/TCR_Manuscript_V3.docx`. If it asks for figures separately, use
-`paper/figures/*.png`.
+Do them in that order and the inquiry emails never wait on a moderator.
 
-**Immediately after submitting, tell Maria to watch for an email from bioRxiv
-asking her to confirm authorship.** The posting does not proceed until she clicks
-it. This is the single most common cause of a stalled preprint.
-
-**Done when:** you see "submitted" status and Maria has clicked her link.
+**Done when:** at least one DOI exists.
 
 ---
 
-## Stage 2 — Screening (1–2 days, no action)
+## Stage 2 — Screening (1–3 days, no action)
 
-A bioRxiv staff member checks that this is life-science research, is not
-plagiarized, contains no patient-identifying data, and makes no dangerous claims.
-It is not peer review. Rejection here is rare and is usually about category or
-file format.
+Zenodo does not screen; the DOI is immediate. OSF Preprints is pre-moderated,
+usually a day or two, and tells you the reason if it declines. Neither is peer
+review.
 
-**What arrives:** an email with your DOI, formatted like
-`10.1101/2026.08.03.xxxxxx`.
+**What arrives:** a DOI, formatted like `10.5281/zenodo.xxxxxxx` from Zenodo or
+`10.31219/osf.io/xxxxx` from OSF.
 
 ---
 
 ## Stage 3 — Record the DOI (5 minutes)
 
-Two files need it:
+Four files need it:
 
 1. `paper/cover-letter.md` — replace `DOI: XXXX`
-2. `README.md` — add it near the top
+2. `paper/presubmission-inquiries.md` — replace `[DOI]` in all four letters
+3. `README.md` — add it near the top
+4. `paper/manuscript.md` — add the Zenodo DOI to "Data and code availability",
+   which currently names commit `53226f2` only
 
 Then `python3 paper/build.py` and re-copy the DOCX, so the manuscript and the
-letter agree. The assistant can do this in one pass if you paste the DOI.
+letters agree. The assistant can do this in one pass if you paste the DOI.
 
 **Why it matters:** from this moment you have a timestamped, citable record with
 both your names on it, independent of any journal's decision. Whatever happens
@@ -97,7 +98,8 @@ Whichever you pick, open its guide for authors in a browser and find these:
 1. Current publishing model, and whether any page or colour-figure charges apply
    even without open access. **Models flip** — two journals I had listed as free
    are no longer free.
-2. Abstract word limit. Ours is 264 words. If the cap is 250, cut the TCRdist
+2. Abstract word limit. Ours is 242 words, so a 250-word cap no longer bites.
+   Only a cap of 200 or below forces a cut, starting with the TCRdist
    parenthetical.
 3. Whether structured-abstract headings are fixed. Ours end with "Validation",
    which is non-standard.
@@ -238,8 +240,10 @@ said, even if they rejected it. Free peer review is still peer review.
    character — typesetters re-key numbers, and this paper is mostly numbers.
    Confirm β renders, the en-dashes in ranges survive, and every CI bracket is
    intact.
-3. **Update the preprint.** Post the accepted version to bioRxiv as v2; the
-   original stays visible and the DOI still resolves.
+3. **Update the preprint.** Post the accepted version to whichever server holds
+   the preprint as a new version; the original stays visible and the DOI still
+   resolves. On Zenodo, a new GitHub release does the same for the code, and the
+   concept DOI keeps resolving to the newest version.
 4. **Add the published DOI** to the README and the repository description.
 
 ---

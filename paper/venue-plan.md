@@ -31,8 +31,8 @@ waivers for Article Publishing Charges in hybrid journals. These journals offer
 the option to publish for free under a subscription model."*
 
 So a **hybrid** journal gives you a choice: pay for open access, or publish at no
-cost with the article behind a paywall. Since your preprint stays free on bioRxiv
-with its own DOI, anyone who wants the paper can read it either way. For this
+cost with the article behind a paywall. Since your preprint stays free on an open
+server with its own DOI, anyone who wants the paper can read it either way. For this
 project the paywall costs you very little.
 
 The second free route is **diamond open access**: no charge to authors *or*

@@ -1,4 +1,24 @@
-# bioRxiv submission — what it asks for
+# bioRxiv submission — superseded, kept as a record
+
+> **This route is closed.** The manuscript was submitted to bioRxiv on
+> 2026-08-04 (MS ID# BIORXIV/2026/742614) and rejected the same day, before
+> review, on policy grounds:
+>
+> > your manuscript cannot be considered for bioRxiv because bioRxiv requires
+> > authors to have an organizational affiliation. It is necessary for
+> > submissions to be associated with an organization that provides oversight of
+> > research activities so that it can adjudicate any ethical issues/disputes
+> > that arise.
+>
+> Use **`paper/preprint-deposit.md`** instead: a Zenodo–GitHub release for the
+> code DOI, and OSF Preprints for the paper. bioRxiv becomes available again if
+> either author obtains an organizational affiliation — Ronin Institute and
+> IGDORE exist for exactly this, and are covered in that file.
+>
+> Everything below is what the form actually asked for, retained because most of
+> the answers transfer directly to the OSF and Zenodo forms.
+
+## What bioRxiv asked for
 
 A walkthrough so nothing is a surprise mid-form. Posting is free, takes roughly
 20 minutes, and screening (a sanity check, not peer review) usually clears within

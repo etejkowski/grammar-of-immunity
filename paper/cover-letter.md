@@ -70,8 +70,8 @@ Linguistics, and a PhD, and contributed the biological and immunological
 interpretation. The linguistics-plus-immunology combination is the one Vu et al.
 identified as necessary for this work and rarely available in one place.
 
-This manuscript is not under consideration elsewhere. [A preprint is deposited
-at bioRxiv, DOI: XXXX.] We declare no competing interests and received no
+This manuscript is not under consideration elsewhere. [A preprint is openly
+deposited, DOI: XXXX.] We declare no competing interests and received no
 funding.
 
 Thank you for your consideration.
