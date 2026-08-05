@@ -34,18 +34,18 @@ keywords:
   - IMMREP23
   - VDJdb
   - negative result
-# When the preprint DOI exists, uncomment and fill this block so GitHub and
-# Zenodo point readers at the paper rather than the repository:
-#
-# preferred-citation:
-#   type: article
-#   title: "Biologically informed TCR representations improve in-distribution prediction but fail to generalize to unseen epitopes"
-#   authors:
-#     - given-names: Erick
-#       family-names: Tejkowski
-#       orcid: "https://orcid.org/0009-0006-9879-0777"
-#     - given-names: Maria Elisa
-#       family-names: Paredes
-#       orcid: "https://orcid.org/0009-0007-4967-8612"
-#   year: 2026
-#   doi: "FILL IN"
+# Citing the paper is preferred over citing the repository.
+preferred-citation:
+  type: article
+  title: "Biologically informed TCR representations improve in-distribution prediction but fail to generalize to unseen epitopes"
+  authors:
+    - given-names: Erick
+      family-names: Tejkowski
+      orcid: "https://orcid.org/0009-0006-9879-0777"
+    - given-names: Maria Elisa
+      family-names: Paredes
+      orcid: "https://orcid.org/0009-0007-4967-8612"
+  year: 2026
+  doi: "10.5281/zenodo.21800813"
+  url: "https://doi.org/10.5281/zenodo.21800813"
+  notes: "Preprint deposited at Zenodo."

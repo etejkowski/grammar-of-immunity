@@ -1,5 +1,6 @@
 # The Grammar of Immunity
 
+[![Preprint](https://img.shields.io/badge/preprint-10.5281%2Fzenodo.21800813-blue)](https://doi.org/10.5281/zenodo.21800813)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21800691.svg)](https://doi.org/10.5281/zenodo.21800691)
 
 A linguistics-based approach to T-cell receptor binding prediction.
@@ -399,10 +400,17 @@ between-arm comparisons are the result; the levels are optimistic.
 
 ## Citation
 
-Archived at Zenodo: **[10.5281/zenodo.21800691](https://doi.org/10.5281/zenodo.21800691)**
+**Preprint (cite this for the findings):**
+[10.5281/zenodo.21800813](https://doi.org/10.5281/zenodo.21800813)
 
-That is the concept DOI and always resolves to the newest release. The
-version-specific DOI for v1.0.0 is `10.5281/zenodo.21800692`.
+```
+Tejkowski, E., & Paredes, M. E. (2026). Biologically informed TCR representations
+improve in-distribution prediction but fail to generalize to unseen epitopes
+[Preprint]. Zenodo. https://doi.org/10.5281/zenodo.21800813
+```
+
+**Code and data archive:**
+[10.5281/zenodo.21800691](https://doi.org/10.5281/zenodo.21800691)
 
 ```
 Tejkowski, E., & Paredes, M. E. (2026). grammar-of-immunity: analysis code and
@@ -411,8 +419,12 @@ in-distribution prediction but fail to generalize to unseen epitopes" (v1.0.0)
 [Software]. Zenodo. https://doi.org/10.5281/zenodo.21800691
 ```
 
+Both are concept DOIs and always resolve to the newest version. The
+version-specific DOIs are `…21800814` for the preprint and `…21800692` for
+v1.0.0 of the code.
+
 `CITATION.cff` carries the machine-readable record, so GitHub shows a "Cite this
-repository" button. A preprint DOI will be added here when the paper is deposited.
+repository" button.
 
 Authors: Erick Tejkowski (ORCID 0009-0006-9879-0777) and Maria Elisa Paredes
 (ORCID 0009-0007-4967-8612), independent researchers.

@@ -29,6 +29,7 @@ form wants.
 | Subjects | Immunology and Infectious Disease; Bioinformatics; Genetics and Genomics |
 | License | CC-BY 4.0 |
 | Competing interests / funding | None |
+| Preprint | Zenodo DOI 10.5281/zenodo.21800813 |
 | Data and code | https://github.com/etejkowski/grammar-of-immunity, archived at Zenodo DOI 10.5281/zenodo.21800691 |
 | Submitted to a journal? | No |
 
@@ -36,8 +37,8 @@ form wants.
 
 ### The moment a DOI arrives
 
-1. `paper/cover-letter.md` — Zenodo DOI in place; `DOI: XXXX` awaits the preprint DOI
-2. `paper/presubmission-inquiries.md` — done, all four carry the Zenodo DOI
+1. `paper/cover-letter.md` — done, preprint and code DOIs both in place
+2. `paper/presubmission-inquiries.md` — done, all four carry both DOIs
 3. `README.md` — done, badge and citation at the top
 4. `paper/manuscript.md` — done
 

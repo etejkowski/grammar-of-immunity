@@ -33,7 +33,12 @@
       "identifier": "https://github.com/etejkowski/grammar-of-immunity",
       "relation": "isSupplementTo",
       "scheme": "url"
+    },
+    {
+      "identifier": "10.5281/zenodo.21800813",
+      "relation": "isSupplementTo",
+      "scheme": "doi"
     }
   ],
-  "notes": "The analysis code is released under the MIT License; the manuscript text and figures under paper/ are released under CC-BY 4.0. See LICENSE. Once the preprint has its own DOI, add it here as a related identifier with relation \"isSupplementTo\"."
+  "notes": "The analysis code is released under the MIT License; the manuscript text and figures under paper/ are released under CC-BY 4.0. See LICENSE. The preprint of the accompanying paper is at DOI 10.5281/zenodo.21800813."
 }

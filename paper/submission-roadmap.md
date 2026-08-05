@@ -49,10 +49,14 @@ field-by-field values for both forms:
 
 Do them in that order and the inquiry emails never wait on a moderator.
 
-**Done when:** at least one DOI exists. **Zenodo is done** — the code and data
-archive is live at `10.5281/zenodo.21800691` (2026-08-05, release v1.0.0),
-and that DOI is already in the manuscript, the cover letter, all four inquiry
-letters and the README. OSF Preprints is the remaining half.
+**Done — 2026-08-05.** Both DOIs are live and resolving:
+
+- preprint: `10.5281/zenodo.21800813` — https://zenodo.org/records/21800814
+- code and data: `10.5281/zenodo.21800691` (release v1.0.0)
+
+The preprint went to Zenodo rather than OSF Preprints; `paper/preprint-deposit.md`
+explains why. Both DOIs are already in the manuscript, the cover letter, all four
+inquiry letters, the README and `CITATION.cff`.
 
 ---
 
@@ -71,9 +75,8 @@ review.
 
 Four files need it:
 
-1. `paper/cover-letter.md` — the Zenodo DOI is in; `DOI: XXXX` is the remaining
-   slot for the preprint DOI
-2. `paper/presubmission-inquiries.md` — done, all four letters carry the Zenodo DOI
+1. `paper/cover-letter.md` — done, both DOIs in place
+2. `paper/presubmission-inquiries.md` — done, all four letters carry both DOIs
 3. `README.md` — done, badge and citation block at the top
 4. `paper/manuscript.md` — done, "Data and code availability" now cites the
    Zenodo DOI alongside commit `53226f2`
