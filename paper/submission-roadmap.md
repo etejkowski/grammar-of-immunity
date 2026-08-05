@@ -49,7 +49,10 @@ field-by-field values for both forms:
 
 Do them in that order and the inquiry emails never wait on a moderator.
 
-**Done when:** at least one DOI exists.
+**Done when:** at least one DOI exists. **Zenodo is done** — the code and data
+archive is live at `10.5281/zenodo.21800691` (2026-08-05, release v1.0.0),
+and that DOI is already in the manuscript, the cover letter, all four inquiry
+letters and the README. OSF Preprints is the remaining half.
 
 ---
 
@@ -68,11 +71,12 @@ review.
 
 Four files need it:
 
-1. `paper/cover-letter.md` — replace `DOI: XXXX`
-2. `paper/presubmission-inquiries.md` — replace `[DOI]` in all four letters
-3. `README.md` — add it near the top
-4. `paper/manuscript.md` — add the Zenodo DOI to "Data and code availability",
-   which currently names commit `53226f2` only
+1. `paper/cover-letter.md` — the Zenodo DOI is in; `DOI: XXXX` is the remaining
+   slot for the preprint DOI
+2. `paper/presubmission-inquiries.md` — done, all four letters carry the Zenodo DOI
+3. `README.md` — done, badge and citation block at the top
+4. `paper/manuscript.md` — done, "Data and code availability" now cites the
+   Zenodo DOI alongside commit `53226f2`
 
 Then `python3 paper/build.py` and re-copy the DOCX, so the manuscript and the
 letters agree. The assistant can do this in one pass if you paste the DOI.

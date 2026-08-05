@@ -21,6 +21,9 @@ authors:
     orcid: "https://orcid.org/0009-0007-4967-8612"
     affiliation: "Independent researcher, Fairview Heights, Illinois, USA"
 repository-code: "https://github.com/etejkowski/grammar-of-immunity"
+doi: "10.5281/zenodo.21800691"
+version: v1.0.0
+date-released: "2026-08-05"
 license: MIT
 keywords:
   - T-cell receptor

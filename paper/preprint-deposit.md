@@ -58,7 +58,29 @@ separate artifact and does not count as duplication.
 
 ---
 
-## 1. Zenodo–GitHub release (30 minutes, no gatekeeper)
+## 1. Zenodo–GitHub release — DONE, 2026-08-05
+
+Release `v1.0.0` (commit `a3a19c3`) was published on GitHub and archived by
+Zenodo the same minute:
+
+| | DOI | Use it for |
+|---|---|---|
+| **Concept** | **10.5281/zenodo.21800691** | everything — always resolves to the newest version |
+| Version | 10.5281/zenodo.21800692 | permanent pointer to v1.0.0 only |
+
+Record: https://zenodo.org/records/21800692
+
+Zenodo read `.zenodo.json` correctly: both authors in order with both ORCIDs and
+their independent-researcher affiliation, type Software, version v1.0.0, MIT
+licence, all ten keywords, GitHub linked as a related identifier. The DOI is now
+in `README.md`, `CITATION.cff`, the manuscript's "Data and code availability"
+section, the cover letter and all four inquiry letters.
+
+To release a later version, repeat only steps 4–5 below with a new tag; the
+concept DOI keeps resolving to the newest one.
+
+<details>
+<summary>The steps that were followed, for the record</summary>
 
 This gives the code and data their own DOI. It is standard practice, strengthens
 the reproducibility claim, and is not duplicate publication.
@@ -92,6 +114,8 @@ Steps:
 6. Afterwards, add the DOI badge to `README.md` and the DOI to the manuscript's
    "Data and code availability" section, which currently names commit `53226f2`
    only. Paste the DOI to the assistant and both happen in one pass.
+
+</details>
 
 Licensing is settled: `LICENSE` releases the analysis code under MIT — kept as
 pure MIT text so GitHub detects it — and `README.md` states that the manuscript

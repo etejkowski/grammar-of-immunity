@@ -73,8 +73,8 @@ waiver is available, it goes to first. Ask on day one, not after three rejection
 > artefactual specificity signature.
 >
 > All analyses are implemented in the Python standard library, are deterministic
-> under fixed seeds, and are openly available. A preprint is openly deposited
-> [DOI].
+> under fixed seeds, and are openly archived at Zenodo (DOI
+> 10.5281/zenodo.21800691).
 >
 > Would this be of interest? We are unaffiliated researchers and would rather ask
 > than presume.
@@ -110,7 +110,7 @@ Same study, framed as evaluation practice rather than immunogenetics.
 > manufacture apparent biological signal.
 >
 > Every analysis is deterministic and reproducible from public code in minutes on a
-> laptop. A preprint is openly deposited [DOI].
+> laptop, and openly archived at Zenodo (DOI 10.5281/zenodo.21800691).
 >
 > Would a rigorous negative result of this kind be of interest?
 >
@@ -141,7 +141,7 @@ Same study, framed as evaluation practice rather than immunogenetics.
 > than immunological.
 >
 > All code and data are public and the analyses are deterministic. A preprint is
-> openly deposited [DOI].
+> openly archived at Zenodo (DOI 10.5281/zenodo.21800691).
 >
 > Would this be of interest?
 >
@@ -182,7 +182,8 @@ learned that for the price of an email.
 > Second, we are unaffiliated researchers with no funding of any kind, and we would
 > like to ask whether an article publishing charge waiver may be available.
 >
-> A preprint is openly deposited [DOI].
+> The code and data are openly archived at Zenodo (DOI
+> 10.5281/zenodo.21800691).
 >
 > Sincerely,
 > [as above]
@@ -191,8 +192,9 @@ learned that for the price of an email.
 
 ## Before sending
 
-Replace `[DOI]` in each with the preprint or Zenodo DOI once it arrives; see
-`paper/preprint-deposit.md` for which comes first, and for why bioRxiv is no
-longer the venue. Every number quoted above appears in the manuscript and
+The Zenodo DOI (10.5281/zenodo.21800691) is already in all four letters, so
+they can go out as they stand. If the OSF Preprints deposit posts first, add the
+preprint DOI alongside it — see `paper/preprint-deposit.md`, and for why bioRxiv
+is no longer the venue. Every number quoted above appears in the manuscript and
 reproduces from the code — none of these emails claims anything the paper does
 not support.
