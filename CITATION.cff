@@ -1,0 +1,48 @@
+cff-version: 1.2.0
+message: "If you use this software or its findings, please cite it as below."
+type: software
+title: "grammar-of-immunity"
+abstract: >-
+  Analysis code and manuscript for a direct test of whether TCR CDR3-beta
+  representations segmented along V(D)J recombination boundaries generalize to
+  epitopes absent from training. They do not: on the official IMMREP23
+  benchmark no method exceeds 0.52 Macro AUC0.1 on unseen peptides, and the
+  within-distribution advantage is explained by germline V/J identity rather
+  than junctional sequence. Pure Python standard library, deterministic under
+  fixed seeds.
+authors:
+  - given-names: Erick
+    family-names: Tejkowski
+    orcid: "https://orcid.org/0009-0006-9879-0777"
+    email: erick.tejkowski@gmail.com
+    affiliation: "Independent researcher, Fairview Heights, Illinois, USA"
+  - given-names: Maria Elisa
+    family-names: Paredes
+    orcid: "https://orcid.org/0009-0007-4967-8612"
+    affiliation: "Independent researcher, Fairview Heights, Illinois, USA"
+repository-code: "https://github.com/etejkowski/grammar-of-immunity"
+license: MIT
+keywords:
+  - T-cell receptor
+  - TCR specificity prediction
+  - CDR3
+  - V(D)J recombination
+  - epitope generalization
+  - IMMREP23
+  - VDJdb
+  - negative result
+# When the preprint DOI exists, uncomment and fill this block so GitHub and
+# Zenodo point readers at the paper rather than the repository:
+#
+# preferred-citation:
+#   type: article
+#   title: "Biologically informed TCR representations improve in-distribution prediction but fail to generalize to unseen epitopes"
+#   authors:
+#     - given-names: Erick
+#       family-names: Tejkowski
+#       orcid: "https://orcid.org/0009-0006-9879-0777"
+#     - given-names: Maria Elisa
+#       family-names: Paredes
+#       orcid: "https://orcid.org/0009-0007-4967-8612"
+#   year: 2026
+#   doi: "FILL IN"

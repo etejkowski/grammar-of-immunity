@@ -1,0 +1,39 @@
+{
+  "title": "grammar-of-immunity: analysis code and manuscript for \"Biologically informed TCR representations improve in-distribution prediction but fail to generalize to unseen epitopes\"",
+  "upload_type": "software",
+  "creators": [
+    {
+      "name": "Tejkowski, Erick",
+      "affiliation": "Independent researcher, Fairview Heights, Illinois, USA",
+      "orcid": "0009-0006-9879-0777"
+    },
+    {
+      "name": "Paredes, Maria Elisa",
+      "affiliation": "Independent researcher, Fairview Heights, Illinois, USA",
+      "orcid": "0009-0007-4967-8612"
+    }
+  ],
+  "description": "<p>Analysis code, manuscript source and figures for a direct test of the hypothesis that segmenting TCR CDR3&beta; along the boundaries created by V(D)J recombination &mdash; germline-contributed termini and the junctional N-region &mdash; yields receptor representations that generalize to epitopes absent from training.</p><p>Using 121,467 deduplicated human TCR&beta; clonotypes from VDJdb and the official IMMREP23 benchmark and metric, it does not. Junctional regions do carry reproducible order-dependent structure (+0.1013 AUC from (V,J) conditioning, of which +0.0392 survives a boundary-trim control), but on withheld epitopes every arm sits at chance, and the within-distribution advantage is explained almost entirely by germline V/J identity rather than junctional sequence. No method exceeds 0.52 Macro AUC0.1 on the seven unseen IMMREP23 peptides, including NetTCR-2.2 retrained on the identical split.</p><p>All analyses are implemented in the Python standard library, are deterministic under fixed seeds, and reproduce on a laptop in minutes. Third-party inputs (VDJdb, IMMREP23, NetTCR-2.2) are fetched rather than redistributed; see README.md.</p>",
+  "license": "mit",
+  "access_right": "open",
+  "keywords": [
+    "T-cell receptor",
+    "TCR specificity prediction",
+    "CDR3",
+    "V(D)J recombination",
+    "biologically informed representation",
+    "epitope generalization",
+    "IMMREP23",
+    "VDJdb",
+    "negative result",
+    "reproducibility"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/etejkowski/grammar-of-immunity",
+      "relation": "isSupplementTo",
+      "scheme": "url"
+    }
+  ],
+  "notes": "The analysis code is released under the MIT License; the manuscript text and figures under paper/ are released under CC-BY 4.0. See LICENSE. Once the preprint has its own DOI, add it here as a related identifier with relation \"isSupplementTo\"."
+}
