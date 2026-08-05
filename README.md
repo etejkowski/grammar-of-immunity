@@ -394,3 +394,21 @@ Honest options from here, in descending order of how much they interest me:
 Caveat on all absolute numbers: negatives are shuffled pairs, not verified
 non-binders, which the IMMREP post-mortems flag as inflating performance. The
 between-arm comparisons are the result; the levels are optimistic.
+
+## Citation
+
+`CITATION.cff` carries the machine-readable record, so GitHub shows a "Cite this
+repository" button. Once the preprint has a DOI it goes here and in
+`paper/manuscript.md` under "Data and code availability".
+
+Authors: Erick Tejkowski (ORCID 0009-0006-9879-0777) and Maria Elisa Paredes
+(ORCID 0009-0007-4967-8612), independent researchers.
+
+## License
+
+Analysis code: MIT. Manuscript text and figures under `paper/`: CC-BY 4.0. See
+`LICENSE`.
+
+Third-party inputs are not redistributed here and carry their own terms — VDJdb,
+the IMMREP23 challenge data, and NetTCR-2.2, which is under its own academic
+software license. Quick Start above shows how each is obtained.
