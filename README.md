@@ -406,8 +406,12 @@ Authors: Erick Tejkowski (ORCID 0009-0006-9879-0777) and Maria Elisa Paredes
 
 ## License
 
-Analysis code: MIT. Manuscript text and figures under `paper/`: CC-BY 4.0. See
-`LICENSE`.
+Analysis code: **MIT** (`LICENSE`).
+
+Manuscript text and figures under `paper/`: **CC-BY 4.0**
+(https://creativecommons.org/licenses/by/4.0/), the same terms as the preprint
+deposit. `LICENSE` is kept as pure MIT text so GitHub detects it; this section is
+the authoritative statement of the split.
 
 Third-party inputs are not redistributed here and carry their own terms — VDJdb,
 the IMMREP23 challenge data, and NetTCR-2.2, which is under its own academic

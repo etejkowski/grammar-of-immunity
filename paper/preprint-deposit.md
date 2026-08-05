@@ -93,11 +93,12 @@ Steps:
    "Data and code availability" section, which currently names commit `53226f2`
    only. Paste the DOI to the assistant and both happen in one pass.
 
-Licensing is settled: `LICENSE` releases the analysis code under MIT and states
-that the manuscript text and figures under `paper/` are CC-BY 4.0, which is the
-same licence the preprint deposit uses. `.zenodo.json` declares `mit` for the
-software record. Third-party inputs — VDJdb, IMMREP23, NetTCR-2.2 — are fetched
-rather than redistributed and keep their own terms.
+Licensing is settled: `LICENSE` releases the analysis code under MIT — kept as
+pure MIT text so GitHub detects it — and `README.md` states that the manuscript
+text and figures under `paper/` are CC-BY 4.0, the same licence the preprint
+deposit uses. `.zenodo.json` declares `mit` for the software record and repeats
+the split in its notes field. Third-party inputs — VDJdb, IMMREP23, NetTCR-2.2 —
+are fetched rather than redistributed and keep their own terms.
 
 ---
 

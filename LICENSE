@@ -19,17 +19,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
----
-
-This license covers the analysis code in this repository.
-
-The manuscript text and figures under paper/ are released under Creative
-Commons Attribution 4.0 International (CC-BY 4.0):
-https://creativecommons.org/licenses/by/4.0/
-
-Third-party inputs are not redistributed here and carry their own terms:
-VDJdb (https://github.com/antigenomics/vdjdb-db), the IMMREP23 challenge data
-(https://github.com/justin-barton/IMMREP23), and NetTCR-2.2
-(https://github.com/mnielLab/NetTCR-2.2), which is distributed under its own
-academic software license. See README.md for how each is obtained.
