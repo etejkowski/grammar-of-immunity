@@ -42,67 +42,110 @@ readers, funded by institutions rather than fees.
 
 ## Recommended order
 
-### 1. Immunogenetics (Springer) — free, PubMed-indexed
+**Revised 2026-08-05, after reading the editorial boards.** The earlier ranking
+was built from cost, indexing and stated scope. Reading who actually runs each
+journal, and what each has recently published, moved three of them. The old
+ordering is preserved in the git history; what follows replaces it.
 
-The best combination of fit, discoverability and cost. Its scope covers immune
-receptor genetics — MHC, TCR and germline segment usage — which is exactly what
-your central finding is about: that V and J gene identity, not junctional
-sequence, carries the transferable signal. PubMed lists 5,014 records for it, so
-immunologists will find the paper.
+### 1. ImmunoInformatics (Elsevier) — best fit by a wide margin, USD 1,900 unless waived
 
-Hybrid, so declining open access should cost nothing. **Verify** the current model
-and check for page or colour-figure charges before submitting.
+Scope is no longer a question, and the fee is the only open one. Its 2025–2026
+output is this paper's immediate neighbourhood:
 
-### 2. Computers in Biology and Medicine, or Molecular Immunology (Elsevier) — free, PubMed-indexed
+- a tcrdist3 substitution-matrix comparison (now our reference [27])
+- T-cell receptor specificity annotation models, June 2026
+- active learning for out-of-distribution experimental design, March 2026
+- "The gremlin in the works", on germline reference sequences, December 2025
+  (now our reference [24])
+- "Where single-cell transcriptomics fails T cells: the misuse of unsupervised
+  clustering for T-cell annotation", December 2025
 
-Both subscription-based with an optional paid OA route, both well indexed (11,295
-and 9,498 PubMed records). Computers in Biology and Medicine suits the
-benchmarking and evaluation-practice framing; Molecular Immunology reaches an
-immunology readership but leans molecular and cellular, so the fit is looser.
+That last one is the decisive datum. It is a critical methodology paper, which
+means the question "would you consider a negative result?" already has a
+published answer. The germline paper is more consequential still: our manuscript
+now engages it directly, and one of its authors, **Gur Yaari, is the journal's
+Editor-in-Chief**.
 
-### 3. PCI Mathematical and Computational Biology → Peer Community Journal — free, and unusually well suited
+The journal is also active, not winding down. Crossref records 62 articles: 16 in
+2024, 17 in 2025, 3 by mid-2026. A library index listing coverage as 2021–2024
+caused momentary alarm; that was the library's subscription window.
+
+Not in PubMed, which remains a real cost to two unaffiliated authors building a
+record. Ask about the waiver first; if granted, submit here.
+
+### 2. Molecular Immunology (Elsevier) — free, PubMed-indexed, better fit than previously judged
+
+**Promoted.** This document previously called the fit "looser" because the journal
+leans molecular and cellular. That judgement predated knowing the editor.
+**Zhinan Yin**, the Editor-in-Chief, is a T-cell immunologist whose recent work is
+on Vγ9Vδ2 T-cell cytotoxicity, γδ T-cell tumour reactivity and TIL analysis. An
+editor who publishes on TCR-bearing effector populations needs no persuading that
+unseen-epitope generalization matters. 9,498 PubMed records.
+
+### 3. Immunogenetics (Springer) — free, PubMed-indexed, fast
+
+Unchanged on merit, and its scope still covers the finding that carries the paper:
+that V and J identity, not junctional sequence, holds the transferable signal.
+Two additions. Its median submission-to-first-decision is **9 days**, per
+Springer's own metrics, which is exceptional and means little is lost by trying.
+Springer publishes no editor email at all, so the contact came from a
+corresponding-author footnote; see `paper/inquiry-emails/0-journal-contacts.txt`.
+
+Hybrid, so declining open access should cost nothing. Verify before submitting.
+
+### 4. Computers in Biology and Medicine (Elsevier) — free and well indexed, but a scope risk
+
+**Demoted from second.** The cost and indexing arguments hold: free, 11,295 PubMed
+records, and the evaluation-practice framing suits it. But its board has six
+Executive Editors and no Editor-in-Chief, and not one of the six is an
+immunologist or a sequence bioinformatician. The listed expertise is wavelets,
+digital signal processing, biomedical image processing, computational
+neuroscience, clinical decision support and drug repurposing. The closest match,
+Sinosh Skariyachan, works in molecular modelling and computer-aided drug
+discovery rather than repertoire analysis.
+
+Desk rejection on scope is a live risk here, which is exactly why the inquiry has
+value. Keep it in the first batch; do not count on it.
+
+### 5. PCI Mathematical and Computational Biology → Peer Community Journal — free, and unusually well suited
 
 `https://mcb.peercommunityin.org`
 
-A non-profit initiative that organizes rigorous peer review of preprints and, on a
-positive evaluation, publicly recommends them. You can then publish free of charge
-in Peer Community Journal, which is diamond open access, or leave the recommended
-preprint where it is and cite the recommendation.
+Unchanged. Free at every stage, diamond open access, reviews published alongside
+the paper, and it requires the open code we already have — which suits work whose
+main strength is its controls. The drawback is reach: 13 PubMed records, so
+effectively unindexed. Check their policy on concurrent journal submission before
+running it in parallel.
 
-Why it fits this paper particularly well: it requires open data and code, which
-you already have; the reviews are published alongside the paper, which suits work
-whose main strength is its controls; and there is no fee at any stage.
+### 6. IEEE/ACM Transactions on Computational Biology and Bioinformatics — free, PubMed-indexed
 
-The real drawback is discoverability. Peer Community Journal returns only 13
-PubMed records, so it is effectively not indexed there. For two unaffiliated
-authors building a track record, that matters.
+Unchanged. 3,090 PubMed records, strong on methods and evaluation, but a more
+computational audience than the paper's biology deserves. **Verify** whether page
+charges are mandatory.
 
-### 4. IEEE/ACM Transactions on Computational Biology and Bioinformatics — free, PubMed-indexed
+### 7. Frontiers in Immunology — CHF 3,150
 
-Subscription-based, 3,090 PubMed records, strong on methods and evaluation. Less
-read by immunologists, so the audience is more computational than the paper's
-biology deserves. **Verify** whether they levy mandatory page charges.
+Unchanged. Widest immunology readership, roughly USD 3,900, and their fee-support
+programme excludes US authors. Only if reach justifies the cost.
 
-### 5. ImmunoInformatics (Elsevier) — USD 1,900, best community fit, ask about a waiver on day one
+---
 
-Keep this on the list, because scientifically it remains the sharpest match: it
-published both IMMREP workshop reports, so its editors and reviewers are the
-people who built the benchmark you used, and a negative benchmarking result needs
-no defence there. But it is fully open access at USD 1,900, and it is **not** in
-PubMed — zero records — so you would be paying for community fit rather than reach.
+## What reading the boards actually taught us
 
-**Cost is the only reason it sits at number five.** Ask about a waiver in your
-first round of pre-submission inquiries, not after other venues decline. Elsevier
-says waivers may be available for fully open access journals and DOAJ records a
-waiver policy for this title; their programme is aimed mainly at low- and
-lower-middle-income countries, so do not count on it. But if a waiver is granted,
-this journal becomes both free and the best fit, and it moves to first choice.
-That one answer reorders this entire document, and it costs an email to obtain.
+A pattern worth keeping in view when the replies arrive. The two immunology
+journals are run by people whose own research is immune receptor biology; the
+computational journal is not. If the replies split along that line — interest from
+Immunogenetics and Molecular Immunology, scope doubts from Computers in Biology
+and Medicine — that is evidence the paper's audience is immunologists who compute
+rather than computational scientists who touch biology, and the eventual cover
+letter should be framed accordingly.
 
-### 6. Frontiers in Immunology — CHF 3,150
-
-The widest immunology readership, but roughly USD 3,900 and their fee-support
-programme excludes US authors. Only worth it if reach justifies the cost to you.
+One further connection: the ImmunoInformatics special issue carrying the germline
+paper is guest-edited in part by **Justin Barton**, whose repository is the source
+of the IMMREP23 data cited in our reference [12], and whose own nuTCRacker is now
+our reference [26]. The people who curated the benchmark we scored ourselves
+against are in that journal's editorial orbit. That favours us, but it means the
+IMMREP23 methods will be read by someone who knows that data intimately.
 
 ---
 
@@ -114,12 +157,18 @@ they answer in about a week what a blind submission takes six weeks to reveal.
 
 Then let the replies decide:
 
-- **If ImmunoInformatics grants a waiver**, submit there. Best fit, and free.
-- **Otherwise submit to Immunogenetics**, which costs nothing, is properly indexed,
-  and whose scope matches the finding that carries the paper.
-- **If Immunogenetics declines**, go to Computers in Biology and Medicine, and use
-  whatever the first reviewers said even in rejection — free peer review is still
-  peer review.
+- **If ImmunoInformatics grants a waiver**, submit there. Best fit, free, and the
+  editor already published the concern our Limitations now engages.
+- **If ImmunoInformatics says yes on scope but no on the fee**, the choice is
+  USD 1,900 for the right audience against free publication in a PubMed-indexed
+  immunology journal. Given that neither of us is funded, take the free route and
+  keep the preprint doing the discoverability work.
+- **Otherwise submit to Molecular Immunology or Immunogenetics**, whichever replies
+  more warmly. Both are free, both are PubMed-indexed, and both are run by
+  immunologists. Immunogenetics decides in a median of 9 days, so if both are
+  positive, start there and lose almost nothing if it declines.
+- **Treat Computers in Biology and Medicine as the fallback**, not the second
+  choice. Its board has no immunologist on it.
 - **If several decline on scope rather than quality**, that is evidence the natural
   audience is the IMMREP community, and paying the USD 1,900 becomes a considered
   choice rather than a default cost.
