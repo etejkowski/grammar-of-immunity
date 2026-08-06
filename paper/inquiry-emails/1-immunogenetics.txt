@@ -1,0 +1,23 @@
+SEND FIRST-DAY BATCH, LETTER 1 OF 4
+Journal:  Immunogenetics (Springer)
+Contact:  https://link.springer.com/journal/251  ->  "Contact the journal"
+Subject:  Pre-submission inquiry: TCR specificity benchmark, negative result
+
+--- paste everything below this line ---
+
+Dear Editors,
+
+We would like to ask whether the following study falls within the scope of Immunogenetics.
+
+We tested a published hypothesis: that segmenting TCR CDR3β along the boundaries created by V(D)J recombination — germline-contributed termini and the junctional N-region — yields receptor representations that generalize to epitopes absent from training. Using 121,467 deduplicated human TCRβ clonotypes from VDJdb and the official IMMREP23 benchmark scored with its official metric, we find that it does not. More informative for your readership, we find that the advantage such representations do show within the training distribution is explained almost entirely by germline V and J segment identity rather than junctional sequence, and that this holds across four negative-generation schemes, a six-point learning curve, and a retrained NetTCR-2.2.
+
+Two further results may interest immunogeneticists independently: a boundary-trim control showing that most apparent junctional structure sits at the germline boundaries, and a demonstration that a single tetramer-sort study contributing 79.5% of one epitope's clonotypes manufactures a convincing but artefactual specificity signature.
+
+All analyses are implemented in the Python standard library, are deterministic under fixed seeds, and are openly archived. A preprint is deposited at Zenodo (DOI 10.5281/zenodo.21800813), with the code and data archived alongside it (DOI 10.5281/zenodo.21800691).
+
+Would this be of interest? We are unaffiliated researchers and would rather ask than presume.
+
+Sincerely,
+Erick Tejkowski (ORCID 0009-0006-9879-0777)
+Maria Elisa Paredes (ORCID 0009-0007-4967-8612)
+erick.tejkowski@gmail.com

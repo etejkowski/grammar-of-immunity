@@ -1,0 +1,24 @@
+SEND FIRST-DAY BATCH, LETTER 2 OF 4
+Journal:  Computers in Biology and Medicine (Elsevier)
+Contact:  https://www.sciencedirect.com/journal/computers-in-biology-and-medicine
+          -> "Editorial board" for the editorial office address
+Subject:  Pre-submission inquiry: TCR specificity benchmark, negative result
+
+--- paste everything below this line ---
+
+Dear Editors,
+
+We would like to ask whether the following study falls within the scope of Computers in Biology and Medicine.
+
+T-cell receptor specificity predictors perform well on epitopes seen during training and collapse to chance on unseen ones. We tested whether biologically informed receptor representations close that gap, on the official IMMREP23 benchmark with its official metric. They do not: no method we evaluated exceeds 0.52 Macro AUC0.1 on the seven test peptides absent from training, including a published convolutional network retrained on the identical split, which reaches 0.92 AUC on its own validation pairs.
+
+The methodological findings may be the more transferable contribution. First, a six-point learning curve shows the representation's advantage rising monotonically with training size while a baseline stays flat — so a fixed-size comparison cannot distinguish a better representation from a more data-efficient one, which has implications for how representational claims in this field are evaluated. Second, we show how single-study composition in public databases can manufacture apparent biological signal.
+
+Every analysis is deterministic and reproducible from public code in minutes on a laptop. A preprint is deposited at Zenodo (DOI 10.5281/zenodo.21800813), with the code and data archived alongside it (DOI 10.5281/zenodo.21800691).
+
+Would a rigorous negative result of this kind be of interest?
+
+Sincerely,
+Erick Tejkowski (ORCID 0009-0006-9879-0777)
+Maria Elisa Paredes (ORCID 0009-0007-4967-8612)
+erick.tejkowski@gmail.com

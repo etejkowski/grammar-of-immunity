@@ -1,0 +1,24 @@
+SEND FIRST-DAY BATCH, LETTER 3 OF 4
+Journal:  Molecular Immunology (Elsevier)
+Contact:  https://www.sciencedirect.com/journal/molecular-immunology
+          -> "Editorial board" for the editorial office address
+Subject:  Pre-submission inquiry: TCR specificity benchmark, negative result
+
+--- paste everything below this line ---
+
+Dear Editors,
+
+We would like to ask whether the following study falls within the scope of Molecular Immunology.
+
+V(D)J recombination joins germline segments with non-templated junctional insertion, concentrating receptor diversity in CDR3. We asked whether the junctional region carries organization beyond composition, and whether exposing it improves prediction of which epitope a receptor recognizes. It does carry reproducible order-dependent structure across 79 held-out studies — though a boundary-trim control shows most of that signal sits at the germline boundaries rather than in the junctional interior. It does not improve prediction for epitopes absent from training, and the advantage seen for represented epitopes is explained by germline V and J identity rather than junctional sequence.
+
+We also document a data-quality issue with direct bearing on repertoire studies: for one of the three most-studied epitopes, a single study contributes 79.5% of clonotypes, and its junctional regions are 10.8% cysteine-containing against 0.4–0.6% elsewhere, producing a specificity signature that is experimental rather than immunological.
+
+All code and data are public and the analyses are deterministic. A preprint is deposited at Zenodo (DOI 10.5281/zenodo.21800813), with the code and data archived alongside it (DOI 10.5281/zenodo.21800691).
+
+Would this be of interest?
+
+Sincerely,
+Erick Tejkowski (ORCID 0009-0006-9879-0777)
+Maria Elisa Paredes (ORCID 0009-0007-4967-8612)
+erick.tejkowski@gmail.com

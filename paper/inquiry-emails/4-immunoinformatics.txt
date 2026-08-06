@@ -1,0 +1,29 @@
+SEND FIRST-DAY BATCH, LETTER 4 OF 4  —  THE IMPORTANT ONE
+Journal:  ImmunoInformatics (Elsevier)
+Contact:  https://www.sciencedirect.com/journal/immunoinformatics
+          -> "Editorial board" for the editorial office address
+Subject:  Pre-submission inquiry: TCR specificity benchmark, negative result
+
+This is the letter whose answer reorders the whole venue plan. Scope is not in
+doubt — this journal published the IMMREP benchmark reports. The unknown is the
+USD 1,900 article publishing charge. If a waiver is available, ImmunoInformatics
+becomes both the best scientific fit and free, moving from fifth choice to first.
+If not, you learned it for the price of an email. Send it with the other three,
+the same day.
+
+--- paste everything below this line ---
+
+Dear Editors,
+
+We have completed a direct test of a published hypothesis and believe ImmunoInformatics may be its natural home, given the journal's role in publishing the IMMREP benchmark reports.
+
+Vu et al. (Nat Comput Sci, 2024) argued that receptor language models fail partly because their tokenization encodes no immune-specific structure, and invited an implementation. We implemented it: CDR3β segmented into germline-contributed termini and the junctional N-region. On the official IMMREP23 data and metric, no method we evaluated exceeds 0.52 Macro AUC0.1 on the seven unseen peptides, including a retrained NetTCR-2.2, and the within-distribution advantage is explained by germline V/J identity rather than junctional sequence. Controls include a permuted-label capacity control, a size-matched negative control, a boundary-trim control, and a seen-epitope positive control at 0.71 AUC.
+
+Two questions. First, would the journal consider a negative result of this kind? Second, we are unaffiliated researchers with no funding of any kind, and we would like to ask whether an article publishing charge waiver may be available.
+
+A preprint is deposited at Zenodo (DOI 10.5281/zenodo.21800813), with the code and data archived alongside it (DOI 10.5281/zenodo.21800691).
+
+Sincerely,
+Erick Tejkowski (ORCID 0009-0006-9879-0777)
+Maria Elisa Paredes (ORCID 0009-0007-4967-8612)
+erick.tejkowski@gmail.com
