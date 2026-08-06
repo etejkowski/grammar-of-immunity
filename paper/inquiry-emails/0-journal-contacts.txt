@@ -1,0 +1,89 @@
+JOURNAL LIST AND LINKS
+Compiled from paper/venue-plan.md. Ranked by that document's recommended order.
+Links verified 2026-08-05: Springer, PCI, IEEE and Frontiers returned HTTP 200.
+Elsevier / ScienceDirect links return 403 to automated checks because Elsevier
+blocks bots — they open normally in a browser.
+
+Record contacts here as you find them, then send all four inquiries the same day.
+
+=========================================================================
+THE FOUR INQUIRY TARGETS  —  letters in this same folder
+=========================================================================
+
+1. IMMUNOGENETICS  (Springer)              free, PubMed-indexed, 5,014 records
+   letter:   1-immunogenetics.txt
+   home:     https://link.springer.com/journal/251
+   authors:  https://link.springer.com/journal/251/submission-guidelines
+   editors:  https://link.springer.com/journal/251/editorial-board
+   contact:  look for "Contact the journal" on the home page
+   address found: ______________________________________
+   Hybrid — declining open access should cost nothing. VERIFY the model and
+   check for page or colour-figure charges.
+
+2. COMPUTERS IN BIOLOGY AND MEDICINE  (Elsevier)   free, 11,295 PubMed records
+   letter:   2-computers-in-biology-and-medicine.txt
+   home:     https://www.sciencedirect.com/journal/computers-in-biology-and-medicine
+   authors:  https://www.sciencedirect.com/journal/computers-in-biology-and-medicine/publish/guide-for-authors
+   editors:  https://www.sciencedirect.com/journal/computers-in-biology-and-medicine/about/editorial-board
+   address found: ______________________________________
+   Subscription with optional paid OA. Suits the benchmarking framing.
+
+3. MOLECULAR IMMUNOLOGY  (Elsevier)                free, 9,498 PubMed records
+   letter:   3-molecular-immunology.txt
+   home:     https://www.sciencedirect.com/journal/molecular-immunology
+   authors:  https://www.sciencedirect.com/journal/molecular-immunology/publish/guide-for-authors
+   editors:  https://www.sciencedirect.com/journal/molecular-immunology/about/editorial-board
+   address found: ______________________________________
+   Immunology readership but leans molecular and cellular, so fit is looser.
+
+4. IMMUNOINFORMATICS  (Elsevier)      USD 1,900, best fit, NOT in PubMed
+   letter:   4-immunoinformatics.txt     <-- carries the fee-waiver question
+   home:     https://www.sciencedirect.com/journal/immunoinformatics
+   authors:  https://www.elsevier.com/journals/immunoinformatics/2667-1190/guide-for-authors
+   editors:  https://www.sciencedirect.com/journal/immunoinformatics/about/editorial-board
+   address found: ______________________________________
+   Published both IMMREP workshop reports, so a negative benchmarking result
+   needs no defence here. Fully open access at USD 1,900 and zero PubMed
+   records. A waiver moves it from fifth choice to first.
+
+=========================================================================
+IN RESERVE  —  no letter drafted, no inquiry needed yet
+=========================================================================
+
+5. PCI MATHEMATICAL AND COMPUTATIONAL BIOLOGY -> PEER COMMUNITY JOURNAL
+   https://mcb.peercommunityin.org
+   Free at every stage, diamond open access, reviews published alongside the
+   paper, requires the open code you already have. Drawback is reach: 13 PubMed
+   records, effectively unindexed. Check their concurrent-submission policy
+   before running it in parallel.
+
+6. IEEE/ACM TRANSACTIONS ON COMPUTATIONAL BIOLOGY AND BIOINFORMATICS
+   https://www.computer.org/csdl/journal/tb
+   Free, 3,090 PubMed records, strong on methods. Audience more computational
+   than the paper's biology deserves. VERIFY whether page charges are mandatory.
+
+7. FRONTIERS IN IMMUNOLOGY
+   https://www.frontiersin.org/journals/immunology
+   Widest immunology readership, CHF 3,150, and their fee-support programme
+   excludes US authors. Only if reach justifies the cost.
+
+=========================================================================
+DO NOT USE  —  both flipped to fully open access, no free route
+=========================================================================
+   Bioinformatics                  fully OA since January 2023
+   Briefings in Bioinformatics     fully OA since January 2024
+
+=========================================================================
+FIVE THINGS TO CHECK ON WHICHEVER PAGE YOU OPEN
+Paste the relevant text to the assistant and every file is conformed in one pass.
+=========================================================================
+1. Publishing model — hybrid, fully OA, or subscription. Models flip.
+2. Page, colour-figure or supplementary charges even without OA.
+3. Abstract limit, and whether the structured headings are a fixed set.
+   Ours is 242 words with headings Background / Methods / Results /
+   Validation / Conclusions. "Validation" is non-standard. A 250-word cap
+   does not bite; only 200 or below forces a cut.
+4. Whether Highlights are required, and their character limit. Five are
+   ready, longest 78 characters.
+5. Their generative-AI policy. The manuscript already carries a declaration
+   before the references.
