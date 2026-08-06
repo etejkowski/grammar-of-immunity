@@ -1,0 +1,51 @@
+ZENODO PREPRINT RECORD — VALUES TO PASTE
+Record: https://zenodo.org/uploads/21800814
+Concept DOI: 10.5281/zenodo.21800813   (this never changes; metadata edits do not mint a new DOI)
+
+=========================================================================
+TITLE  —  fixed and verified 2026-08-05, no action needed
+=========================================================================
+Biologically informed TCR representations improve in-distribution prediction but fail to generalize to unseen epitopes
+
+=========================================================================
+KEYWORDS  —  OUTSTANDING. Record currently has zero keywords.
+Form location: scroll past Description, expand the collapsed
+"Recommended information" panel, then "Keywords and subjects".
+=========================================================================
+
+--- Option A: all eight in one paste (try this first) -------------------
+T-cell receptor, TCR specificity prediction, CDR3, V(D)J recombination, epitope generalization, IMMREP23, VDJdb, negative result
+
+If that lands as ONE run-on tag instead of eight separate tags, delete it
+and use Option B. A single run-on tag is the exact defect we just removed.
+
+--- Option B: one at a time, press Enter after each --------------------
+T-cell receptor
+TCR specificity prediction
+CDR3
+V(D)J recombination
+epitope generalization
+IMMREP23
+VDJdb
+negative result
+
+Before clicking Save, count eight separate tags on screen. Text still
+sitting in the input box when you Save is discarded — that is what
+emptied the field on the last attempt.
+
+=========================================================================
+VERIFIED CORRECT, do not touch
+=========================================================================
+Resource type      Preprint
+License            CC-BY 4.0
+Authors            Tejkowski, Erick  /  Paredes, Maria Elisa   (in that order)
+Affiliation        Independent researcher, Fairview Heights, Illinois, USA
+File               Tejkowski_Paredes_2026_TCR_representations.pdf  (1.4 MB, 25 pages)
+Related work       10.5281/zenodo.21800691  —  "is supplemented by"  (code archive)
+Description        1,837 characters, five paragraphs, no spacing defects
+
+=========================================================================
+FOR REFERENCE — the code record 21800692 already carries ten keywords,
+read automatically from .zenodo.json. It needs no edits. The preprint
+record was populated by hand, which is why only it was affected.
+=========================================================================
