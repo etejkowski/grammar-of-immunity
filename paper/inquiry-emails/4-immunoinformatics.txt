@@ -1,16 +1,23 @@
 SEND FIRST-DAY BATCH, LETTER 4 OF 4  —  THE IMPORTANT ONE
 Journal:  ImmunoInformatics (Elsevier)
-Send to:  BOTH founding Editors-in-Chief, on one email:
-          Niels.Halama@dkfz.de   Niels Halama, DKFZ / NCT Heidelberg
-          dlevy@umd.edu          Doron Levy, University of Maryland
-How known: they co-wrote the launch editorial, "ImmunoInformatics: at the
-          crossroads between immunology and informatics" (Oct 2021). Halama's
-          address is from a March 2026 paper; Levy publishes his on his UMD
-          faculty page, which also links the journal as "Open Access Journal
-          on Computational Immunology". Halama is the immunology side, Levy
-          the mathematical-modelling side — address Halama first.
-          The journal's own editorial board page 404s, so this was assembled
-          from the launch editorial rather than from Elsevier's site.
+Send to:  Gur Yaari, EDITOR-IN-CHIEF (current)
+          gur.yaari@biu.ac.il      Bar-Ilan University, Ramat Gan, Israel
+          cc gur.yaari@yale.edu    on a Feb 2026 paper
+How known: the competing-interest declaration of Heather et al. 2025
+          (10.1016/j.immuno.2025.100058) states plainly: "GY is the
+          Editor-in-Chief of Immunoinformatics". That supersedes the earlier
+          guess below.
+SUPERSEDED: Niels.Halama@dkfz.de and dlevy@umd.edu co-wrote the 2021 launch
+          editorial and were assumed still in post. They are not the current
+          EiC. Consider cc'ing Halama only if a reply does not come.
+          The journal's own editorial board page 404s, which is why this took
+          two passes.
+
+NOTE BEFORE SENDING: Yaari is a co-author of the germline reference paper the
+manuscript now cites as [24], and of the AIRR-C germline set effort it points
+at. Engaging with that work is genuine and correct, but say it plainly and do
+not flatter — he will know his own paper.
+
 Subject:  Pre-submission inquiry: TCR specificity benchmark, negative result
 
 SCOPE IS NOT A QUESTION — the journal's 2025-2026 output is this paper's
@@ -41,7 +48,7 @@ first. Send it with the other three, the same day.
 
 --- paste everything below this line ---
 
-Dear Dr Halama and Dr Levy,
+Dear Professor Yaari,
 
 We have completed a direct test of a published hypothesis and believe ImmunoInformatics may be its natural home, given the journal's role in publishing the IMMREP benchmark reports.
 
