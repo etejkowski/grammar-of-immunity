@@ -15,36 +15,113 @@ THE FOUR INQUIRY TARGETS  —  letters in this same folder
    home:     https://link.springer.com/journal/251
    authors:  https://link.springer.com/journal/251/submission-guidelines
    editors:  https://link.springer.com/journal/251/editorial-board
-   contact:  look for "Contact the journal" on the home page
-   address found: ______________________________________
-   Hybrid — declining open access should cost nothing. VERIFY the model and
-   check for page or colour-figure charges.
+
+   RESOLVED 2026-08-05. Send to the Editor-in-Chief:
+     Jesse Bruijnesteijn PhD  —  bruijnesteijn@bprc.nl
+     ORCID 0000-0002-7480-5376
+   Malcolm Sim PhD is Associate Editor; the rest of the board handle assigned
+   manuscripts and are not the right first contact.
+
+   That address is the corresponding-author email printed on his 2024 MHC
+   architecture paper, found via Europe PMC. Springer publishes no editor
+   email at all — its "Contact the journal" page carries only a ticket form,
+   which is the fallback if the address bounces:
+     https://support.springernature.com/en/support/tickets/new?ticket_form=journal_contact_form
+   The board page lists him at University Medical Centers Amsterdam, while his
+   papers through April 2026 still say Biomedical Primate Research Centre,
+   Rijswijk. A move may be in progress; bprc.nl is the more recently used.
+
+   Median submission to first decision: 9 days, per Springer's journal
+   metrics. Hybrid — declining open access should cost nothing. VERIFY the
+   model and check for page or colour-figure charges.
+
+   HOW THIS WAS FOUND — use the same method for the other three:
+     1. Editorial board page gives the Editor-in-Chief's name.
+     2. Europe PMC gives the email, because journals print corresponding-author
+        addresses on papers and Europe PMC indexes them:
+        https://europepmc.org/search?query=AUTH%3A%22Surname%20I%22
+        Open a recent paper where they are corresponding author and the
+        address is in the affiliation footnote.
+   Publisher pages almost never list editor emails. The literature almost
+   always does.
 
 2. COMPUTERS IN BIOLOGY AND MEDICINE  (Elsevier)   free, 11,295 PubMed records
    letter:   2-computers-in-biology-and-medicine.txt
    home:     https://www.sciencedirect.com/journal/computers-in-biology-and-medicine
    authors:  https://www.sciencedirect.com/journal/computers-in-biology-and-medicine/publish/guide-for-authors
    editors:  https://www.sciencedirect.com/journal/computers-in-biology-and-medicine/about/editorial-board
-   address found: ______________________________________
-   Subscription with optional paid OA. Suits the benchmarking framing.
+
+   RESOLVED 2026-08-05. Send to:
+     Sinosh Skariyachan PhD, Executive Editor
+     sinoshmicro@stpius.ac.in      institutional, matches the board listing
+     cc sinoshskariya@gmail.com    on a Sept 2025 paper, as insurance
+
+   The board lists six Executive Editors and no Editor-in-Chief. He is the
+   only one whose expertise includes "Bioinformatics and Computational
+   Biology"; the other five are signal and image processing (Xu, Guido,
+   Janjarasjitt), clinical decision support (Mao) and drug repurposing
+   (Rodriguez Gonzalez). Europe PMC could not resolve emails for Mao or
+   Rodriguez Gonzalez — the names are too common to attribute confidently.
+
+   CAUTION: no immunologist and no sequence bioinformatician on this board,
+   and Skariyachan's own bioinformatics is molecular modelling and
+   computer-aided drug discovery, not repertoire analysis. Desk rejection on
+   scope is a live risk, which is precisely why asking first has value.
+   Subscription with optional paid OA. Letter 2 is framed around evaluation
+   practice rather than immunology to suit this board.
 
 3. MOLECULAR IMMUNOLOGY  (Elsevier)                free, 9,498 PubMed records
    letter:   3-molecular-immunology.txt
    home:     https://www.sciencedirect.com/journal/molecular-immunology
    authors:  https://www.sciencedirect.com/journal/molecular-immunology/publish/guide-for-authors
    editors:  https://www.sciencedirect.com/journal/molecular-immunology/about/editorial-board
-   address found: ______________________________________
-   Immunology readership but leans molecular and cellular, so fit is looser.
+
+   RESOLVED 2026-08-05. Send to the Editor-in-Chief:
+     Zhinan Yin PhD  —  tzhinan@jnu.edu.cn
+     Jinan University, Guangzhou, Guangdong, China
+
+   Verified rather than guessed: that address appears in the affiliation
+   footnote for "Yin Z" at Jinan University on several 2026 papers. A plain
+   "Yin Z" author search is useless, so the query was constrained by
+   affiliation. Jinan prefixes faculty accounts with "t" — t + zhinan.
+
+   UPGRADE THIS JOURNAL'S PROSPECTS. He is a T-cell immunologist: recent work
+   on Vgamma9Vdelta2 T cell cytotoxicity, gamma-delta T cell tumour
+   reactivity, TIL analysis. venue-plan.md calls the fit "looser" because the
+   journal leans molecular and cellular, but that judgement predates knowing
+   the editor. Someone publishing on TCR-bearing effector populations needs no
+   explanation of why unseen-epitope generalisation matters.
 
 4. IMMUNOINFORMATICS  (Elsevier)      USD 1,900, best fit, NOT in PubMed
    letter:   4-immunoinformatics.txt     <-- carries the fee-waiver question
    home:     https://www.sciencedirect.com/journal/immunoinformatics
    authors:  https://www.elsevier.com/journals/immunoinformatics/2667-1190/guide-for-authors
-   editors:  https://www.sciencedirect.com/journal/immunoinformatics/about/editorial-board
-   address found: ______________________________________
-   Published both IMMREP workshop reports, so a negative benchmarking result
-   needs no defence here. Fully open access at USD 1,900 and zero PubMed
-   records. A waiver moves it from fifth choice to first.
+   editors:  the board page 404s. Do not rely on it.
+
+   RESOLVED 2026-08-05. Send to BOTH founding Editors-in-Chief on one email:
+     Niels Halama   —  Niels.Halama@dkfz.de     DKFZ / NCT Heidelberg
+     Doron Levy     —  dlevy@umd.edu            University of Maryland
+   They co-wrote the launch editorial, "ImmunoInformatics: at the crossroads
+   between immunology and informatics" (Oct 2021), which is how they were
+   identified once the board page turned out to be dead. Halama's address is
+   from a March 2026 paper; Levy publishes his on his UMD faculty page, which
+   also links this journal as "Open Access Journal on Computational
+   Immunology". Halama is the immunology side, Levy the modelling side.
+
+   THE JOURNAL IS ACTIVE. A library index listing coverage as 2021-2024 is
+   that library's window, not the journal's life. Crossref: 62 articles total,
+   16 in 2024, 17 in 2025, 3 in 2026, most recent June 2026.
+
+   SCOPE IS SETTLED BY THEIR OWN OUTPUT — see the letter file for the list.
+   Two items matter beyond the inquiry:
+     - "The gremlin in the works: why T cell receptor researchers need to pay
+       more attention to germline reference sequences" (Dec 2025; Heather,
+       Peres, Yaari, Lees). The manuscript derives reference-validated
+       germline anchors. Read and probably cite before submitting anywhere.
+     - "Where single-cell transcriptomics fails T cells: The misuse of
+       unsupervised clustering for T-cell annotation" (Dec 2025) is a critical
+       methodology paper, i.e. precedent for a negative result here.
+   So the only real unknown is the USD 1,900 charge.
 
 =========================================================================
 IN RESERVE  —  no letter drafted, no inquiry needed yet

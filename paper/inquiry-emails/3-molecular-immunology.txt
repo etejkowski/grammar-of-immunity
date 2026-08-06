@@ -1,12 +1,22 @@
 SEND FIRST-DAY BATCH, LETTER 3 OF 4
 Journal:  Molecular Immunology (Elsevier)
-Contact:  https://www.sciencedirect.com/journal/molecular-immunology
-          -> "Editorial board" for the editorial office address
+Send to:  Zhinan Yin PhD, Editor-in-Chief
+          tzhinan@jnu.edu.cn
+          Jinan University, Guangzhou, Guangdong, China
+Verified: that address sits in the affiliation footnote for "Yin Z" at Jinan
+          University on several 2026 papers, matching the board listing.
+          Jinan prefixes faculty accounts with "t", hence t + zhinan.
+Why him:  He is a T-cell immunologist — recent work on Vgamma9Vdelta2 T cell
+          cytotoxicity, gamma-delta T cell tumour reactivity, TIL analysis. An
+          editor who publishes on TCR-bearing effector populations will grasp
+          why unseen-epitope generalisation matters without being told. The
+          venue plan calls this journal's fit "looser"; that judgement predates
+          knowing who runs it, and this editor is a point in its favour.
 Subject:  Pre-submission inquiry: TCR specificity benchmark, negative result
 
 --- paste everything below this line ---
 
-Dear Editors,
+Dear Dr Yin,
 
 We would like to ask whether the following study falls within the scope of Molecular Immunology.
 

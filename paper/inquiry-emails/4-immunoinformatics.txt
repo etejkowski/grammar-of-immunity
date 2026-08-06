@@ -1,19 +1,47 @@
 SEND FIRST-DAY BATCH, LETTER 4 OF 4  —  THE IMPORTANT ONE
 Journal:  ImmunoInformatics (Elsevier)
-Contact:  https://www.sciencedirect.com/journal/immunoinformatics
-          -> "Editorial board" for the editorial office address
+Send to:  BOTH founding Editors-in-Chief, on one email:
+          Niels.Halama@dkfz.de   Niels Halama, DKFZ / NCT Heidelberg
+          dlevy@umd.edu          Doron Levy, University of Maryland
+How known: they co-wrote the launch editorial, "ImmunoInformatics: at the
+          crossroads between immunology and informatics" (Oct 2021). Halama's
+          address is from a March 2026 paper; Levy publishes his on his UMD
+          faculty page, which also links the journal as "Open Access Journal
+          on Computational Immunology". Halama is the immunology side, Levy
+          the mathematical-modelling side — address Halama first.
+          The journal's own editorial board page 404s, so this was assembled
+          from the launch editorial rather than from Elsevier's site.
 Subject:  Pre-submission inquiry: TCR specificity benchmark, negative result
 
-This is the letter whose answer reorders the whole venue plan. Scope is not in
-doubt — this journal published the IMMREP benchmark reports. The unknown is the
-USD 1,900 article publishing charge. If a waiver is available, ImmunoInformatics
-becomes both the best scientific fit and free, moving from fifth choice to first.
-If not, you learned it for the price of an email. Send it with the other three,
-the same day.
+SCOPE IS NOT A QUESTION — the journal's 2025-2026 output is this paper's
+immediate neighbourhood. Crossref shows 17 articles in 2025 and 3 in 2026, so
+it is active, not winding down. Directly relevant recent papers:
+
+  2026-06  Applications of T-cell receptor specificity annotation models for
+           quality control and immunomonitoring in adoptive T-cell therapies
+  2026-03  Active learning for improving out-of-distribution lab-in-the-loop
+           experimental design
+  2025-12  The gremlin in the works: why T cell receptor researchers need to
+           pay more attention to germline reference sequences
+           — Heather, Peres, Yaari, Lees.  READ THIS BEFORE SUBMITTING. The
+           manuscript derives reference-validated germline anchors; this is
+           the same problem in the target journal, and not citing it would be
+           a visible gap.
+  2025-12  Where single-cell transcriptomics fails T cells: The misuse of
+           unsupervised clustering for T-cell annotation
+           — PRECEDENT. A critical methodology paper, which answers the
+           letter's first question before it is asked.
+  2025-09  Comparison of different substitution matrices for distance based
+           T-cell receptor epitope predictions using tcrdist3
+           — relevant to the manuscript's TCRdist-style baseline.
+
+So the real unknown is only the USD 1,900 charge. If a waiver is available
+this journal becomes both the best fit and free, moving from fifth choice to
+first. Send it with the other three, the same day.
 
 --- paste everything below this line ---
 
-Dear Editors,
+Dear Dr Halama and Dr Levy,
 
 We have completed a direct test of a published hypothesis and believe ImmunoInformatics may be its natural home, given the journal's role in publishing the IMMREP benchmark reports.
 

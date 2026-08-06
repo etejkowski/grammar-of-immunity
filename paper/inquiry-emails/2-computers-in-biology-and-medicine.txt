@@ -1,12 +1,24 @@
 SEND FIRST-DAY BATCH, LETTER 2 OF 4
 Journal:  Computers in Biology and Medicine (Elsevier)
-Contact:  https://www.sciencedirect.com/journal/computers-in-biology-and-medicine
-          -> "Editorial board" for the editorial office address
+Send to:  Sinosh Skariyachan PhD, Executive Editor
+          sinoshmicro@stpius.ac.in        (institutional, matches board listing)
+          cc: sinoshskariya@gmail.com     (on a Sept 2025 paper; insurance)
+          St. Pius X College Rajapuram, Dept of Microbiology, Kasaragod, India
+Why him:  The board lists six Executive Editors and he is the only one whose
+          expertise includes "Bioinformatics and Computational Biology". The
+          other five are signal and image processing, clinical decision
+          support, and drug repurposing.
+Caution:  No immunologist and no sequence bioinformatician sits on this
+          executive board, and his own bioinformatics is molecular modelling
+          and computer-aided drug discovery rather than repertoire analysis.
+          Desk rejection on scope is a live risk — which is exactly why the
+          inquiry is worth sending. The letter below is framed around
+          evaluation practice rather than immunology, which suits this board.
 Subject:  Pre-submission inquiry: TCR specificity benchmark, negative result
 
 --- paste everything below this line ---
 
-Dear Editors,
+Dear Dr Skariyachan,
 
 We would like to ask whether the following study falls within the scope of Computers in Biology and Medicine.
 

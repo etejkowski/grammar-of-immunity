@@ -1,11 +1,24 @@
 SEND FIRST-DAY BATCH, LETTER 1 OF 4
 Journal:  Immunogenetics (Springer)
-Contact:  https://link.springer.com/journal/251  ->  "Contact the journal"
+Send to:  Jesse Bruijnesteijn PhD, Editor-in-Chief
+          bruijnesteijn@bprc.nl
+          ORCID 0000-0002-7480-5376
+Route:    That address is the corresponding-author email printed on his 2024
+          MHC architecture paper, via Europe PMC. Springer publishes no
+          editor email; its "Contact the journal" page carries only a support
+          ticket form, which is the fallback if the address bounces:
+          https://support.springernature.com/en/support/tickets/new?ticket_form=journal_contact_form
+          Note the board page lists him at University Medical Centers
+          Amsterdam, while his papers through April 2026 still say Biomedical
+          Primate Research Centre, Rijswijk. A move may be in progress.
 Subject:  Pre-submission inquiry: TCR specificity benchmark, negative result
+
+Note: this journal's median submission-to-first-decision is 9 days, per
+Springer's own metrics on the journal page. Expect a fast answer.
 
 --- paste everything below this line ---
 
-Dear Editors,
+Dear Dr Bruijnesteijn,
 
 We would like to ask whether the following study falls within the scope of Immunogenetics.
 
